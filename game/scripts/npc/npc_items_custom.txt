@@ -50,8 +50,10 @@
 	"item_imba_splendid"		"REMOVE"
 	"item_recipe_sheepstick"		"REMOVE"
 
-	"item_imba_seer_of_disk"		"REMOVE"
-	"item_recipe_imba_seer_of_disk"		"REMOVE"
+	//"item_imba_seer_of_disk"		"REMOVE"
+	//"item_recipe_imba_seer_of_disk"		"REMOVE"
+
+
 	//=================================================================================================================
 	// =================================================================================================================
 	//=================================================================================================================
@@ -7613,6 +7615,10 @@
 		"ItemAlertable"	"1"
 		"ItemShopTags"	"armor;boost_armor"
 		"ItemAliases"	"titan"
+		"ItemStockTime"				"60"			  
+		"ItemStockInitial"				"0"
+		"ItemStockMax"				"5"
+		"ItemInitialStockTime"			"840"
 		"precache"
 		{
 			"particle"	"particles/items4_fx/meteor_hammer_spell_ground_impact.vpcf"

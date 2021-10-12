@@ -191,7 +191,7 @@
 		"item"		"item_imba_aegis_heart"
 		"item"		"item_siege"
 		"item"		"item_veil_of_evil"
-		//"item"		"item_imba_seer_of_disk"
+		"item"		"item_imba_seer_of_disk"
 	}
 			
 	"weapons"

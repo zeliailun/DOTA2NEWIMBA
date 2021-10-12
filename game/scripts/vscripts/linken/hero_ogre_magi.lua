@@ -8,8 +8,8 @@ function imba_ogre_magi_fireblast_ignite:IsStealable() 			return true end
 function imba_ogre_magi_fireblast_ignite:GetCastRange() return self:GetSpecialValueFor("cast_distance") +  self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_6") end
 function imba_ogre_magi_fireblast_ignite:GetAOERadius()
 	local caster = self:GetCaster()
-	local radius = self:GetSpecialValueFor("search_distance") +  self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_6")	
-	return radius		 
+	local radius = self:GetSpecialValueFor("search_distance") +  self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_6")
+	return radius
 end
 
 function imba_ogre_magi_fireblast_ignite:OnSpellStart(scepter)
@@ -17,11 +17,11 @@ function imba_ogre_magi_fireblast_ignite:OnSpellStart(scepter)
 	local target = self:GetCursorTarget()
 	local pfx_name = "particles/units/heroes/hero_ogre_magi/ogre_magi_ignite.vpcf"
 	caster:EmitSound("Hero_OgreMagi.Ignite.Cast")
-	local info = 
+	local info =
 	{
 		Target = target,
 		Source = caster,
-		Ability = self,	
+		Ability = self,
 		EffectName = pfx_name,
 		iMoveSpeed = 1000,
 		iSourceAttachment = caster:ScriptLookupAttachment("attach_attack1"),
@@ -34,10 +34,10 @@ function imba_ogre_magi_fireblast_ignite:OnSpellStart(scepter)
 		bProvidesVision = false,
 		ExtraData = {},
 	}
-	
+
 	TG_CreateProjectile({id = 1, team = caster:GetTeamNumber() , owner = caster, p = info})
 	if not scepter then
-		local radius = self:GetSpecialValueFor("search_distance") +  self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_6")		
+		local radius = self:GetSpecialValueFor("search_distance") +  self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_6")
 		local heroes = FindUnitsInRadius(caster:GetTeamNumber(), target:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 		for _, hero in pairs(heroes) do
 			if hero ~= target then
@@ -45,7 +45,7 @@ function imba_ogre_magi_fireblast_ignite:OnSpellStart(scepter)
 				self:OnSpellStart(true)
 				if not self:GetCaster():HasScepter() then --a杖对所有英雄释放
 					return
-				end	
+				end
 			end
 		end
 		local units = FindUnitsInRadius(caster:GetTeamNumber(), target:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
@@ -55,27 +55,27 @@ function imba_ogre_magi_fireblast_ignite:OnSpellStart(scepter)
 				self:OnSpellStart(true)
 				return
 			end
-		end	
-	end	
+		end
+	end
 end
 
 function imba_ogre_magi_fireblast_ignite:OnProjectileHit_ExtraData(target, pos, keys)
 	if not target or target:TG_TriggerSpellAbsorb(self) or target:IsMagicImmune() then
 		return
 	end
-	local caster = self:GetCaster()	
-	target:EmitSound("Hero_OgreMagi.Ignite.Target") 
+	local caster = self:GetCaster()
+	target:EmitSound("Hero_OgreMagi.Ignite.Target")
 	target:EmitSound("Hero_OgreMagi.Fireblast.Target")
 	target:AddNewModifier_RS(caster, self, "modifier_stunned", {duration = self:GetSpecialValueFor("stunned_duration")})
 	local pfx = ParticleManager:CreateParticle(ParticleManager:GetParticleReplacement("particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf", caster), PATTACH_CUSTOMORIGIN, target)
 	ParticleManager:SetParticleControlEnt(pfx, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControlEnt(pfx, 1, target, PATTACH_CUSTOMORIGIN_FOLLOW, nil, target:GetAbsOrigin(), true)
 	ParticleManager:ReleaseParticleIndex(pfx)
-	ApplyDamage({attacker = caster, victim = target, damage = self:GetSpecialValueFor("damage") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_1"), ability = self, damage_type = self:GetAbilityDamageType()}) 
+	ApplyDamage({attacker = caster, victim = target, damage = self:GetSpecialValueFor("damage") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_1"), ability = self, damage_type = self:GetAbilityDamageType()})
 	if target:IsAlive() then
 		local buff =target:AddNewModifier_RS(self:GetCaster(), self, "modifier_imba_ogre_magi_fireblast_ignite_debuff", {duration = self:GetSpecialValueFor("debuff_duration")})
 		buff:SetStackCount(buff:GetStackCount() + 1)
-	end	
+	end
 end
 modifier_imba_ogre_magi_fireblast_ignite_debuff = class({})
 
@@ -92,7 +92,7 @@ function modifier_imba_ogre_magi_fireblast_ignite_debuff:GetModifierAttackSpeedB
 function modifier_imba_ogre_magi_fireblast_ignite_debuff:OnCreated()
 self.radius = self:GetAbility():GetSpecialValueFor("cast_distance")
 	if IsServer() then
-		self:StartIntervalThink(1)  
+		self:StartIntervalThink(1)
 	end
 end
 
@@ -102,27 +102,27 @@ function modifier_imba_ogre_magi_fireblast_ignite_debuff:OnIntervalThink()
 	local caster = self:GetCaster()
 	local dmg = self:GetAbility():GetSpecialValueFor("damage_debuff")*self:GetStackCount()
 	local dmgfaqiang = self:GetAbility():GetSpecialValueFor("damage_debuff")*self:GetStackCount() * (self:GetCaster():GetSpellAmplification(false) + 1)
-	
+
 	local enemies = FindUnitsInRadius(
-		caster:GetTeamNumber(),	
-		parent:GetAbsOrigin(),	
-		nil,	
-		self.radius,	
+		caster:GetTeamNumber(),
+		parent:GetAbsOrigin(),
+		nil,
+		self.radius,
 		DOTA_UNIT_TARGET_TEAM_ENEMY,
-		DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,	
-		0,	
-		0,	
+		DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
+		0,
+		0,
 		false
 	)
 	if caster:Has_Aghanims_Shard() then
-		for _,enemy in pairs(enemies) do	
+		for _,enemy in pairs(enemies) do
 			ApplyDamage({victim = enemy, attacker = caster, ability = ability, damage = dmg, damage_type = ability:GetAbilityDamageType()})
 		end
-	else	
+	else
 		ApplyDamage({victim = parent, attacker = caster, ability = ability, damage = dmg, damage_type = ability:GetAbilityDamageType()})
 	end
 	SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, self:GetParent(), dmgfaqiang, nil)
-end		
+end
 
 imba_ogre_magi_Bloodlust = class({})
 
@@ -135,14 +135,14 @@ function imba_ogre_magi_Bloodlust:IsStealable() 			return true end
 function imba_ogre_magi_Bloodlust:OnSpellStart(scepter)
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
-	local radius = self:GetCastRange(caster:GetAbsOrigin(), caster) + caster:GetCastRangeBonus()		
+	local radius = self:GetCastRange(caster:GetAbsOrigin(), caster) + caster:GetCastRangeBonus()
 	if target:IsAlive() then
 		local buff = target:AddNewModifier(caster, self, "modifier_imba_ogre_magi_bloodlust_c", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_2")})
 	    target:AddNewModifier(caster, self, "modifier_imba_ogre_magi_bloodlust", {})
-	end    
- 
+	end
+
 	if not scepter then
-		local radius = self:GetCastRange(caster:GetAbsOrigin(), caster) + caster:GetCastRangeBonus()		
+		local radius = self:GetCastRange(caster:GetAbsOrigin(), caster) + caster:GetCastRangeBonus()
 		local heroes = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 		for _, hero in pairs(heroes) do
 			if hero ~= target then
@@ -150,7 +150,7 @@ function imba_ogre_magi_Bloodlust:OnSpellStart(scepter)
 				self:OnSpellStart(true)
 				if not self:GetCaster():HasScepter() then --a杖对所有英雄释放
 					return
-				end	
+				end
 			end
 		end
 		local units = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_CREEP + DOTA_UNIT_TARGET_BUILDING, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
@@ -161,7 +161,7 @@ function imba_ogre_magi_Bloodlust:OnSpellStart(scepter)
 				return
 			end
 		end
-	end		
+	end
 	caster:EmitSound("Hero_OgreMagi.Bloodlust.Cast")
 end
 
@@ -180,16 +180,16 @@ function modifier_imba_ogre_magi_bloodlust:IsHidden() 			return false end
 function modifier_imba_ogre_magi_bloodlust:IsPurgable() 			return true end
 function modifier_imba_ogre_magi_bloodlust:IsPurgeException() 	return true end
 function modifier_imba_ogre_magi_bloodlust:DeclareFunctions() return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE} end
-function modifier_imba_ogre_magi_bloodlust:GetModifierMoveSpeedBonus_Percentage() 
+function modifier_imba_ogre_magi_bloodlust:GetModifierMoveSpeedBonus_Percentage()
 	return self:GetAbility():GetSpecialValueFor("move_bonus")*self:GetStackCount()
 end
-function modifier_imba_ogre_magi_bloodlust:GetModifierAttackSpeedBonus_Constant() 
-	return self:GetAbility():GetSpecialValueFor("attack_speed_bonus")*self:GetStackCount() 
-end 
-function modifier_imba_ogre_magi_bloodlust:GetModifierPreAttack_BonusDamage() 
+function modifier_imba_ogre_magi_bloodlust:GetModifierAttackSpeedBonus_Constant()
+	return self:GetAbility():GetSpecialValueFor("attack_speed_bonus")*self:GetStackCount()
+end
+function modifier_imba_ogre_magi_bloodlust:GetModifierPreAttack_BonusDamage()
 	return self:GetAbility():GetSpecialValueFor("attack_damage_bonus")*self:GetStackCount()
 end
-function modifier_imba_ogre_magi_bloodlust:GetModifierSpellAmplify_Percentage() 
+function modifier_imba_ogre_magi_bloodlust:GetModifierSpellAmplify_Percentage()
 	return self:GetAbility():GetSpecialValueFor("ability_damage_bonus")*self:GetStackCount()
 end
 function modifier_imba_ogre_magi_bloodlust:GetEffectName() return "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf" end
@@ -197,13 +197,13 @@ function modifier_imba_ogre_magi_bloodlust:GetEffectAttachType() return PATTACH_
 
 function modifier_imba_ogre_magi_bloodlust:OnCreated()
 	if IsServer() then
-	local caster = self:GetCaster()	
+	local caster = self:GetCaster()
 	local target = self:GetParent()
    	local pfx1 = ParticleManager:CreateParticle(ParticleManager:GetParticleReplacement("particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_cast.vpcf", caster), PATTACH_CUSTOMORIGIN, caster)
     ParticleManager:SetParticleControlEnt(pfx1, 0, caster, PATTACH_POINT_FOLLOW, "attach_attack1", caster:GetAbsOrigin(), true)
     ParticleManager:SetParticleControlEnt(pfx1, 2, target, PATTACH_CUSTOMORIGIN_FOLLOW, nil, target:GetAbsOrigin(), true)
     ParticleManager:SetParticleControlEnt(pfx1, 3, target, PATTACH_CUSTOMORIGIN_FOLLOW, nil, target:GetAbsOrigin(), true)
-    ParticleManager:ReleaseParticleIndex(pfx1)		
+    ParticleManager:ReleaseParticleIndex(pfx1)
 	self:GetParent():EmitSound("Hero_OgreMagi.Bloodlust.Target")
 	self:StartIntervalThink(0.1)
 	end
@@ -222,7 +222,7 @@ function modifier_imba_ogre_magi_bloodlust:OnIntervalThink()
 end
 function modifier_imba_ogre_magi_bloodlust:OnDestroy()
 	if IsServer() then
-	end	
+	end
 end
 
 
@@ -230,31 +230,31 @@ end
 imba_ogre_magi_focus = class({})
 
 LinkLuaModifier("modifier_imba_ogre_magi_focus_m", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_imba_ogre_magi_focus_m_b", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE) 
+LinkLuaModifier("modifier_imba_ogre_magi_focus_m_b", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_ogre_magi_focus_p", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_imba_ogre_magi_focus_p_b", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)  
-LinkLuaModifier("modifier_imba_ogre_magi_focus_check", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE) 
-LinkLuaModifier("modifier_imba_ogre_magi_focus_check_animation", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE) 
+LinkLuaModifier("modifier_imba_ogre_magi_focus_p_b", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_ogre_magi_focus_check", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_ogre_magi_focus_check_animation", "linken/hero_ogre_magi", LUA_MODIFIER_MOTION_NONE)
 
 function imba_ogre_magi_focus:IsHiddenWhenStolen() 		return true end
 function imba_ogre_magi_focus:IsRefreshable() 			return false end
 function imba_ogre_magi_focus:IsStealable() 			return false end
 function imba_ogre_magi_focus:OnSpellStart()
-	local caster = self:GetCaster()	
-	caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_check", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_3") + 1})	
+	local caster = self:GetCaster()
+	caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_check", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_3") + 1})
 	local damage_pct = caster:GetMaxHealth() * self:GetSpecialValueFor("hp_percent") * 0.01
 	--if caster:GetHealth() ~= 1 then
 	--	self:GetCaster():SetHealth(caster:GetHealth() * shengyu)
 	--end
 	local damageTable = {
-		attacker = caster, 
-		victim = caster, 
-		damage = damage_pct, 
-		ability = self, 
+		attacker = caster,
+		victim = caster,
+		damage = damage_pct,
+		ability = self,
 		damage_type = DAMAGE_TYPE_PURE,
 		damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL,
-		}	
-	ApplyDamage(damageTable)		
+		}
+	ApplyDamage(damageTable)
 	--local random_response = RandomInt(1, 4)
 	--self:EmitSound("ogre_magi_ogmag_ability_bloodlust_0"..random_response)
 	--self:EmitSound("Hero_OgreMagi.Bloodlust.Target")
@@ -262,7 +262,7 @@ function imba_ogre_magi_focus:OnSpellStart()
 		if PseudoRandom:RollPseudoRandom(self,self:GetSpecialValueFor("rd")) then--根据几率
 			local buff = caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_m_b", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_3")})
 			caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_m", {})
-		else	
+		else
 			local buff = caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_p_b", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_3")})
 			caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_p", {})
 		end
@@ -271,7 +271,7 @@ function imba_ogre_magi_focus:OnSpellStart()
 		caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_m", {})
 		local buff = caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_p_b", {duration = self:GetSpecialValueFor("buff_duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_3")})
 		caster:AddNewModifier(caster, self, "modifier_imba_ogre_magi_focus_p", {})
-	end		
+	end
 end
 modifier_imba_ogre_magi_focus_m_b = class({})
 function modifier_imba_ogre_magi_focus_m_b:IsDebuff()				return false end
@@ -292,7 +292,7 @@ function modifier_imba_ogre_magi_focus_m:GetModifierCastRangeBonusStacking() ret
 
 
 function modifier_imba_ogre_magi_focus_m:OnCreated()
-	if IsServer() then		
+	if IsServer() then
 		self:StartIntervalThink(0.1)
 	end
 end
@@ -321,8 +321,8 @@ function modifier_imba_ogre_magi_focus_m:OnTakeDamage(keys)
 	end
 end
 function modifier_imba_ogre_magi_focus_m:OnDestroy()
-	if IsServer() then		
-	end	
+	if IsServer() then
+	end
 end
 
 
@@ -345,7 +345,7 @@ function modifier_imba_ogre_magi_focus_p:DeclareFunctions() return {MODIFIER_EVE
 function modifier_imba_ogre_magi_focus_p:GetModifierAttackSpeedBonus_Constant() return (self:GetAbility():GetSpecialValueFor("attack_speed_bonus")*self:GetStackCount()) end
 
 function modifier_imba_ogre_magi_focus_p:OnCreated()
-	if IsServer() then	
+	if IsServer() then
 		self:StartIntervalThink(0.1)
 	end
 end
@@ -376,8 +376,8 @@ function modifier_imba_ogre_magi_focus_p:OnTakeDamage(keys)
 	end
 end
 function modifier_imba_ogre_magi_focus_p:OnDestroy()
-	if IsServer() then	
-	end	
+	if IsServer() then
+	end
 end
 modifier_imba_ogre_magi_focus_check = class({})
 
@@ -387,7 +387,7 @@ function modifier_imba_ogre_magi_focus_check:IsPurgable() 			return false end
 function modifier_imba_ogre_magi_focus_check:IsPurgeException() 	return false end
 function modifier_imba_ogre_magi_focus_check:OnCreated()
 	if IsServer() then
-		self:StartIntervalThink(0.2)  
+		self:StartIntervalThink(0.2)
 	end
 end
 
@@ -399,7 +399,7 @@ function modifier_imba_ogre_magi_focus_check:OnIntervalThink()
 		if not (self:GetParent():HasModifier("modifier_imba_ogre_magi_focus_m") and self:GetParent():HasModifier("modifier_imba_ogre_magi_focus_p")) then
 			self:GetParent():RemoveModifierByName("modifier_imba_ogre_magi_focus_check_animation")
 		end
-	end		
+	end
 end
 modifier_imba_ogre_magi_focus_check_animation = class({})
 function modifier_imba_ogre_magi_focus_check_animation:IsHidden() 			return true end
@@ -433,8 +433,8 @@ end
 function modifier_imba_ogre_magi_focus_check_animation:OnDestroy()
 	if IsServer() then
 		ParticleManager:DestroyParticle(self.effect_cast, true)
-		ParticleManager:ReleaseParticleIndex(self.effect_cast)		
-	end	
+		ParticleManager:ReleaseParticleIndex(self.effect_cast)
+	end
 end
 
 
@@ -508,7 +508,7 @@ function modifier_imba_multicast_passive:OnAttackLanded(keys)
 		chance_2 = self:GetAbility():GetSpecialValueFor("multicast_2") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
 		chance_3 = self:GetAbility():GetSpecialValueFor("multicast_3") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
 		chance_4 = self:GetAbility():GetSpecialValueFor("multicast_4") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
-	end	
+	end
 	local multicast = 0
 	if PseudoRandom:RollPseudoRandom(self:GetAbility(), chance_4) then
 		multicast = 4
@@ -524,13 +524,13 @@ function modifier_imba_multicast_passive:OnAttackLanded(keys)
 end
 
 function modifier_imba_multicast_passive:DoMultiAttack(caster, target, times)
-	for i = 1, times-1 do	
+	for i = 1, times-1 do
 		Timers:CreateTimer(i * self:GetAbility():GetSpecialValueFor("multicast_delay"), function()
 			caster:StartGesture(ACT_DOTA_ATTACK)
 			caster.splitattack = false
 			if self:GetParent():IsAlive() and not self:GetParent():IsStunned() then
 				caster:PerformAttack(target, false, true, true, true, false, false, false)
-			end	
+			end
 			caster.splitattack = true
 			caster:EmitSound("Hero_OgreMagi.Fireblast.x"..i+1)
 			local pfx = ParticleManager:CreateParticle("particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
@@ -630,6 +630,7 @@ local NoMultiCastItems = {
 ["imba_rubick_spell_steal"] = true,
 ["imba_morphling_replicate"] = true,
 ["imba_morphling_morph_replicate"] = true,
+["item_relic_chip"] = true,
 }
 
 function modifier_imba_multicast_passive:OnAbilityFullyCast(keys)
@@ -654,7 +655,7 @@ function modifier_imba_multicast_passive:OnAbilityFullyCast(keys)
 		chance_2 = self:GetAbility():GetSpecialValueFor("multicast_2") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
 		chance_3 = self:GetAbility():GetSpecialValueFor("multicast_3") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
 		chance_4 = self:GetAbility():GetSpecialValueFor("multicast_4") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_ogre_magi_4") + self:GetCaster():FindAbilityByName("imba_ogre_magi_focus"):GetSpecialValueFor("multicast")
-	end	
+	end
 	local multicast = 0
 	if PseudoRandom:RollPseudoRandom(self:GetAbility(), chance_4) then
 		multicast = 4
@@ -667,8 +668,8 @@ function modifier_imba_multicast_passive:OnAbilityFullyCast(keys)
 	if multicast ~= 0 and multicast ~= 2 and ability1 and caster:TG_HasTalent("special_bonus_imba_ogre_magi_5") then
 		if not keys.ability:IsItem() then
 			ability1:OnSpellStart()
-		end	
-	end		
+		end
+	end
 	if target then
 		if self:GetStackCount() == 0 then
 			self:DoMultiTargetAbility(caster, target, ability, multicast)

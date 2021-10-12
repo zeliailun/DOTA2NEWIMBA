@@ -93,7 +93,7 @@ function modifier_sprout_tree_p:OnIntervalThink()
                 Target = hero,
                 Source = self.parent,
                 Ability = self.ability,
-                EffectName = "particles/units/heroes/hero_rubick/rubick_tree_proj.vpcf",
+                EffectName = "particles/units/heroes/hero_tiny/tiny_tree_proj.vpcf",
                 iMoveSpeed = 1200,
                 vSourceLoc = self.parent:GetAbsOrigin(),
                 bDrawsOnMinimap = false,

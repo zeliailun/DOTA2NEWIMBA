@@ -1048,8 +1048,8 @@
 		"DOTA_Tooltip_modifier_imba_armlet_v2_exhp"												"食尸鬼分食"
 		"DOTA_Tooltip_modifier_imba_armlet_v2_exhp_Description"									"大伙快来把这废物分着吃了"
 
-		"DOTA_Tooltip_Ability_item_imba_death"									"<font color='#C0C0C0'>死神之影</font>"
-		"DOTA_Tooltip_ability_item_imba_death_Description"						"<h1><font color='#FFFF00'>暗杀行动(主动)：</font></h1>进入%duration%s的隐身状态并且提升%move_speed_ex%点移动速度，如果释放时附近%radius_S%码内没有敌方英雄，则这次的隐身不会被敌人发现。\n<h1><font color='#FFFF00'>牺牲品(被动)：</font></h1>攻击时拥有%crit_chance%% 概率造成%critical%% 暴击伤害，破隐一击必定造成暴击伤害。\n<h1><font color='#FFFF00'>收割（被动）：</font></h1>破隐一击之后持有者造成的所有伤害提高%damage_ex%% ，同时获得急速状态，持续%duration_ex%秒。\n 物品设计者:<font color='#FFFF00'>excite‭</font>"
+				"DOTA_Tooltip_Ability_item_imba_death"									"<font color='#C0C0C0'>死神之影</font>"
+		"DOTA_Tooltip_ability_item_imba_death_Description"						"<h1><font color='#FFFF00'>暗杀行动(主动)：</font></h1>进入%duration%s的隐身状态并且提升%move_speed_ex%点移动速度，如果释放时附近%radius_S%码内没有敌方英雄，则这次的隐身不会被敌人发现。\n<h1><font color='#FFFF00'>牺牲品(被动)：</font></h1>攻击时拥有%crit_chance%% 概率造成%critical%% 暴击伤害，破隐一击必定造成暴击伤害并且破坏目标%duration_boken%秒。\n<h1><font color='#FFFF00'>幽夜死神（被动）：</font></h1>拥有高级相位鞋后：<br><br>●使用高级相位鞋会进入%duration_boot%秒的死神之影普通隐身。<br><br>●破隐一击额外造成%duration_stun%秒敲晕。<br><br>●主动使用死神之影的隐身可以无视地形移动。\n 物品设计者:<font color='#FFFF00'>excite‭</font>"
 		"DOTA_Tooltip_Ability_item_imba_death_bonus_damage"						"+$damage"
 		"DOTA_Tooltip_Ability_item_imba_death_bonus_asp"						"+$attack"
 		"DOTA_Tooltip_Ability_item_imba_death_bonus_agi"					"+$agi"
@@ -1060,9 +1060,8 @@
 		"DOTA_Tooltip_modifier_imba_death_invisible_Description"						"你出现在我的名单上了"
 		"DOTA_Tooltip_modifier_imba_death_invisible_ex"									"强隐"
 		"DOTA_Tooltip_modifier_imba_death_invisible_ex_Description"						"你看不见我看不见我"
-		"DOTA_Tooltip_modifier_imba_death_mark"									"牺牲品"
-		"DOTA_Tooltip_modifier_imba_death_mark_Description"						"你就要死了"
-		"DOTA_Tooltip_ability_item_imba_death_Note0"								"①主动buff1层的时候为不会被宝石眼之类发现的隐身。\n ②隐身期间造成伤害或者被各种标记会让这次隐身可以被发现。</font>"		
+		"DOTA_Tooltip_modifier_imba_death_boken"									"救我 我被动没了"
+		"DOTA_Tooltip_ability_item_imba_death_Note0"								"①主动buff1层的时候为不会被宝石眼之类发现的隐身。\n ②隐身期间造成伤害或者被各种标记会让这次隐身可以被发现。</font>"	
 
 		"DOTA_Tooltip_Ability_item_imba_orb"							"<font color='#FFD700'>imba_orb</font>"
 		"DOTA_Tooltip_ability_item_imba_orb_Description"				"<h1><font color='#FFFF00'>Active：不要碧莲</font></h1>Give the target a shield to bounce all directional spells within the duration (the body is still affected by the effect). After the shield is applied, it will be immune to the spell triggered for the first time. Each time the bounce is triggered, the target's %heal%% health will be healed.\n<h1><font color='#FFFF00'>Passive：圣洁治愈</font></h1>Increase all healing effects of %heal_bonus%%.\n<h1><font color='#FFFF00'>Passive：淤而不染</font></h1>Your movement speed will not be reduced (lock movement will still be effective).\n 物品设计者:<font color='#FFFF00'>小太阳</font>"

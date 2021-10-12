@@ -630,7 +630,7 @@ local NoMultiCastItems = {
 ["imba_rubick_spell_steal"] = true,
 ["imba_morphling_replicate"] = true,
 ["imba_morphling_morph_replicate"] = true,
-["item_relic_chip"] = true,
+["item_imba_relic_chip"] = true,
 }
 
 function modifier_imba_multicast_passive:OnAbilityFullyCast(keys)

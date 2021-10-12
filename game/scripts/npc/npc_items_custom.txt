@@ -50,8 +50,8 @@
 	"item_imba_splendid"		"REMOVE"
 	"item_recipe_sheepstick"		"REMOVE"
 
-	//"item_imba_seer_of_disk"		"REMOVE"
-	//"item_recipe_imba_seer_of_disk"		"REMOVE"
+	"item_imba_seer_of_disk"		"REMOVE"
+	"item_recipe_imba_seer_of_disk"		"REMOVE"
 
 
 	//=================================================================================================================
@@ -7587,6 +7587,12 @@
 		// -------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"	"1"
 		"ItemResult"	"item_imba_relic_chip"
+		"ItemStockTime"				"60"			  
+		"ItemStockInitial"				"0"
+		"ItemStockMax"				"5"
+		"ItemInitialStockTime"			"840"
+		"ItemPermanent"					"0"
+		"ItemHideCharges"					"0"
 		"ItemRequirements"
 		{
 			"01"	"item_meteor_hammer;item_helm_of_the_dominator"
@@ -7626,6 +7632,8 @@
 		"ItemStockInitial"				"0"
 		"ItemStockMax"				"5"
 		"ItemInitialStockTime"			"840"
+		"ItemPermanent"					"0"
+		"ItemHideCharges"					"0"
 		"precache"
 		{
 			"particle"	"particles/items4_fx/meteor_hammer_spell_ground_impact.vpcf"

@@ -22,10 +22,6 @@ end
 function skewer:OnAbilityPhaseStart()
       EmitSoundOn("Hero_Magnataur.skewer.Cast", self.caster)
       self.caster:StartGesture(ACT_DOTA_MAGNUS_SKEWER_START)
-        local cur_pos=self:GetCursorPosition()
-      local caster_pos=self.caster:GetAbsOrigin()
-      local dir=TG_Direction(cur_pos,caster_pos)
-      self.caster:SetForwardVector(dir)
       return true
 end
 function skewer:OnAbilityPhaseInterrupted()
@@ -37,12 +33,12 @@ function skewer:OnSpellStart()
       local cur_pos=self:GetCursorPosition()
       local caster_pos=self.caster:GetAbsOrigin()
       local skewer_speed=self:GetSpecialValueFor( "skewer_speed" )
-       local dur=self:GetSpecialValueFor( "dur" )
+      local dur=self:GetSpecialValueFor( "dur" )
       local range=self:GetSpecialValueFor( "range" )
       local dis=TG_Distance(caster_pos,cur_pos)
       dis=dis>range and range or dis
       local dir=TG_Direction(cur_pos,caster_pos)
-      local time=dis/skewer_speed
+      local time=dis/1500
       if self:GetAutoCastState() then
             if self.caster:HasModifier("modifier_skewer_buff") then
                   self.caster:RemoveModifierByName("modifier_skewer_buff")
@@ -52,7 +48,7 @@ function skewer:OnSpellStart()
             if self.caster:HasModifier("modifier_skewer_buff1") then
                   self.caster:RemoveModifierByName("modifier_skewer_buff1")
             end
-            self.caster:AddNewModifier(self.caster, self, "modifier_skewer_buff", {duration= time,pos=dir})
+            self.caster:AddNewModifier(self.caster, self, "modifier_skewer_buff", {duration=time,pos=dir})
       end
 end
 
@@ -130,7 +126,7 @@ function modifier_skewer_buff:UpdateHorizontalMotion( t, g )
                                     hero:SetAbsOrigin(self.parent:GetAbsOrigin()+self.parent:GetForwardVector()*150)
                         end
                   end
-            self.parent:SetAbsOrigin(self.parent:GetAbsOrigin()+self.DIR* (self.skewer_speed / (1.0 / g)))
+            self.parent:SetAbsOrigin(self.parent:GetAbsOrigin()+self.DIR* (1500 / (1.0 / g)))
       end
 end
 function modifier_skewer_buff:OnHorizontalMotionInterrupted()

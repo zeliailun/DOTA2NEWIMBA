@@ -17,14 +17,13 @@ function dual_breath:OnSpellStart()
 	local caster = self:GetCaster()
 	local casterpos = caster:GetAbsOrigin()
 	local curpos = caster:GetCursorPosition()
+	local dis =TG_Distance(curpos,casterpos)
 	local dir=TG_Direction(curpos,casterpos)
-	local distance =TG_Distance(casterpos,curpos)
 	local flydis = self:GetSpecialValueFor("flydis")
-	distance=distance>flydis and flydis or distance
-	local duration = distance / self:GetSpecialValueFor("sp")
+	dis=dis>flydis and flydis or dis
+	local duration = dis / self:GetSpecialValueFor("sp")
 	local wh = self:GetSpecialValueFor("wh")
 	local dis = self:GetSpecialValueFor("dis")
-	caster:SetForwardVector(dir)
 	caster:AddNewModifier(caster, self, "modifier_dual_breath_motion", {duration = duration, direction = dir})
 	EmitSoundOn( "Hero_Jakiro.DualBreath.Cast", caster )
 	local Projectile =
@@ -41,7 +40,7 @@ function dual_breath:OnSpellStart()
 		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 		iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		vVelocity = dir * 2000,
+		vVelocity = caster:GetForwardVector() * 2000,
 		bProvidesVision = false,
 	}
 	ProjectileManager:CreateLinearProjectile(Projectile)
@@ -60,7 +59,7 @@ function dual_breath:OnSpellStart()
 		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 		iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		vVelocity = dir * 2000,
+		vVelocity = caster:GetForwardVector() * 2000,
 		bProvidesVision = false,
 	}
 	ProjectileManager:CreateLinearProjectile(Projectile2)

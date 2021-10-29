@@ -32,7 +32,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"num"				  "4 4 5 5"
+				"num"				  "3 3 4 4"
 			}
 			"03"
 			{
@@ -131,7 +131,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"sp"				 "1600"
+				"sp"				 "50"
 			}
 			"04"
 			{
@@ -184,7 +184,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"stun"				 "1"
+				"stun"				 "0.2"
 			}
 			"05"
 			{

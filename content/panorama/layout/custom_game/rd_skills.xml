@@ -7,7 +7,7 @@
         <include src="file://{resources}/styles/custom_game/rd_skills.vcss_c"/>
     </styles>
     <Panel class="ROOT" hittest="false"  >
-        <Panel id="SKILLS_ID"   onload="skillstart();" >
+        <Panel id="SKILLS_ID"   >
 			<Image id="SKILLS_BG" />
             <Label id="SKILLS_T" text="#RD_SKILLS"/>
              <Panel id="SKILLS"  hittest="false" >

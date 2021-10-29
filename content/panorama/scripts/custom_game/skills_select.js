@@ -3,7 +3,7 @@ var plid = Players.GetLocalPlayer()
 var HERO_M_ID = panel.FindChildTraverse("HERO_M_ID")
 var HERO_Text = panel.FindChildTraverse("HERO_Text")
 
-function herostart() {
+function select_start() {
     if (Players.IsValidPlayerID(plid)) {
         GameEvents.SendCustomGameEventToServer("OnHero_Set", { id: plid });
     }
@@ -93,5 +93,9 @@ function add_author_events(panel, title, hero_name, tip) {
     });
 }
 
+
+(function () {
+    select_start();
+})()
 
 GameEvents.Subscribe("select_skills", select_skills);

@@ -3270,7 +3270,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		 "HasShardUpgrade"               "1"
-		//"AbilityDraftUltScepterAbility"			"swift_slash"
 		"HasScepterUpgrade"			"1"
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -3280,7 +3279,7 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"115"
+		"AbilityCooldown"				"110"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -8857,7 +8856,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"asch"	"10"
+				"asch"	"15"
 			}
 		}
 	}
@@ -9157,7 +9156,7 @@
 			"04"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"dam"								"4 5 6 7"
+				"dam"								"5"
 				"LinkedSpecialBonus"		"special_bonus_night_stalker_7"
 			}
 		}
@@ -10841,7 +10840,7 @@
 			"03"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"ch"						"15"
+				"ch"						"10"
 			}
 			"04"
 			{
@@ -11035,7 +11034,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"agility_multiplier"				"60 90 110"
+				"agility_multiplier"				"30 60 90"
 			}
 			"02"
 			{
@@ -12391,7 +12390,7 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"80"
+		"AbilityCooldown"				"120"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -16822,11 +16821,11 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1500"
-		"AbilityCastPoint"				"0.6 0.4 0.2 0.1"
+		"AbilityCastPoint"				"0.6"
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"12 11 10 9"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -18936,7 +18935,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"cleave_damage_pct"		"40 50 60 70"
+				"cleave_damage_pct"		"40 45 50 55"
 			}
 			"04"
 			{
@@ -18983,7 +18982,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"skewer_speed"			"1300"
+				"skewer_speed"			"900"
 			}
 			"02"
 			{
@@ -19675,7 +19674,7 @@
 			"05"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"num"					"1 1 1 2"
+				"num"					"1 1 2 3"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -19730,7 +19729,7 @@
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"damage_reduction"		"80 70 60"
+				"damage_reduction"		"30"
 			}
 			"03"
 			{

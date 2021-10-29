@@ -160,7 +160,7 @@
 
 	"npc_dota_hero_techies" "1"
 	"npc_dota_hero_warlock" "1"
-
+	"npc_dota_hero_marci" "1"
 
 
 

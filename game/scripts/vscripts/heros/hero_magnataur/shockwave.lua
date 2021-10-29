@@ -16,7 +16,11 @@ end
 function shockwave:OnSpellStart()
       local curpos=self:GetCursorPosition()
       local cpos=self.caster:GetAbsOrigin()
-      local dir=(curpos-cpos):Normalized()
+      local dis=(curpos-cpos):Length2D()
+       local dir=(curpos-cpos):Normalized()
+      if dis<=0 then
+            dir=self.caster:GetForwardVector()
+      end
       self.shock_speed=self:GetSpecialValueFor( "shock_speed" )
       self.shock_width=self:GetSpecialValueFor( "shock_width" )
       self.shock_distance=self:GetSpecialValueFor( "shock_distance" )

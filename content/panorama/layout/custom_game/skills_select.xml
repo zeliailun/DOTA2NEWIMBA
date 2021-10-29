@@ -6,7 +6,7 @@
         <include src="file://{resources}/styles/custom_game/skills_select.css"/>
     </styles>
     <Panel class="ROOT" hittest="false">
-            <Panel id="HERO_M_ID" hittest="true"  onload="herostart();">
+            <Panel id="HERO_M_ID" hittest="true"  >
                     <Label id="HERO_Text" text="#Hero_Skills_Select"/>
             </Panel>
     </Panel>

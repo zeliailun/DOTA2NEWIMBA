@@ -16,19 +16,6 @@ function skillstart() {
         SKILL_P[index] = panel.FindChildTraverse("SKILLS" + index.toString());
         SKILL_NUM[index] = panel.FindChildTraverse(index.toString());
     }
-    /*
-    var hero = Players.GetPlayerSelectedHero(plid)
-    var result = false;
-    for (var i=0; i < HEROLIST.length; i++) {
-        if (HEROLIST[i] === hero) {
-            result = true;
-            break;
-        }
-    }
-    if (result==false) {
-        GameEvents.SendCustomGameEventToServer("OnAbility_Set", { id: Players.GetLocalPlayer(), roll: 1 });
-    }
-    */
 }
 
 function skillset(data) {
@@ -69,6 +56,10 @@ function skillshow(A, B) {
         $.DispatchEvent("DOTAHideAbilityTooltip", sk);
     }
 }
+
+(function () {
+    skillstart();
+})()
 
 
 GameEvents.Subscribe("roll", roll);

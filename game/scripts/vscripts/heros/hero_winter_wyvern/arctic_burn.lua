@@ -34,6 +34,7 @@ function arctic_burn:OnToggle()
                   end
       end
 end
+
 function arctic_burn:Henshin(dur)
       EmitSoundOn("Hero_Winter_Wyvern.ArcticBurn.Cast", self.caster)
       local pf1 = ParticleManager:CreateParticle("particles/units/heroes/hero_winter_wyvern/wyvern_arctic_burn_start.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.caster)
@@ -130,11 +131,16 @@ end
 function modifier_arctic_burn_buff:OnIntervalThink()
       if not self.parent:TG_HasTalent("special_bonus_winter_wyvern_6") then
             self.parent:SpendMana(self.mana,self.ability)
+            if  self.parent:GetMana()<self.mana then
+                  self:SetDuration(0, true)
+            end
       end
 end
 function modifier_arctic_burn_buff:OnDestroy()
       if IsServer() then
+            if self.parent:IsAlive() then
             self.parent:ForcePlayActivityOnce(ACT_DOTA_ARCTIC_BURN_END)
+            end
       end
 end
 function modifier_arctic_burn_buff:OnAttackLanded(tg)

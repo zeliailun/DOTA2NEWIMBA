@@ -3,20 +3,20 @@ LinkLuaModifier("modifier_item_nullifier_v2_pa", "items/item_nullifier_v2.lua", 
 LinkLuaModifier("modifier_item_nullifier_v2_debuff", "items/item_nullifier_v2.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_nullifier_v2_buff", "items/item_nullifier_v2.lua", LUA_MODIFIER_MOTION_NONE)
 
-function item_nullifier_v2:GetIntrinsicModifierName() 
-    return "modifier_item_nullifier_v2_pa" 
+function item_nullifier_v2:GetIntrinsicModifierName()
+    return "modifier_item_nullifier_v2_pa"
 end
 
 
 function item_nullifier_v2:OnSpellStart()
     local target=self:GetCursorTarget()
-    local caster=self:GetCaster() 
+    local caster=self:GetCaster()
     caster:EmitSound("DOTA_Item.Nullifier.Cast")
-    local P = 
+    local P =
     {
         Target = target,
         Source = caster,
-        Ability = self,	
+        Ability = self,
         EffectName = "particles/items4_fx/nullifier_proj.vpcf",
         iMoveSpeed = self:GetSpecialValueFor("projectile_speed"),
         iSourceAttachment = DOTA_PROJECTILE_ATTACHMENT_ATTACK_1,
@@ -25,7 +25,7 @@ function item_nullifier_v2:OnSpellStart()
         bIsAttack = false,
         bVisibleToEnemies = true,
         bReplaceExisting = false,
-        bProvidesVision = false,	
+        bProvidesVision = false,
     }
     TG_CreateProjectile({id=1,team=caster:GetTeamNumber(),owner=caster,p=P})
 end
@@ -37,14 +37,14 @@ function item_nullifier_v2:OnProjectileHit(target, location)
     end
     if caster:GetTeamNumber()==target:GetTeamNumber() then
         target:EmitSound("DOTA_Item.Nullifier.Target")
-        if target:HasModifier("modifier_item_nullifier_v2_debuff") then   
+        if target:HasModifier("modifier_item_nullifier_v2_debuff") then
             target:RemoveModifierByName("modifier_item_nullifier_v2_debuff")
-        end 
-        target:AddNewModifier(caster,self,"modifier_item_nullifier_v2_buff",{duration=self:GetSpecialValueFor("mute_duration")})
-    else 
-        if  target:TG_TriggerSpellAbsorb(self) or target:IsMagicImmune() then
+        end
+        target:AddNewModifier(caster,self,"modifier_item_nullifier_v2_buff",{duration=3})
+    else
+        if  target:TG_TriggerSpellAbsorb(self) or target:IsMagicImmune()  or target:HasModifier("modifier_item_nullifier_v2_buff") then
             return
-        end 
+        end
         target:EmitSound("DOTA_Item.Nullifier.Target")
         target:Purge(true, false, false, false, false)
         target:AddNewModifier_RS(caster,self,"modifier_item_nullifier_v2_debuff",{duration=self:GetSpecialValueFor("mute_duration")})
@@ -53,25 +53,23 @@ function item_nullifier_v2:OnProjectileHit(target, location)
 end
 
 modifier_item_nullifier_v2_pa=class({})
-
-
-function modifier_item_nullifier_v2_pa:IsDebuff() 			
-    return false 
+function modifier_item_nullifier_v2_pa:IsDebuff()
+    return false
 end
 
-function modifier_item_nullifier_v2_pa:IsHidden() 			
-    return true 
+function modifier_item_nullifier_v2_pa:IsHidden()
+    return true
 end
 
-function modifier_item_nullifier_v2_pa:IsPurgable() 			
-    return false 
+function modifier_item_nullifier_v2_pa:IsPurgable()
+    return false
 end
 
-function modifier_item_nullifier_v2_pa:IsPurgeException() 	
-    return false 
+function modifier_item_nullifier_v2_pa:IsPurgeException()
+    return false
 end
 
-function modifier_item_nullifier_v2_pa:OnCreated() 
+function modifier_item_nullifier_v2_pa:OnCreated()
     if self:GetAbility() == nil then
 		return
 	end
@@ -82,11 +80,11 @@ function modifier_item_nullifier_v2_pa:OnCreated()
     self.hp_r=self:GetAbility():GetSpecialValueFor("hp_r")
 end
 
-function modifier_item_nullifier_v2_pa:OnRefresh() 
-    self:OnCreated() 
+function modifier_item_nullifier_v2_pa:OnRefresh()
+    self:OnCreated()
 end
 
-function modifier_item_nullifier_v2_pa:DeclareFunctions() 
+function modifier_item_nullifier_v2_pa:DeclareFunctions()
     return
     {
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
@@ -94,7 +92,7 @@ function modifier_item_nullifier_v2_pa:DeclareFunctions()
         MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
         MODIFIER_PROPERTY_HEALTH_BONUS,
         MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT
-   } 
+   }
 end
 
 function modifier_item_nullifier_v2_pa:GetModifierPreAttack_BonusDamage()
@@ -118,30 +116,38 @@ function modifier_item_nullifier_v2_pa:GetModifierPreAttack_BonusDamage()
  end
 
  modifier_item_nullifier_v2_buff=class({})
- 
- function modifier_item_nullifier_v2_buff:IsHidden() 			
-     return false 
- end
- 
- function modifier_item_nullifier_v2_buff:IsPurgable() 			
-     return false 
- end
- 
- function modifier_item_nullifier_v2_buff:IsPurgeException() 	
-     return false 
+
+ function modifier_item_nullifier_v2_buff:IsHidden()
+     return false
  end
 
- function modifier_item_nullifier_v2_buff:OnCreated() 
+ function modifier_item_nullifier_v2_buff:IsPurgable()
+     return false
+ end
+
+ function modifier_item_nullifier_v2_buff:IsPurgeException()
+     return false
+ end
+
+  function modifier_item_nullifier_v2_buff:GetEffectAttachType()
+     return PATTACH_OVERHEAD_FOLLOW
+ end
+
+  function modifier_item_nullifier_v2_buff:GetEffectName()
+     return "particles/econ/events/ti10/high_five/high_five_lvl2_overhead.vpcf"
+ end
+
+ function modifier_item_nullifier_v2_buff:OnCreated()
     self.heal=self:GetAbility():GetSpecialValueFor("heal")
     if not IsServer() then
         return
     end
-    self:GetParent():EmitSound("DOTA_Item.Nullifier.Slow") 
+    self:GetParent():EmitSound("DOTA_Item.Nullifier.Slow")
     self:StartIntervalThink(1)
 end
 
 
-function modifier_item_nullifier_v2_buff:OnIntervalThink() 
+function modifier_item_nullifier_v2_buff:OnIntervalThink()
     if not IsServer() then
         return
     end
@@ -153,44 +159,44 @@ end
 modifier_item_nullifier_v2_debuff=class({})
 
 function modifier_item_nullifier_v2_debuff:GetTexture()
-    return "item_nullifier_v2" 
+    return "item_nullifier_v2"
 end
 
-function modifier_item_nullifier_v2_debuff:IsDebuff() 			
-    return true 
+function modifier_item_nullifier_v2_debuff:IsDebuff()
+    return true
 end
 
-function modifier_item_nullifier_v2_debuff:IsHidden() 			
-    return false 
+function modifier_item_nullifier_v2_debuff:IsHidden()
+    return false
 end
 
-function modifier_item_nullifier_v2_debuff:IsPurgable() 			
-    return false 
+function modifier_item_nullifier_v2_debuff:IsPurgable()
+    return false
 end
 
-function modifier_item_nullifier_v2_debuff:IsPurgeException() 	
-    return false 
+function modifier_item_nullifier_v2_debuff:IsPurgeException()
+    return false
 end
 
-function modifier_item_nullifier_v2_debuff:GetEffectAttachType() 	
-    return PATTACH_OVERHEAD_FOLLOW 
+function modifier_item_nullifier_v2_debuff:GetEffectAttachType()
+    return PATTACH_OVERHEAD_FOLLOW
 end
 
-function modifier_item_nullifier_v2_debuff:GetEffectName() 	
-    return "particles/items4_fx/nullifier_mute.vpcf" 
+function modifier_item_nullifier_v2_debuff:GetEffectName()
+    return "particles/items4_fx/nullifier_mute.vpcf"
 end
 
-function modifier_item_nullifier_v2_debuff:GetStatusEffectName() 	
-    return "particles/status_fx/status_effect_nullifier.vpcf" 
+function modifier_item_nullifier_v2_debuff:GetStatusEffectName()
+    return "particles/status_fx/status_effect_nullifier.vpcf"
 end
 
 
-function modifier_item_nullifier_v2_debuff:GetPriority()	
+function modifier_item_nullifier_v2_debuff:GetPriority()
     return 20
 end
 
 function modifier_item_nullifier_v2_debuff:CheckState()
-    return 
+    return
     {
         [MODIFIER_STATE_MUTED] = true,
         [MODIFIER_STATE_PASSIVES_DISABLED] = true,
@@ -198,7 +204,7 @@ function modifier_item_nullifier_v2_debuff:CheckState()
     }
 end
 
-function modifier_item_nullifier_v2_debuff:DeclareFunctions() 
+function modifier_item_nullifier_v2_debuff:DeclareFunctions()
     return
     {
         MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
@@ -206,11 +212,11 @@ function modifier_item_nullifier_v2_debuff:DeclareFunctions()
         MODIFIER_PROPERTY_DISABLE_HEALING,
         MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
         MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
-   } 
+   }
 end
 
 
-function modifier_item_nullifier_v2_debuff:OnCreated() 
+function modifier_item_nullifier_v2_debuff:OnCreated()
     self.slow_interval_duration=self:GetAbility():GetSpecialValueFor("slow_interval_duration")
     self.dam=self:GetAbility():GetSpecialValueFor("dam")
     self.slow_pct=self:GetAbility():GetSpecialValueFor("slow_pct")
@@ -225,14 +231,14 @@ function modifier_item_nullifier_v2_debuff:OnCreated()
         damage_type =DAMAGE_TYPE_MAGICAL,
         ability = self:GetAbility(),
         }
-    self:GetParent():EmitSound("DOTA_Item.Nullifier.Slow") 
+    self:GetParent():EmitSound("DOTA_Item.Nullifier.Slow")
     local FX=ParticleManager:CreateParticle("particles/items4_fx/nullifier_mute_debuff.vpcf", PATTACH_ROOTBONE_FOLLOW, self:GetParent())
     self:AddParticle(FX, false, false, -1, false, false)
     self:StartIntervalThink(1)
 end
 
 
-function modifier_item_nullifier_v2_debuff:OnIntervalThink() 
+function modifier_item_nullifier_v2_debuff:OnIntervalThink()
     if not IsServer() then
         return
     end
@@ -259,5 +265,3 @@ end
 function modifier_item_nullifier_v2_debuff:GetModifierAttackSpeedBonus_Constant()
     return   self.attsp
 end
-
-

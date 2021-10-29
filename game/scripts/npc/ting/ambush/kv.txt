@@ -41,7 +41,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"att_up"				"100 150 200 250"
+				"att_up"				"50 100 150 200"
 			}
 			"03"
 			{
@@ -123,12 +123,12 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"						"3"
 		"FightRecapLevel"				"1"
-		"AbilityCharges"	"1 2 3"
-		"AbilityChargeRestoreTime"	"15"
+		"AbilityCharges"	"3 4 5"
+		"AbilityChargeRestoreTime"	"10"
 	
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1800"
+		"AbilityCastRange"				"3000"
 		"AbilityCastPoint"				"0.3"
 		
 		// Time		
@@ -158,12 +158,12 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"				"300 350 400"
+				"damage"				"150 200 250"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"armor_re"			"10 12 14"
+				"armor_re"			"5 7 9"
 			}	
 			"04"
 			{
@@ -268,12 +268,12 @@
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"damage_hp"				"7"
+				"damage_hp"				"5"
 			}
 			"04"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"damage"					"150"
+				"damage"					"100"
 			}
 
 

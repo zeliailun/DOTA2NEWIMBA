@@ -14,9 +14,10 @@ function imba_lina_dragon_slave:OnSpellStart()
 	local caster = self:GetCaster()
 	EmitSoundOnLocationWithCaster(caster:GetAbsOrigin(), "Hero_Lina.DragonSlave.Cast", caster)
 	local pos = self:GetCursorPosition()
+	local dis=(pos- caster:GetAbsOrigin()):Length2D()
 	local direction = (pos - caster:GetAbsOrigin()):Normalized()
 	direction.z = 0.0
-	if pos==caster:GetAbsOrigin() then
+	if dis<=0 then
 		direction=caster:GetForwardVector()
 	end
 	local super_state = self:HasFireSoulActive() and 1 or 0

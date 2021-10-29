@@ -23,7 +23,7 @@ function laser_grenade:OnSpellStart()
 				EffectName ="particles/tg_fx/heros/laser_grenade_p.vpcf",
 				Ability = self,
 				vSpawnOrigin =caster:GetAbsOrigin(),
-				vVelocity =caster:GetForwardVector()*sp,
+				vVelocity =caster:GetForwardVector()*1600,
 				fDistance =dis,
 				fStartRadius = wh,
 				fEndRadius = wh,
@@ -80,11 +80,18 @@ end
 function modifier_laser_grenade_buff:DeclareFunctions()
     return
     {
-        MODIFIER_PROPERTY_MODEL_SCALE
+        MODIFIER_PROPERTY_MODEL_SCALE,
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
 	}
 end
 function modifier_laser_grenade_buff:GetModifierModelScale()
-    return -60
+            return -60
+end
+function modifier_laser_grenade_buff:GetModifierMoveSpeedBonus_Percentage()
+       if self:GetParent()==self:GetCaster() then
+            return self:GetAbility():GetSpecialValueFor("sp")
+        end
+        return 0
 end
 function modifier_laser_grenade_buff:CheckState()
     if self:GetParent()==self:GetCaster() then

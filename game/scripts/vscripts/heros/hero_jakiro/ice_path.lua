@@ -1,10 +1,6 @@
 
 ice_path=ice_path or class({})
-ice_path_ani={}
-ice_path_ani[1]=1
-ice_path_ani[2]=1.2
-ice_path_ani[3]=1.6
-ice_path_ani[4]=2
+
 LinkLuaModifier("modifier_ice_path_debuff", "heros/hero_jakiro/ice_path.lua", LUA_MODIFIER_MOTION_NONE)
 function ice_path:IsHiddenWhenStolen()
     return false
@@ -18,16 +14,6 @@ function ice_path:IsRefreshable()
     return true
 end
 
-function ice_path:OnAbilityPhaseStart()
-	self:GetCaster():StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_1,ice_path_ani[self:GetLevel()])
-    return true
-end
-
-function ice_path:OnAbilityPhaseInterrupted()
-	self:GetCaster():RemoveGesture(ACT_DOTA_CAST_ABILITY_1)
-    return true
-end
-
 function ice_path:OnSpellStart()
 	local caster = self:GetCaster()
 	local casterpos = caster:GetAbsOrigin()
@@ -35,7 +21,11 @@ function ice_path:OnSpellStart()
 	local dis=self:GetSpecialValueFor("dis")
 	local casterposend = casterpos+caster:GetForwardVector()*dis
 	casterposend.z=0
+	local dis=(casterposend-casterpos):Length2D()
 	local dir=TG_Direction(casterposend,casterpos)
+	if dis<=0 then
+		dir=caster:GetForwardVector()
+	end
 	local wh=self:GetSpecialValueFor("wh")
 	local b_count=self:GetSpecialValueFor("b_count")
 	local b_i=self:GetSpecialValueFor("b_i")
@@ -45,16 +35,16 @@ function ice_path:OnSpellStart()
 	local stun=self:GetSpecialValueFor("stun")
 	local dam=self:GetSpecialValueFor("dam")
 	EmitSoundOn( "Hero_Jakiro.IcePath", caster )
-	local pfx = ParticleManager:CreateParticle( "particles/econ/items/jakiro/jakiro_ti7_immortal_head/jakiro_ti7_immortal_head_ice_path.vpcf", PATTACH_ABSORIGIN, nil )
+	local pfx = ParticleManager:CreateParticle( "particles/econ/items/jakiro/jakiro_ti7_immortal_head/jakiro_ti7_immortal_head_ice_path.vpcf", PATTACH_CUSTOMORIGIN, nil )
 	ParticleManager:SetParticleControl( pfx, 0, casterpos+hpos )
 	ParticleManager:SetParticleControl( pfx, 1, casterposend+hpos )
-	ParticleManager:SetParticleControl( pfx, 2, casterpos+hpos )
+	ParticleManager:SetParticleControl( pfx, 2, Vector( 1, 0, 1 ))
 	ParticleManager:ReleaseParticleIndex( pfx )
-	local pfx2 = ParticleManager:CreateParticle( "particles/econ/items/jakiro/jakiro_ti7_immortal_head/jakiro_ti7_immortal_head_ice_path_b.vpcf", PATTACH_ABSORIGIN, nil )
+	local pfx2 = ParticleManager:CreateParticle( "particles/econ/items/jakiro/jakiro_ti7_immortal_head/jakiro_ti7_immortal_head_ice_path_b.vpcf", PATTACH_CUSTOMORIGIN, nil )
 	ParticleManager:SetParticleControl( pfx2, 0, casterpos+hpos )
 	ParticleManager:SetParticleControl( pfx2, 1, casterposend +hpos)
 	ParticleManager:SetParticleControl( pfx2, 2, Vector( stun, 0, 0 ) )
-	ParticleManager:SetParticleControl( pfx2, 9, casterpos+hpos )
+	ParticleManager:SetParticleControlEnt(pfx2, 9, caster, PATTACH_POINT_FOLLOW ,"attach_attack1", casterpos, true)
 	ParticleManager:ReleaseParticleIndex( pfx2 )
 
 	local Projectile=
@@ -71,7 +61,7 @@ function ice_path:OnSpellStart()
 		iUnitTargetTeam	 = DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 		iUnitTargetType	= DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		vVelocity	=dir*1000,
+		vVelocity	=caster:GetForwardVector()*1000,
 		bProvidesVision = true,
 		iVisionRadius = 500,
 		iVisionTeamNumber = caster:GetTeamNumber()

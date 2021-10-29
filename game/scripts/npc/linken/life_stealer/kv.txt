@@ -95,7 +95,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"as_bonus"	"30 50 70 90"
+				"as_bonus"	"40 60 80 100"
 			}
 			"03"
 			{

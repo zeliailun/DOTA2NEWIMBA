@@ -11,7 +11,7 @@
 	"tip2"                 				"○选择完英雄不要切屏或者乱点，否则容易掉线。"
 	"tip3"                 				"○游戏中鼠标悬浮在上方英雄头像时可获取他的 Steam id。\n（团队信息面板头像，点击可进入资料界面）"
 	"tip4"                 				"○开房无法进入多半有人没更新。\n（卸载地图重启steam安装）"
-	"tip5"                 				"○当前版本：新英霸 2021.2.4E"
+	"tip5"                 				"○当前版本：新英霸 2021.2.4F"
 	"tip6"                 				"○感谢游玩！"
 	"tip7"                 				"✰XXXXXXXXXXXXXX！"
 	"die"							"-重生时间恶化，现在每次死亡都会增加复活时间-"
@@ -560,12 +560,11 @@
 
 	//--卫士胫甲.V2
 	"DOTA_Tooltip_ability_item_greaves_v2"									"<font color='#1E90FF'>卫士胫甲.V2</font>"
-	"DOTA_Tooltip_ability_item_greaves_v2_description"								"<h1><font color='#FFFF00'>主动：生机</font></h1>使周围友军回复%hp%+%hpper%% 最大生命和%mana%+%manaper%% 最大魔法，并对友军施加一次驱散.。<br>范围：%rd% <br>驱散类型：强驱散\n<h1><font color='#FFFF00'>被动：修复</font></h1>当受到伤害并且血量低于%minhp%% 时，会自动使用卫士胫甲.V2 （被沉默或者禁用物品时将不会触发）。<br>驱散类型：弱驱散\n<h1><font color='#FFFF00'>被动：卫士光环</font></h1>为周围友军提供%ahp%点的额外生命恢复速率和%aar%点额外护甲。<br>范围：%ard% "
+	"DOTA_Tooltip_ability_item_greaves_v2_description"								"<h1><font color='#FFFF00'>主动：生机</font></h1>使周围友军回复%hp%+%hpper%% 最大生命和%mana%+%manaper%% 最大魔法，并对友军施加一次驱散.。<br>范围：%rd% <br>驱散类型：强驱散\n<h1><font color='#FFFF00'>被动：修复</font></h1>当受到伤害并且血量低于%minhp%% 时，会自动使用卫士胫甲.V2 （被沉默，禁用物品，蓝量不足，CD中将不会触发）。<br>驱散类型：弱驱散\n<h1><font color='#FFFF00'>被动：卫士光环</font></h1>为周围友军提供%ahp%点的额外生命恢复速率和%aar%点额外护甲。<br>范围：%ard% "
 	"DOTA_Tooltip_ability_item_greaves_v2_pmana"								"+魔法值"
 	"DOTA_Tooltip_ability_item_greaves_v2_par"								"+护甲"
 	"DOTA_Tooltip_ability_item_greaves_v2_psp"								"+移速"
 	"DOTA_Tooltip_ability_item_greaves_v2_Lore" 								"为了向全能之神致敬所打造的众多圣器之一。"
-	"DOTA_Tooltip_ability_item_greaves_v2_Note0"  								"1.主动使用为强驱散，被动修复为弱驱散。\n2.该物品必须不在cd并且蓝量足够，才会触发被动修复的自动使用。\n3.多个重复使用只会触发一个效果（20秒内置冷却后才可继续受到主动恢复效果）。\n4.与普通卫士胫甲共享CD，但是主动效果的内置CD和加血效果与其他回血装互不干扰。"
 	"DOTA_Tooltip_modifier_item_greaves_v2_buff"  								"卫士胫甲.V2光环"
 	"DOTA_Tooltip_modifier_item_greaves_v2_buffcd"  								"卫士胫甲.V2内置恢复CD"
 	"DOTA_Tooltip_modifier_item_greaves_v2_buffcd_description"  							"CD为20秒"
@@ -587,7 +586,7 @@
 
 			//--否决V2
 	"DOTA_Tooltip_ability_item_nullifier_v2"									"否决坠饰"
-	"DOTA_Tooltip_ability_item_nullifier_v2_description"						"<h1><font color='#FFFF00'>主动：否决（对敌）</font></h1>驱散一次目标身上的增益效果。<br><br>持续时间内，破坏其被动，禁用他的装备，禁止回血 ，禁止闪避，降低%slow_pct%%%移速，%attsp%攻速 （持续%mute_duration%秒）。<br><br>同时目标每秒受到自身%dmg%%%的最大生命值魔法伤害。\n<h1><font color='#FFFF00'>主动：通过（对友）</font></h1>可以驱散友军身上的否决效果，并每秒恢复其%heal%点生命<br><br>施法距离：%rg%<br> <br>弹道速度：%projectile_speed%<br>"
+	"DOTA_Tooltip_ability_item_nullifier_v2_description"						"<h1><font color='#FFFF00'>主动：否决（对敌）</font></h1>驱散一次目标身上的增益效果。<br><br>持续时间内，破坏其被动，禁用他的装备，禁止回血 ，禁止闪避，降低%slow_pct%%%移速，%attsp%攻速 （持续%mute_duration%秒）。<br><br>同时目标每秒受到自身%dmg%%%的最大生命值魔法伤害。\n<h1><font color='#FFFF00'>主动：通过（对友）</font></h1>可以驱散友军身上的否决效果，持续时间内免疫敌方否决效果，并每秒恢复其%heal%点生命，持续3秒<br><br>施法距离：%rg%<br> <br>弹道速度：%projectile_speed%<br>"
 	"DOTA_Tooltip_ability_item_nullifier_v2_bonus_damage"						"+攻击力"
 	"DOTA_Tooltip_ability_item_nullifier_v2_bonus_armor"						"+护甲"
 	"DOTA_Tooltip_ability_item_nullifier_v2_bonus_regen"						"+魔法恢复"
@@ -813,7 +812,7 @@
 
 		//狂战斧
 		"DOTA_Tooltip_ability_item_battle_fury"						"狂战斧"
-		"DOTA_Tooltip_ability_item_battle_fury_description"				"<h1><font color='#FFFF00'>主动：砍伐</font></h1>破坏目标点300码范围内的树木。\n<h1><font color='#FFFF00'>被动：分裂</font></h1>普攻对目标身旁%rd%码范围内的敌人造成%cleave_damage_percent%% 的分裂伤害（远程10%　）。\n ● 分裂为税前的纯粹伤害无视魔免，对主目标无效。\n ● 幻像不会触发被动。\n ● 超过%max_distance% 码将不会计算分裂伤害。\n ● 并且所有效果不叠加。"
+		"DOTA_Tooltip_ability_item_battle_fury_description"				"<h1><font color='#FFFF00'>主动：砍伐</font></h1>破坏目标点300码范围内的树木和守卫。\n<h1><font color='#FFFF00'>被动：分裂</font></h1>普攻对目标身旁%rd%码范围内的敌人造成%cleave_damage_percent%% 的分裂伤害（远程10%　）。\n ● 分裂为税前的纯粹伤害无视魔免，对主目标无效。\n ● 幻像不会触发被动。\n ● 超过%max_distance% 码将不会计算分裂伤害。\n ● 并且所有效果不叠加。"
 		"DOTA_Tooltip_ability_item_battle_fury_Lore"					"劈山救母！"
 		"DOTA_Tooltip_ability_item_battle_fury_bonus_damage"				"+攻击力"
 		"DOTA_Tooltip_ability_item_battle_fury_bonus_health_regen"				"+生命恢复"
@@ -1834,13 +1833,13 @@
 		"DOTA_Tooltip_modifier_laser_cannon_ch"		"激光炮概率层数"
 
 		"DOTA_Tooltip_ability_laser_grenade"			"胶囊炸弹"
-		"DOTA_Tooltip_ability_laser_grenade_description"		"\n<h1><font color='#FFFF00'>主动：微观</font></h1>向目标点投掷激光炸弹对路径的敌人造成%basedmg%伤害，如果是友军则缩小他们的身形，持续%dur%秒，自身还会移除血条"
+		"DOTA_Tooltip_ability_laser_grenade_description"		"\n<h1><font color='#FFFF00'>主动：微观</font></h1>向目标点投掷激光炸弹对路径的敌人造成%basedmg%伤害，如果是友军则缩小他们的身形，持续%dur%秒，自身还会移除血条并额外提高%sp%%%移速"
 		"DOTA_Tooltip_ability_laser_grenade_Lore"		"基恩武器师的杰出之作"
 		"DOTA_Tooltip_modifier_laser_grenade_buff"		"小"
 
 
 		"DOTA_Tooltip_ability_power_surge"			"电力激增"
-		"DOTA_Tooltip_ability_power_surge_description"		"\n<h1><font color='#FFFF00'>主动：闪电之力</font></h1>每隔%interval%秒在指定区域内释放爆炸闪电，对%rd%范围内的目标造成%dmg%伤害和1秒眩晕，持续%dur%秒。<br><br>闪电每次对英雄造成伤害时还会额外增加激光炮%stack%点概率层数"
+		"DOTA_Tooltip_ability_power_surge_description"		"\n<h1><font color='#FFFF00'>主动：闪电之力</font></h1>每隔%interval%秒在指定区域内释放爆炸闪电，对%rd%范围内的目标造成%dmg%伤害和%stun%秒眩晕，持续%dur%秒。<br><br>闪电每次对英雄造成伤害时还会额外增加激光炮%stack%点概率层数"
 		"DOTA_Tooltip_ability_power_surge_Lore"			"基恩武器师的杰出之作"
 
 
@@ -3387,7 +3386,7 @@
 
 			"DOTA_Tooltip_ability_soul_rip"						"噬魂"
 		"DOTA_Tooltip_ability_soul_rip_Lore"					"即使是友军也能从不朽尸王的存在中感受到绝望。"
-		"DOTA_Tooltip_ability_soul_rip_description"			"不朽尸王从附近的所有单位身上扯出生命力，并使用它治疗队友或伤害敌人。可以使用噬魂治疗墓碑。\n<h1><font color='#EE2C2C'>1.噬血</font></h1>对自身或者友军使用，还会使其获得恢复等额的生命值，持续%dur%秒 （无法叠加生命）。\n ● 开启自动施法可自动使用"
+		"DOTA_Tooltip_ability_soul_rip_description"			"不朽尸王从附近的所有单位身上扯出生命力，并使用它治疗队友或伤害敌人。可以使用噬魂治疗墓碑。\n<h1><font color='#EE2C2C'>1.噬血</font></h1>对自身或者友军使用，还会使其提高等额的生命值，持续%dur%秒 （无法叠加生命）。\n ● 开启自动施法可自动使用"
 		"DOTA_Tooltip_ability_soul_rip_damage_per_unit"			"额外伤害/个:"
 		"DOTA_Tooltip_ability_soul_rip_max_units"			"最大吸收单位数量:"
 		"DOTA_Tooltip_ability_soul_rip_radius"			"吸收范围:"

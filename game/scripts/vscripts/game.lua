@@ -309,12 +309,12 @@ RandomAbility=
   "imba_tiny_grow","imba_tiny_avalanche","imba_treant_natures_grasp","imba_light_radiant_bind","imba_light_blinding_light","imba_luna_lucent_beam",
   "imba_luna_lunar_blessing", "imba_spectre_desolate","imba_phantom_lancer_spirit_lance","prot","flesh_heap","dismember","mountain","shockwave",
   "imba_phantom_lancer_doppelwalk","imba_phantom_lancer_phantom_edge","imba_bristleback_viscous_nasal_goo","imba_bristleback_quill_spray","empower",
-  "unstable_concoction_throw","winters_curse","cold_embrace","splinter_blast",
---"droiyan","traitor","truce","flak_cannon","seer_vacuum"
+  "unstable_concoction_throw","winters_curse","splinter_blast","arctic_burn",
   "pangolier_swashbuckle","tidehunter_anchor_smash","rattletrap_hookshot", "earthshaker_aftershock","warlock_rain_of_chaos","pudge_meat_hook","queenofpain_blink",
   "shadow_shaman_voodoo",  "faceless_void_time_walk","dark_troll_warlord_ensnare","polar_furbolg_ursa_warrior_thunder_clap","centaur_khan_war_stomp","roshan_spell_block",
-  "roshan_slam","hoodwink_scurry","filler_ability","necronomicon_archer_aoe","satyr_hellcaller_shockwave","victory","fiery_soul","laguna_blade",
+  "roshan_slam","hoodwink_scurry","filler_ability","necronomicon_archer_aoe","satyr_hellcaller_shockwave","victory","fiery_soul","laguna_blade","supernova",
 
+  --"droiyan","traitor","truce","flak_cannon","seer_vacuum"
 }
 
 

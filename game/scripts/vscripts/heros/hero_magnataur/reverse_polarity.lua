@@ -77,8 +77,8 @@ function reverse_polarity:OnSpellStart()
                                     hero:InterruptMotionControllers(false)
                                     FindClearSpaceForUnit(hero, pos+self.caster:GetForwardVector()*150, true)
                                     hero:AddNewModifier_RS(self.caster, self, "modifier_imba_stunned", {duration=pull_duration})
-                                      damageTable.victim = hero
-                                      ApplyDamage(damageTable)
+                                    damageTable.victim = hero
+                                    ApplyDamage(damageTable)
                         end
                   end
       local PP =

@@ -19,7 +19,6 @@ function winters_curse:OnSpellStart()
       ParticleManager:SetParticleControl(pf1, 0, self.caster:GetAbsOrigin())
       ParticleManager:SetParticleControl(pf1, 1, self.caster:GetAbsOrigin())
       ParticleManager:ReleaseParticleIndex(pf1)
-
        tar:AddNewModifier(self.caster, self, "modifier_winters_curse_debuff", {duration=dur})
 end
 

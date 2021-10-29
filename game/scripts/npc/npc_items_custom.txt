@@ -929,7 +929,7 @@
 		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1425"	
+		"ItemCost"						"575"	
 		"ItemShopTags"						"rtb"
 		
 		// Recipe
@@ -986,12 +986,12 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"hrp"				"4"
+				"hrp"				"8"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"inv"				"0.5"
+				"inv"				"0.6"
 			}
 		}
 	}
@@ -1965,27 +1965,27 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"hp"				"800"
+				"hp"				"400"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mana"				"800"
+				"mana"				"400"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"ard"				"1200"
+				"ard"				"900"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"hpper"				"5"
+				"hpper"				"4"
 			}
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"manaper"			"10"
+				"manaper"			"8"
 			}
 			"06"
 			{
@@ -3796,7 +3796,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"1057"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"BaseClass"						"item_datadriven"
-		"AbilityTextureName"					"item_recipe_fury"
+		"AbilityTextureName"					"item_recipe_battle_fury"
 		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------

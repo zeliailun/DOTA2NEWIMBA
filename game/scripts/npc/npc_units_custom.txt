@@ -2522,7 +2522,7 @@
 		"Ability1"					"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -2615,7 +2615,7 @@
 		"Ability1"					"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -2708,7 +2708,7 @@
 		"Ability1"					"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -3471,7 +3471,7 @@
 	"Ability1"						"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -3564,7 +3564,7 @@
 		"Ability1"					"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -3656,7 +3656,7 @@
 		"Ability1"					"tower1_att"			// Ability 1.
 		"Ability2"					"tower1_def"			// Ability 2.
 		"Ability3"					"tower1_med"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower2_disarm"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.

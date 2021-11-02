@@ -13,12 +13,13 @@ end
 function dragon_slave:OnSpellStart()
       local curpos=self:GetCursorPosition()
       local cpos=self.caster:GetAbsOrigin()
+      local dis=(curpos-cpos):Length2D()
       local dir=(curpos-cpos):Normalized()
       local dragon_slave_speed=self:GetSpecialValueFor( "dragon_slave_speed" )
       local dragon_slave_width=self:GetSpecialValueFor( "dragon_slave_width" )
       local dragon_slave_distance=self:GetSpecialValueFor( "dragon_slave_distance" )
-      if  cpos==curpos then
-            dir=self.caster:GetForwardVector()
+      if  dis<=0 then
+            dir=(Vector(0,0,0)-cpos):Normalized()
       end
       local PP =
         {

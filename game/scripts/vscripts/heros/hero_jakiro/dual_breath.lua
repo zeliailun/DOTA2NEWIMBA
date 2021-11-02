@@ -19,6 +19,9 @@ function dual_breath:OnSpellStart()
 	local curpos = caster:GetCursorPosition()
 	local dis =TG_Distance(curpos,casterpos)
 	local dir=TG_Direction(curpos,casterpos)
+	if dis<=0 then
+		dir=TG_Direction(Vector(0,0,0),casterpos)
+	end
 	local flydis = self:GetSpecialValueFor("flydis")
 	dis=dis>flydis and flydis or dis
 	local duration = dis / self:GetSpecialValueFor("sp")
@@ -40,7 +43,7 @@ function dual_breath:OnSpellStart()
 		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 		iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		vVelocity = caster:GetForwardVector() * 2000,
+		vVelocity = dir * 2000,
 		bProvidesVision = false,
 	}
 	ProjectileManager:CreateLinearProjectile(Projectile)
@@ -59,7 +62,7 @@ function dual_breath:OnSpellStart()
 		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 		iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		vVelocity = caster:GetForwardVector() * 2000,
+		vVelocity = dir * 2000,
 		bProvidesVision = false,
 	}
 	ProjectileManager:CreateLinearProjectile(Projectile2)

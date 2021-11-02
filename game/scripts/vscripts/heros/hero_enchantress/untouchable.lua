@@ -47,7 +47,7 @@ function modifier_untouchable:OnAttackStart(tg)
     if not IsServer() then
 		return
 	end
-    if tg.target == self.parent and not self.parent:IsIllusion() then
+    if tg.target == self.parent and not self.parent:IsIllusion() and self.ability:GetLevel()>0  then
         if ( self.parent:PassivesDisabled() and not self.parent:TG_HasTalent("special_bonus_enchantress_7")  ) or tg.attacker:IsBuilding() or  tg.attacker:IsMagicImmune() or tg.attacker==self.parent then
 		    return
         end

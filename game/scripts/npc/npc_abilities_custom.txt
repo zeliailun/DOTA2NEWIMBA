@@ -9000,7 +9000,7 @@
 		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"	"1"
 		"AbilityCastPoint"	"0"
-		"AbilityCooldown"	"12"
+		"AbilityCooldown"	"16"
 		"AbilityManaCost"	"80 90 100 110"
 		"AOERadius"	"300 350 400 450"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -9105,7 +9105,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"v"					"1000 1200 1400"
+				"v"					"1000 1100 1200"
 			}
 			"04"
 			{
@@ -11766,7 +11766,7 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"110"
+		"AbilityCooldown"				"120"
 		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
@@ -11789,7 +11789,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"duration"					"10"
+				"duration"					"7"
 					"LinkedSpecialBonus"		"special_bonus_omniknight_6"
 			}
 			"02"
@@ -12746,14 +12746,14 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"ch"						"25"
+				"ch"						"20"
 				"LinkedSpecialBonus"		"special_bonus_skeleton_king_8"
 
 			}
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"dur"						"7"
+				"dur"						"10"
 			}
 		}
 	}
@@ -13134,7 +13134,7 @@
 			"03"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"absorb_amount"					"350 450 550 650"
+				"absorb_amount"					"300 500 700 900"
 				"LinkedSpecialBonus"			"special_bonus_ember_spirit_4"
 			}
 			"04"
@@ -13145,7 +13145,7 @@
 			"05"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"damage_per_second"				"55 65 75 85"
+				"damage_per_second"				"60 70 80 90"
 			}
 			"06"
 			{
@@ -17165,7 +17165,7 @@
 			"08"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"ch"							"15"
+				"ch"							"20"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -20327,7 +20327,7 @@
 		"HasShardUpgrade"				"1"
 		// Time
 		// -------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"	"5.0 4.0 3.0 2.0"
+		"AbilityCooldown"	"2"
 		// Cost
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"	"120"
@@ -20479,7 +20479,7 @@
 			"04"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"cshot_dmgrad"	"200"	//伤害半径,同时也是发射环半径
+				"cshot_dmgrad"	"300"	//伤害半径,同时也是发射环半径
 			}
 			"05"
 			{
@@ -20699,7 +20699,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"mflare_duration"		"2.4"
+				"mflare_duration"		"0.8"
 			}
 			"03"
 			{
@@ -23528,7 +23528,7 @@
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
 		// Time
 		// -------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"	"4"
+		"AbilityCooldown"	"3"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -23766,7 +23766,7 @@
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
 		// Time
 		// -------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"	"20 18 16 14"
+		"AbilityCooldown"	"12"
 		// Cost
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"	"100"
@@ -23799,7 +23799,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"30 50 70 90"
+				"damage"	"40 60 80 100"
 			}
 			"06"
 			{
@@ -24133,7 +24133,7 @@
 			"07"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"150 250 350"
+				"damage"	"300 400 500"
 			}
 			"08"
 			{
@@ -24440,7 +24440,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"30 40 50 60"
+				"damage"	"50 60 70 80"
 			}
 			"06"
 			{
@@ -24587,7 +24587,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"ball_lightning_move_speed"	"400 450 500"
+				"ball_lightning_move_speed"	"550"
 				"LinkedSpecialBonus"	"special_bonus_imba_storm_spirit_3"
 			}
 			"04"
@@ -27557,7 +27557,7 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
+		"AbilityCooldown"				"25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -29716,7 +29716,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"side_damage_reduction"			"10 15 25 30"
+				"side_damage_reduction"			"20 25 30 35"
 			}
 			"02"
 			{
@@ -30255,7 +30255,7 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"22"
+		"AbilityCooldown"				"12"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------

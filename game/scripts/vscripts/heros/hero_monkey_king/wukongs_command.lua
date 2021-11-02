@@ -150,9 +150,11 @@ function modifier_wukongs_command_motion:OnDestroy()
             local illusions=CreateIllusions(self:GetParent(), self:GetParent(), modifier, 1, 100, true, true)
             illusions[1]:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_kill", {duration=dur})
         end
+        self.dur=6
         if self:GetParent():TG_HasTalent("special_bonus_monkey_king_8") then
-                CreateModifierThinker(self:GetParent(), self:GetAbility(), "modifier_wukongs_command_th", {duration=6}, self:GetParent():GetAbsOrigin(), self:GetParent():GetTeamNumber(), false)
+                 self.dur=10
         end
+        CreateModifierThinker(self:GetParent(), self:GetAbility(), "modifier_wukongs_command_th", {duration= self.dur}, self:GetParent():GetAbsOrigin(), self:GetParent():GetTeamNumber(), false)
     end
 end
 
@@ -535,7 +537,7 @@ function modifier_wukongs_command_th:OnCreated()
                 ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
                 ParticleManager:SetParticleControl(particle, 1, Vector(800,1,1))
                 self:AddParticle(particle, true, false, 4, false, false)
-                self:StartIntervalThink(1.5)
+                self:StartIntervalThink(1.25)
         end
 end
 function modifier_wukongs_command_th:OnIntervalThink()

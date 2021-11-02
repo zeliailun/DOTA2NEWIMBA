@@ -94,7 +94,7 @@ function modifier_frost_arrows:OnAttack(tg)
                     if #heros>0 then
                         for _, hero in pairs(heros) do
                                 if  hero~=tg.target then
-                                           self.parent:PerformAttack(hero, false, true, true, false, true, false, true)
+                                           self.parent:PerformAttack(hero, false, false, true, false, true, false, true)
                                            return
                                 end
                         end

@@ -137,7 +137,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"max_attacks"				"3 4 5 6"
+				"max_attacks"				"4 5 6 7"
 				"LinkedSpecialBonus"		"special_bonus_imba_ursa_5"
 			}
 			"02"
@@ -187,7 +187,7 @@
 			"03"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"damage_per_stack"				"15 25 35 45"
+				"damage_per_stack"				"25 35 45 55"
 				"LinkedSpecialBonus"			"special_bonus_imba_ursa_1"
 			}
 			"04"
@@ -264,12 +264,12 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"damage_reduction"				"70"
+				"damage_reduction"				"80"
 			}
 			"02"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"status_resistance"				"50"
+				"status_resistance"				"70"
 				"LinkedSpecialBonus"			"special_bonus_imba_ursa_6"
 			}
 			"03"

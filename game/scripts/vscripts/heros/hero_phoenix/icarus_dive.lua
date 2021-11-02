@@ -32,6 +32,9 @@ function icarus_dive:OnSpellStart()
     local dir=TG_Direction(cur_pos,caster_pos)
     local dur=self:GetSpecialValueFor("a_dur")
     local dur2=self:GetSpecialValueFor("s_dur")
+    if  dis<=0 then
+            dir=TG_Direction(Vector(0,0,0),caster_pos)
+      end
     caster:EmitSound("Hero_Phoenix.IcarusDive.Cast")
     caster:SetForwardVector(dir)
     if self:GetAutoCastState() then

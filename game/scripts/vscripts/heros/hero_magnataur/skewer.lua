@@ -38,6 +38,9 @@ function skewer:OnSpellStart()
       local dis=TG_Distance(caster_pos,cur_pos)
       dis=dis>range and range or dis
       local dir=TG_Direction(cur_pos,caster_pos)
+      if  dis<=0 then
+            dir=TG_Direction(Vector(0,0,0),caster_pos)
+      end
       local time=dis/1500
       if self:GetAutoCastState() then
             if self.caster:HasModifier("modifier_skewer_buff") then

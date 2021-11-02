@@ -31,6 +31,9 @@ function burrowstrike:OnSpellStart()
     local sp =caster:HasScepter() and 5000 or self:GetSpecialValueFor("burrow_speed")
     local dis=TG_Distance(casterpos,curpos)
     local dir=TG_Direction(curpos,casterpos)
+    if  dis<=0 then
+            dir=TG_Direction(Vector(0,0,0),casterpos)
+     end
     local time=dis/sp
     local dir1,dir2,pos1,pos2,dis1,dis2,t1,t2,null1,null2
     caster.burrowstrike=caster:GetName()

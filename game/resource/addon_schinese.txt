@@ -11,7 +11,7 @@
 	"tip2"                 				"○选择完英雄不要切屏或者乱点，否则容易掉线。"
 	"tip3"                 				"○游戏中鼠标悬浮在上方英雄头像时可获取他的 Steam id。\n（团队信息面板头像，点击可进入资料界面）"
 	"tip4"                 				"○开房无法进入多半有人没更新。\n（卸载地图重启steam安装）"
-	"tip5"                 				"○当前版本：新英霸 2021.2.4F"
+	"tip5"                 				"○当前版本：新英霸 2021.2.4G"
 	"tip6"                 				"○感谢游玩！"
 	"tip7"                 				"✰XXXXXXXXXXXXXX！"
 	"die"							"-重生时间恶化，现在每次死亡都会增加复活时间-"
@@ -3151,7 +3151,7 @@
 
 
 		"DOTA_Tooltip_ability_wukongs_command"							"斗战胜佛"
-		"DOTA_Tooltip_ability_wukongs_command_description"				"俺老孙来也！\n<h1><font color='#54FF9F'>1.大圣归来</font></h1>● 孙悟空跳向前方并召唤出筋斗云，在空中飞行。\n● 孙悟空可以看到自身%eyes%码范围的隐身英雄。\n● 大招期间可以抵挡一次指向性技能。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
+		"DOTA_Tooltip_ability_wukongs_command_description"				"俺老孙来也！\n<h1><font color='#54FF9F'>1.大圣归来</font></h1>● 孙悟空跳向前方并召唤出筋斗云，在空中飞行。\n● 孙悟空可以看到自身%eyes%码范围的隐身英雄。\n● 大招期间可以抵挡一次指向性技能。\n<h1><font color='#54FF9F'>2.猴阵</font></h1> 落地后在地面创建猴阵每隔1.25秒会创造幻影自动攻击范围内的敌人，持续6秒\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
 		"DOTA_Tooltip_ability_wukongs_command_Lore"						"我就是花果山水帘洞美猴王齐天大圣孙悟空！"
 		"DOTA_Tooltip_ability_wukongs_command_Note0"					"1.A帐效果会在跳跃结束后生效。"
 		"DOTA_Tooltip_ability_wukongs_command_dur"					"持续时间："
@@ -3176,8 +3176,7 @@
 	"DOTA_Tooltip_ability_special_bonus_monkey_king_6"						"+{s:value}大招真视范围"
 	"DOTA_Tooltip_ability_special_bonus_monkey_king_7"						"死亡后元神离开身体可以去任意地点"
 	"DOTA_Tooltip_ability_special_bonus_monkey_king_7_description"					"元神可以在地图中四处游荡，复活后替换位置"
-	"DOTA_Tooltip_ability_special_bonus_monkey_king_8"						"大招召唤猴阵，每隔数秒自动攻击圈内的英雄，持续6秒"
-	"DOTA_Tooltip_ability_special_bonus_monkey_king_8_description"					"不附带攻击特效"
+	"DOTA_Tooltip_ability_special_bonus_monkey_king_8"						"大招猴阵持续时间提高至10秒"
 
 
 
@@ -3351,7 +3350,7 @@
 
 		"DOTA_Tooltip_ability_marksmanship"						"射手天赋"
 		"DOTA_Tooltip_ability_marksmanship_Lore"					"卓尔游侠是弓箭手登峰造极的典型。"
-		"DOTA_Tooltip_ability_marksmanship_description"			"卓尔游侠卓尔游侠的战斗经验使她所有技能获得加强。\n<h1><font color='#54FF9F'>1.连射</font></h1>每次攻击时，额外对目标身旁600范围内随机目标射出一枚箭矢可以触发攻击特效（需要霜冻之箭，不会作用于同一个目标）\n<h1><font color='#54FF9F'>2.侦察</font></h1>全图施法，主动使用向目标点发射一枚箭矢获得%rd%码高空视野，持续%dur%秒,可以检测隐身单位"
+		"DOTA_Tooltip_ability_marksmanship_description"			"卓尔游侠卓尔游侠的战斗经验使她所有技能获得加强。\n<h1><font color='#54FF9F'>1.连射</font></h1>每次攻击时，额外对目标身旁600范围内随机目标射出一枚箭矢无法触发攻击特效（需要霜冻之箭，不会作用于同一个目标）\n<h1><font color='#54FF9F'>2.侦察</font></h1>全图施法，主动使用向目标点发射一枚箭矢获得%rd%码高空视野，持续%dur%秒,可以检测隐身单位"
 		"DOTA_Tooltip_ability_marksmanship_agility_multiplier"			"敏捷加成:"
 		"DOTA_Tooltip_ability_marksmanship_attrg"				"攻击距离加成:"
 		"DOTA_Tooltip_ability_marksmanship_sp"					"移动速度加成:"

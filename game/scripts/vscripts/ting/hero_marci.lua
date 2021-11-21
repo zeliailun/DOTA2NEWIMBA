@@ -11,7 +11,7 @@ LinkLuaModifier("modifier_imba_marci_2_jump", "ting/hero_marci", LUA_MODIFIER_MO
 LinkLuaModifier("modifier_imba_marci_2_motion_down", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_2_shard", "ting/hero_marci", LUA_MODIFIER_MOTION_BOTH)
 LinkLuaModifier("modifier_imba_marci_2_shard_buff", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
-
+LinkLuaModifier("modifier_paralyzed", "ting/hero_lich", LUA_MODIFIER_MOTION_NONE)
 function imba_marci_2:IsStealable() return false end
 
 
@@ -42,21 +42,24 @@ function imba_marci_2:OnSpellStart()
 	local direction = (pos - self.caster:GetAbsOrigin()):Normalized()
 		direction.z = 0
 	local max_distance = self:GetSpecialValueFor("range")+self.caster:GetCastRangeBonus()
+	if self.caster:HasModifier("modifier_imba_marci_2_shard_buff") then
+		max_distance = max_distance/2- 100
+	end
 	local distance = math.min(max_distance, (self.caster:GetAbsOrigin() - pos):Length2D())
-	local tralve_duration = 0.65
+
 	self.caster:StartGestureWithPlaybackRate(ACT_DOTA_OVERRIDE_ABILITY_2,3)
 				
 	
 	self.caster:ClearActivityModifiers()
 	self.caster:AddActivityModifier("unleash")
 	
-	Timers:CreateTimer(0.15, function()
+	Timers:CreateTimer(0.1, function()
 			self.caster:StartGesture(ACT_DOTA_RUN)
 		end)
 
 	
 	EmitSoundOn("Hero_Marci.Rebound.Cast",self.caster)
-	if not self.caster:Has_Aghanims_Shard() or not self:GetAutoCastState() then
+	if not self:GetAutoCastState() then
 		target = nil 
 	end
 	
@@ -66,12 +69,12 @@ function imba_marci_2:OnSpellStart()
 		self.caster:ClearActivityModifiers()
 		self.caster:AddActivityModifier("unleash")
 		--print(tostring(self.caster:GetAbsOrigin().z))
-		self.caster:AddNewModifier(self.caster, self, "modifier_imba_marci_2_motion_down", {duration = 0.35, height = pos_z+30,direction = direction,dis = distance,pos_x = pos.x, pos_y = pos.y, pos_z = pos_z,tar = target and target:entindex() or nil})
+		self.caster:AddNewModifier(self.caster, self, "modifier_imba_marci_2_motion_down", {duration = 0.3, height = pos_z+30,direction = direction,dis = distance,pos_x = pos.x, pos_y = pos.y, pos_z = pos_z,tar = target and target:entindex() or nil})
 		return
 	end
 
 	--self.caster:AddNewModifier(self.caster, self, "modifier_imba_marci_1_move", {duration = tralve_duration, direction = direction})
-	self.caster:AddNewModifier(self.caster, self, "modifier_imba_marci_2_motion", {duration = 0.35, direction = direction,dis = distance,pos_x = pos.x, pos_y = pos.y, pos_z = pos.z})	
+	self.caster:AddNewModifier(self.caster, self, "modifier_imba_marci_2_motion", {duration = 0.3, direction = direction,dis = distance,pos_x = pos.x, pos_y = pos.y, pos_z = pos.z})	
 
 end
 --跑得快 跳得高
@@ -80,43 +83,46 @@ function modifier_imba_marci_2_buff:IsDebuff()			return false end
 function modifier_imba_marci_2_buff:IsHidden() 			return false end
 function modifier_imba_marci_2_buff:IsPurgable() 		return false end
 function modifier_imba_marci_2_buff:IsPurgeException() 	return false end
+function modifier_imba_marci_2_buff:GetEffectName()
+	return "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_debut_ambient_v2_ground_arcs_pnt.vpcf"
+end
+
 function modifier_imba_marci_2_buff:DeclareFunctions() return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE} end
 function modifier_imba_marci_2_buff:CheckState()
 	return {
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 
-			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = self:GetParent():HasModifier("modifier_imba_marci_2_jump"),
+			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = self:GetParent():HasModifier("modifier_imba_marci_2_jump") ,
 			}
 end
 function modifier_imba_marci_2_buff:GetModifierMoveSpeedBonus_Percentage()
-	return self.msp*self:GetStackCount()
+	return self.msp
 end
+
 function modifier_imba_marci_2_buff:OnCreated()
 	if self:GetAbility()~= nil then
 		self.ability = self:GetAbility()
 		self.parent = self:GetParent()
-		self.max = self.ability:GetSpecialValueFor("jump_max")
+
 		self.msp = self.ability:GetSpecialValueFor("jump_movespeed")
-		self.view = self.parent:TG_GetTalentValue("special_bonus_imba_marci_t7")
+		self.view_base = self.ability:GetSpecialValueFor("view_base")
+		self.view_talnet = self.parent:TG_GetTalentValue("special_bonus_imba_marci_t3")+self.view_base
 		if IsServer()  then
-			if self:GetParent():TG_HasTalent("special_bonus_imba_marci_t7") then
-				self:StartIntervalThink(0.1)
-			end
-			self:OnRefresh()
+
+			self:StartIntervalThink(0.1)
+
 		end
 	end
 end
 
 function modifier_imba_marci_2_buff:OnIntervalThink()
 	if IsServer() then
-		AddFOWViewer(self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), self.view, 0.2, false)
+		if self.parent:HasModifier("modifier_imba_marci_2_jump") or  self.parent:HasModifier("modifier_imba_marci_2_motion_down") then
+			AddFOWViewer(self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), self.view_talnet, 0.2, false)
+		end
 	end
 end
-function modifier_imba_marci_2_buff:OnRefresh()
-	if IsServer() then
-		self:SetStackCount(math.min(self:GetStackCount() + 1,self.max))
-	end
-end
+
 
 --鹰击魔晶buff
 modifier_imba_marci_2_shard_buff = class({})
@@ -161,8 +167,11 @@ function modifier_imba_marci_2_motion_down:OnCreated(keys)
 			self.ability = self:GetAbility()
 			self.impact_radius = self.ability:GetSpecialValueFor("radius")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_marci_t1")
 			self.damage = self.ability:GetSpecialValueFor("damage")
-			self.jump = self.ability:GetSpecialValueFor("jump_duration")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_marci_t5")
+			self.jump = self.ability:GetSpecialValueFor("jump_duration")
+			self.damage_down = self.ability:GetSpecialValueFor("damage_down")
+			self.shard_tar_debug = nil
 			self.parent = self:GetParent()
+			self.use_cd = not self.parent:HasScepter()
 			if keys.tar ~= nil then
 				self.tar = EntIndexToHScript(keys.tar)
 			end
@@ -171,9 +180,17 @@ function modifier_imba_marci_2_motion_down:OnCreated(keys)
 			self.pos = Vector(keys.pos_x, keys.pos_y, keys.pos_z)
 			self.dis = keys.dis+300
 			self.distance = (self.dis/self.duration)*FrameTime()
-			self.height = keys.height or self:GetParent():GetAbsOrigin().z+350
-			self.down = (self.height-200) / 15 
-
+			self.height = keys.height or self:GetParent():GetAbsOrigin().z+200
+			self.height_damage =  self.height*self.damage_down*0.01
+			self.down = math.max((self.height-400),1)/ (self:GetDuration()/0.02 )
+			self.mb = self.parent:TG_GetTalentValue("special_bonus_imba_marci_t7")
+			--print(tostring(self.height),"jumpdown")
+			self.damageInfo =
+					{
+						attacker = self:GetCaster(),
+						damage_type = DAMAGE_TYPE_MAGICAL,
+						ability = self.ability,
+					}
 			--self.parent:StartGestureWithPlaybackRate(ACT_DOTA_OVERRIDE_ABILITY_2,2)
 			--self.parent:AddActivityModifier("unleash")
 			self.parent:MoveToPosition(self.pos)
@@ -200,29 +217,25 @@ end
 function modifier_imba_marci_2_motion_down:OnDestroy()
 	if IsServer() then
 		--self:GetParent():StartGesture(ACT_DOTA_CAST_ABILITY_2_END)
-		EmitSoundOn("Ability.TossImpact", self.parent)
 		local has_enemy = false
 		FindClearSpaceForUnit(self.parent, self.parent:GetAbsOrigin(), true)
 		local shard_c = self.parent:FindModifierByName("modifier_imba_marci_2_shard_buff")
 		if shard_c then 
 			self.parent:RemoveModifierByName("modifier_imba_marci_2_shard_buff")		
+			self.shard_tar_debug = shard_c:GetCaster()
 			shard_c:GetCaster():RemoveModifierByName("modifier_imba_marci_2_shard")		
+			self.damageInfo.victim = self.shard_tar_debug
+			self.damageInfo.damage = self.height_damage
+			ApplyDamage( self.damageInfo )
 		end
-		
 
 			local enemies = FindUnitsInRadius( self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, self.impact_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
 			for _,enemy in pairs( enemies ) do
-					--enemy:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_tiny_avalanche_flags",{duration = 1})
-					local damageInfo =
-					{
-						victim = enemy,
-						attacker = self:GetCaster(),
-						damage = self.damage,
-						damage_type = DAMAGE_TYPE_MAGICAL,
-						ability = self:GetAbility(),
-					}
-					ApplyDamage( damageInfo )
-					has_enemy = true
+					enemy:AddNewModifier(self.parent,self.ability,"modifier_paralyzed",{duration = self.mb})
+				self.damageInfo.victim = enemy
+				self.damageInfo.damage = self.damage
+				ApplyDamage( self.damageInfo )
+				has_enemy = true
 			end
 			
 		if has_enemy ~= true then
@@ -238,13 +251,17 @@ function modifier_imba_marci_2_motion_down:OnDestroy()
 			ParticleManager:ReleaseParticleIndex(fx)
 		
 		if has_enemy then		
-
+		self.parent:EmitSound("Hero_MonkeyKing.TreeJump.Tree")
 			local pos = self.parent:GetAbsOrigin()
 			pos.z = self.height
 			self.parent:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_marci_2_jump",{duration = self.jump,pos_x = pos.x, pos_y = pos.y, pos_z = pos.z})
-			
-			self:GetAbility():EndCooldown() 
-			self:GetAbility():StartCooldown(0.5) 
+			if shard_c and self.use_cd then 
+				self.ability:UseResources(false,false,self.use_cd)	
+				self.tar = nil
+				else
+				self:GetAbility():EndCooldown() 
+				self:GetAbility():StartCooldown(0.5) 
+			end
 			if self.tar ~= nil then
 			--print("no nin")
 				if IsInTable(self.tar, enemies) then
@@ -252,8 +269,10 @@ function modifier_imba_marci_2_motion_down:OnDestroy()
 					if self.tar:TriggerStandardTargetSpell(self.ability) then
 						return
 						else
+						if self.tar ~= self.shard_tar_debug then
 						self.tar:AddNewModifier(self.parent,self.ability,"modifier_imba_marci_2_shard",{duration = 4})
 						self.parent:AddNewModifier(self.tar,self.ability,"modifier_imba_marci_2_shard_buff",{duration = 4})
+						end
 					end
 					
 				end 
@@ -261,6 +280,7 @@ function modifier_imba_marci_2_motion_down:OnDestroy()
 				
 			end
 		else
+			self.parent:EmitSound("Ability.TossImpact")
 			if not self.parent:HasModifier("modifier_imba_marci_5") then
 					self.parent:ClearActivityModifiers()
 				else
@@ -360,6 +380,7 @@ function modifier_imba_marci_2_jump:OnCreated(keys)
 			--self.damage = self.ability:GetSpecialValueFor("damage")
 			self.parent = self:GetParent()
 			self.caster = self:GetCaster()
+			self.use_cd = not self.caster:HasScepter()
 			self.h = self.ability:GetSpecialValueFor("height")+self.caster:TG_GetTalentValue("special_bonus_imba_marci_t3")
 			local mod = self.caster:AddNewModifier(self.caster,self.ability,"modifier_imba_marci_2_buff",{duration = self.ability:GetSpecialValueFor("duration")})
 			local h = 0
@@ -374,7 +395,14 @@ function modifier_imba_marci_2_jump:OnCreated(keys)
 			self.parent:SetOrigin(self.pos)
 			--self.pos = self.parent:GetAbsOrigin()
 			self.next_pos_z = nil
-			self.height = self.parent:GetAbsOrigin().z + h*self.h +100
+			self.height = math.min(self.parent:GetAbsOrigin().z +180,self.ability:GetSpecialValueFor("height"))
+			
+		local nFXIndex = ParticleManager:CreateParticle( "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_ambient_ground_arcs_flat.vpcf", PATTACH_WORLDORIGIN, self.parent )
+			ParticleManager:SetParticleControl( nFXIndex, 0, self.parent:GetAbsOrigin() )
+
+			ParticleManager:ReleaseParticleIndex( nFXIndex )
+			
+			--print(tostring(self.height),"jump")
 			--print(tostring(self.pos))
 			
 	    local pp =
@@ -421,15 +449,16 @@ function modifier_imba_marci_2_jump:OnDestroy()
 			self.parent:AddActivityModifier("Unleash")
 			self.parent:AddActivityModifier("Unleash")
 		end
-		EmitSoundOn("Ability.TossImpact", self.parent)
+		--EmitSoundOn("Ability.TossImpact", self.parent)
 		if self:GetRemainingTime() > 0.03 then
 			return
 		end
-		self.ability:UseResources(false, false, true)
+		self.ability:UseResources(false, false, self.use_cd)
 		local shard_c = self.parent:FindModifierByName("modifier_imba_marci_2_shard_buff")
 		if shard_c then 
 			self.parent:RemoveModifierByName("modifier_imba_marci_2_shard_buff")		
 			shard_c:GetCaster():RemoveModifierByName("modifier_imba_marci_2_shard")		
+
 		end
 		--FindClearSpaceForUnit(self.parent, self.parent:GetAbsOrigin(), true)
 		--[[
@@ -521,7 +550,7 @@ function modifier_imba_marci_2_motion:OnCreated(keys)
 			self.ability = self:GetAbility()
 			self.impact_radius = self.ability:GetSpecialValueFor("radius")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_marci_t1")
 			self.damage = self.ability:GetSpecialValueFor("damage")
-			self.jump = self:GetAbility():GetSpecialValueFor("jump_duration")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_marci_t5")
+			self.jump = self:GetAbility():GetSpecialValueFor("jump_duration")
 			self.parent = self:GetParent()
 			--print(self.impact_radius)
 			
@@ -555,7 +584,7 @@ end
 function modifier_imba_marci_2_motion:OnDestroy()
 	if IsServer() then
 		local has_enemy = false
-		EmitSoundOn("Ability.TossImpact", self.parent)
+		--EmitSoundOn("Ability.TossImpact", self.parent)
 		FindClearSpaceForUnit(self.parent, self.parent:GetAbsOrigin(), true)
 	
 			
@@ -582,10 +611,11 @@ function modifier_imba_marci_2_motion:OnDestroy()
 		
 		if has_enemy then		
 		local pos = self.parent:GetAbsOrigin()
+		--[[
 		local fx = ParticleManager:CreateParticle("particles/units/heroes/hero_sandking/sandking_epicenter_pulse.vpcf", PATTACH_CUSTOMORIGIN, nil)
 		ParticleManager:SetParticleControl(fx, 0, self:GetCaster():GetAbsOrigin())
 		ParticleManager:SetParticleControl(fx, 1, Vector(250,1,1))
-		ParticleManager:ReleaseParticleIndex(fx)
+		ParticleManager:ReleaseParticleIndex(fx)]]
 
 		self.parent:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_marci_2_jump",{duration = self.jump,pos_x = pos.x, pos_y = pos.y, pos_z = pos.z})
 			self:GetAbility():EndCooldown() 
@@ -595,6 +625,7 @@ function modifier_imba_marci_2_motion:OnDestroy()
 			if shard_c then 
 				self.parent:RemoveModifierByName("modifier_imba_marci_2_shard_buff")		
 				shard_c:GetCaster():RemoveModifierByName("modifier_imba_marci_2_shard")		
+				
 			end
 			
 			if not self.parent:HasModifier("modifier_imba_marci_5") then
@@ -681,7 +712,6 @@ function modifier_imba_marci_2_shard:OnCreated( kv )
 		self.flHeight = 0.0
 
 		self.impact_radius = 400
-		self:GetParent():StartGesture(ACT_DOTA_DIE)
 		self.bDropped = false
 		self:StartIntervalThink( 4 )
 	end
@@ -706,7 +736,7 @@ function modifier_imba_marci_2_shard:CheckState()
 	{
 		[MODIFIER_STATE_STUNNED] = true,
 		[MODIFIER_STATE_INVULNERABLE] = Is_Chinese_TG(self:GetParent(),self:GetCaster()),
-		[MODIFIER_STATE_ATTACK_IMMUNE] = true,
+		--[MODIFIER_STATE_ATTACK_IMMUNE] = true,
 		[MODIFIER_STATE_FROZEN] = true,
 	}
 	return state
@@ -1048,7 +1078,7 @@ function modifier_imba_marci_3_down:OnCreated(keys)
 			self.impact_radius = self.ability:GetSpecialValueFor("radius")
 			self.stun = self.ability:GetSpecialValueFor("base_stun")
 			self.parent = self:GetParent()	
-			
+			self.use_cd = not self.parent:HasScepter()
 
 			self.duration = keys.duration
 
@@ -1056,11 +1086,13 @@ function modifier_imba_marci_3_down:OnCreated(keys)
 			self.dis = keys.dis+200
 			local dis_t =(self.dis/self.duration)
 			self.distance = dis_t*FrameTime()
-			self.height = keys.height or self.parent:GetAbsOrigin().z+350
-			self.height_talent = self.height
-			self.height_ex = math.max(math.ceil((self.height-400)/100)*0.3,0)
-			self.stun = self.stun + self.height_ex
+			self.height = keys.height+100 or self.parent:GetAbsOrigin().z+350
+			self.height_talent = self.height+20
+			self.height_ex = math.max(math.ceil((self.height-400)/10)*0.03,0)
+			--print(tostring(self.height_ex))
+			self.stun = self.stun + self.height_ex*0.3
 			self.damage = self.ability:GetSpecialValueFor("damage")*math.max(self.height_ex,1)
+			self.direction = (self.pos - self.parent:GetAbsOrigin()):Normalized()
 			--print(tostring(self.height_ex))
 			self.down = self.height / (keys.duration/0.02)
 			self.dist_a = 0
@@ -1072,6 +1104,7 @@ function modifier_imba_marci_3_down:OnCreated(keys)
 						damage_type = DAMAGE_TYPE_MAGICAL,
 						ability = self:GetAbility(),
 					}
+					--print(tostring(self.height),"down")
 		end
 	end
 end
@@ -1087,21 +1120,22 @@ function modifier_imba_marci_3_down:OnIntervalThink()
 	next_pos.z = self.height - self.down--next_pos.z - 4 * self.height * motion_progress ^ 2 + 4 * self.height * motion_progress
 	self.height = next_pos.z
 	--print(tostring(self.height))
-	self.parent:SetOrigin(next_pos)
+	self.parent:SetAbsOrigin(next_pos)
+	
+	--particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_portrait_model.vpcf
 end
 
 function modifier_imba_marci_3_down:OnDestroy()
 	if IsServer() then
 		EmitSoundOn("Ability.TossImpact", self.parent)
-		local ab = self.parent:FindAbilityByName("imba_marci_2")
-		if ab and ab:GetLevel() > 0 then
-			ab:UseResources(false, false, true)
-		end
-		
 		self.parent:StartGesture(ACT_DOTA_CAST_ABILITY_2_END)
 		FindClearSpaceForUnit(self.parent, self.parent:GetAbsOrigin(), true)
 		
 		
+		local ab = self.parent:FindAbilityByName("imba_marci_2")
+		if ab and ab:GetLevel() > 0 then
+			ab:UseResources(false, false, self.use_cd)
+		end		
 		local shard_c = self.parent:FindModifierByName("modifier_imba_marci_2_shard_buff")
 		local shard_tar = nil
 		if shard_c then 
@@ -1109,8 +1143,7 @@ function modifier_imba_marci_3_down:OnDestroy()
 			self.parent:RemoveModifierByName("modifier_imba_marci_2_shard_buff")					
 			shard_c:GetCaster():RemoveModifierByName("modifier_imba_marci_2_shard")		
 		end
-	
-	
+		
 	local enemies = FindUnitsInRadius( self:GetCaster():GetTeamNumber(),self.parent:GetAbsOrigin(), nil, self.impact_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
 			for _,enemy in pairs( enemies ) do
 				if shard_tar ~= nil then
@@ -1195,8 +1228,18 @@ function modifier_imba_marci_1_move:OnCreated(params)
 	self.caster = self:GetCaster()
 	self.parent = self:GetParent()   
 	self.ability = self:GetAbility()
-
-	self.distance =self.ability:GetSpecialValueFor("distance")
+	self.auto = self.ability:GetAutoCastState() 
+	self.talent = self.caster:TG_HasTalent("special_bonus_imba_marci_t5")
+	if self.auto == true then
+	 self.talent = false
+	end
+	--print(tostring(self.ability:GetAutoCastState()))
+	self.base_dis = self.ability:GetSpecialValueFor("distance")
+	self.distance = (self.talent == true) and self.parent:Script_GetAttackRange() or self.base_dis
+	--print(tostring(self.talent))
+	--print(tostring(self.parent:Script_GetAttackRange()))
+	--print(tostring(self.base_dis))
+	--	print(tostring(self.distance))
 	self.width =self.ability:GetSpecialValueFor("width")
 	self.damage = self.ability:GetSpecialValueFor("damage")
 	
@@ -1320,7 +1363,7 @@ imba_marci_5 = class({})
 LinkLuaModifier("modifier_imba_marci_5", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_5_pa", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_5_re", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
-
+LinkLuaModifier("modifier_imba_marci_5_slow", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 function imba_marci_5:GetIntrinsicModifierName()
 	return "modifier_imba_marci_5_pa"
 end
@@ -1347,6 +1390,7 @@ function modifier_imba_marci_5:IsDebuff()			return false end
 function modifier_imba_marci_5:IsHidden() 			return false end
 function modifier_imba_marci_5:IsPurgable() 		return false end
 function modifier_imba_marci_5:IsPurgeException() 	return false end
+function modifier_imba_marci_5:GetAttackSound() return "Hero_Marci.Unleash.Charged.3d" end
 function modifier_imba_marci_5:GetPriority()
 	return MODIFIER_PRIORITY_SUPER_ULTRA 
 end
@@ -1435,7 +1479,7 @@ function modifier_imba_marci_5_pa:OnAttackLanded(keys)
 						ParticleManager:SetParticleControlOrientation(particle, 2, f_angle, r_angle, u_angle)
 						ParticleManager:ReleaseParticleIndex(particle)
 					
-					if keys.attacker:HasScepter() then --a杖
+					if keys.attacker:Has_Aghanims_Shard() then --魔晶
 					
 						local particle2 = ParticleManager:CreateParticle("particles/units/heroes/hero_marci/marci_unleash_pulse.vpcf", PATTACH_POINT, keys.target)
 						ParticleManager:SetParticleControl(particle2, 1, Vector(radius, radius, 0))
@@ -1444,7 +1488,7 @@ function modifier_imba_marci_5_pa:OnAttackLanded(keys)
 						
 						local enemies = FindUnitsInRadius( keys.attacker:GetTeamNumber(), keys.attacker:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
 						for _,enemy in pairs( enemies ) do
-					--enemy:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_tiny_avalanche_flags",{duration = 1})
+						enemy:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_marci_5_slow",{duration = 0.4})
 							local damageInfo =
 							{
 								victim = enemy,
@@ -1489,5 +1533,28 @@ function modifier_imba_marci_5_re:OnDestroy()
 	end
 end
 
+modifier_imba_marci_5_slow = class({})
+function modifier_imba_marci_5_slow:IsDebuff() return true end
+function modifier_imba_marci_5_slow:IsPurgable() return false end
+function modifier_imba_marci_5_slow:IsPurgeException() return false end
+function modifier_imba_marci_5_slow:IsHidden() return false end
 
+function modifier_imba_marci_5_slow:DeclareFunctions() 
+    return {
+        MODIFIER_PROPERTY_TURN_RATE_PERCENTAGE,
+		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+    } 
+end
+
+
+function modifier_imba_marci_5_slow:GetModifierTurnRate_Percentage() 
+    return -30
+end
+function modifier_imba_marci_5_slow:GetModifierAttackSpeedBonus_Constant()
+    return -120
+end
+function modifier_imba_marci_5_slow:GetModifierMoveSpeedBonus_Percentage()
+    return -30
+end
 --particles/units/heroes/hero_marci/marci_unleash_buff.vpcf

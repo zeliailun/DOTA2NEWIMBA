@@ -26,6 +26,8 @@
 #base linken/grimstroke/kv.txt
 #base linken/spectre/kv.txt
 #base linken/weaver/kv.txt
+#base linken/beastmaster/kv.txt
+#base linken/marci/kv.txt
 //////////////////////////////////////
 
 #base mb/brewmaster/kv.txt
@@ -26673,13 +26675,12 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"				"125 200 275 350"	//直接伤害
+				"damage"				"225 300 375 450"	//直接伤害
 			}
 			"4"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"base_stun"				"1"	//基础敲晕
-
+				"var_type"				"FIELD_FLOAT"
+				"base_stun"				"1 1.5 2 2.5"	//基础敲晕
 			}
 
 		}
@@ -26702,8 +26703,8 @@
 		"AbilitySound"					"Hero_Huskar.Inner_Vitality"
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600"
-		"AbilityCastPoint"				"0.1"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0"
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
@@ -26732,19 +26733,14 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"200"	//鹰击作用范围
+				"radius"				"200 220 240 260"	//鹰击作用范围
 				"LinkedSpecialBonus"			"special_bonus_imba_marci_t1"
 				
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"jump_max"				"2 3 4 5"	//  叠加次数
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"jump_movespeed"		"7"	//连续跳跃增加的移动速度
+				"jump_movespeed"		"30 35 40 45"	//翱翔增加的移动速度
 			}
 			"04"
 			{
@@ -26754,12 +26750,12 @@
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"range"				"600"	//跳跃施法距离
+				"range"					"700"	//跳跃施法距离
 			}
 			"09"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"				"125 175 225 275"	//直接伤害
+				"damage"				"100 150 200 250"	//直接伤害
 			}
 			"10"
 			{
@@ -26770,12 +26766,25 @@
 			"11"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"height"				"30"	//翱翔每层跳跃高度
+				"height"				"500 600 700 800"	//跳跃高度
+				"LinkedSpecialBonus"	"special_bonus_imba_marci_t3"
+			}
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_down"			"20"	//俯冲伤害
+				"LinkedSpecialBonus"	"special_bonus_imba_marci_t3"
+			}
+			"13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"view_base"				"500"	//高空视野
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_t3"
 			}
 
 
 		}
+		"HasScepterUpgrade" "1"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	
@@ -26787,7 +26796,7 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"longquan"
 		"ScriptFile"	"ting/hero_marci.lua"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET|DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET|DOTA_ABILITY_BEHAVIOR_IMMEDIATE|DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -26887,7 +26896,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"asp"					"70 120 170"	//攻击速度
+				"asp"					"50 100 150"	//攻击速度
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_t2"
 			}
 			"02"
@@ -26909,7 +26918,7 @@
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"crit"					"190"	//暴击伤害
+				"crit"					"170"	//暴击伤害
 
 			}
 			"06"
@@ -26929,6 +26938,7 @@
 			}			
 
 		}
+		"HasShardUpgrade" 	"1"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
 	}
 	
@@ -27007,7 +27017,7 @@
 
 		}
 	}
-	//翱翔高度增加
+	//翱翔高空视野增加
 	"special_bonus_imba_marci_t3"
     {
 	    "BaseClass"	"special_bonus_undefined"
@@ -27021,7 +27031,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-			    "value"	   "20"
+			    "value"	   "200"
 				"ad_linked_ability" "imba_marci_2"
 			}
 
@@ -27037,7 +27047,7 @@
 		// -------------------------------
 
 	}
-	//鹰击跳跃持续时间
+	//龙拳冲击距离
 	"special_bonus_imba_marci_t5"
     {
 	    "BaseClass"	"special_bonus_undefined"
@@ -27050,9 +27060,9 @@
 
 			"01"
 			{
-				"var_type"	"FIELD_FLOAT"
-			    "value"	   "0.5"
-				"ad_linked_ability" "imba_marci_2"
+				"var_type"	"FIELD_INTEGER"
+			    "value"	   "70"
+				"ad_linked_ability" "imba_marci_1"
 			}
 
 		}
@@ -27077,7 +27087,7 @@
 
 		}
 	}
-	//翱翔视野
+	//鹰击
 	"special_bonus_imba_marci_t7"
     {
 	    "BaseClass"	"special_bonus_undefined"
@@ -27090,8 +27100,8 @@
 
 			"01"
 			{
-				"var_type"	"FIELD_INTEGER"
-			    "value"	   "600"
+				"var_type"	"FIELD_FLOAT"
+			    "value"	   "0.5"
 				"ad_linked_ability" "imba_marci_2"
 			}
 

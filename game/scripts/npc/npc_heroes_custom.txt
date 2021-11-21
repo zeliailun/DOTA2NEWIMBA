@@ -23,6 +23,8 @@
 #base linken/grimstroke/hero.txt
 #base linken/spectre/hero.txt
 #base linken/weaver/hero.txt
+#base linken/beastmaster/hero.txt
+#base linken/marci/hero.txt
 /////////////////////////////////////
 
 #base mb/brewmaster/hero.txt
@@ -1690,21 +1692,21 @@
 
 	"npc_dota_hero_marci"
 	{  
-		"Ability1"		"imba_marci_2"
-		"Ability2"		"imba_marci_1"
-		"Ability3"		"imba_marci_3"
-		"Ability4"		"imba_marci_4"
+		"Ability1"		"imba_marci_swing"
+		"Ability2"		"imba_marci_grapple"
+		"Ability3"		"imba_marci_companion_run"
+		"Ability4"		"imba_marci_guardian"
 		"Ability5"		"generic_hidden"
-		"Ability6"		"imba_marci_5"
+		"Ability6"		"imba_marci_unleash"
 
 
-		"Ability10"		"special_bonus_imba_marci_t1"
-		"Ability11"		"special_bonus_imba_marci_t2"
-		"Ability12"		"special_bonus_imba_marci_t3"
-		"Ability13"		"special_bonus_imba_marci_t4"
-		"Ability14"		"special_bonus_imba_marci_t5"
-		"Ability15"		"special_bonus_imba_marci_t6"
-		"Ability16"		"special_bonus_imba_marci_t7"
-		"Ability17"		"special_bonus_imba_marci_t8"
+		"Ability10"		"special_bonus_imba_marci_1"
+		"Ability11"		"special_bonus_imba_marci_2"
+		"Ability12"		"special_bonus_imba_marci_3"
+		"Ability13"		"special_bonus_imba_marci_4"
+		"Ability14"		"special_bonus_imba_marci_5"
+		"Ability15"		"special_bonus_imba_marci_6"
+		"Ability16"		"special_bonus_imba_marci_7"
+		"Ability17"		"special_bonus_imba_marci_8"
 	}
 }

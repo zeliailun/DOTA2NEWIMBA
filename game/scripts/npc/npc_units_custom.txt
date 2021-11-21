@@ -1,4 +1,6 @@
 // Units File
+#base linken/beastmaster/unit.txt
+
 "DOTAUnits"
 {
 	"Version"	"1"

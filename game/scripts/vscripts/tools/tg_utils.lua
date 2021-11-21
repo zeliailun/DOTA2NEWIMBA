@@ -158,9 +158,9 @@ end
 --[[
 ★创建天赋
 ]]
-function CreateTalents(table,addres)
-        if TableContainsKey(HeroTalent,table) then
-            local T=HeroTalent[table]
+function CreateTalents(name,addres)
+        if TableContainsKey(HeroTalent,name) then
+            local T=HeroTalent[name]
               for k, v in pairs(T) do
                   LinkLuaModifier("modifier_"..k,addres, LUA_MODIFIER_MOTION_NONE)
                   loadstring( "modifier_"..k.." = class({IsPermanent=function(self) return true end,IsPurgeException = function(self) return false end,IsPurgable=function(self) return false end,IsHidden = function(self) return true end, RemoveOnDeath = function(self) return self:GetParent():IsIllusion() end, AllowIllusionDuplicate = function(self) return true end})")()

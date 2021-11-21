@@ -1,0 +1,24 @@
+"DOTAHeroes"
+{
+	//=================================================================================================================
+	// HERO: marci
+	//=================================================================================================================
+	"npc_dota_hero_marci"
+	{
+		"Ability1"		"imba_marci_grapple"
+		"Ability2"		"imba_marci_companion_run"
+		"Ability3"		"imba_marci_guardian"
+		"Ability4"		"imba_marci_swing"
+		"Ability5"		"generic_hidden"
+		"Ability6"		"imba_marci_unleash"
+
+		"Ability10"	"special_bonus_imba_marci_8"
+		"Ability11"	"special_bonus_imba_marci_1"
+		"Ability12"	"special_bonus_imba_marci_4"
+		"Ability13"	"special_bonus_imba_marci_7"
+		"Ability14"	"special_bonus_imba_marci_2"
+		"Ability15"	"special_bonus_imba_marci_5"
+		"Ability16"	"special_bonus_imba_marci_3"
+		"Ability17"	"special_bonus_imba_marci_6"
+	}
+}			

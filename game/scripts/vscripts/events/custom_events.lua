@@ -76,6 +76,12 @@ function custom_events:On_Hero(k,j)
 					HERO:AddAbility(n)
 				end
 			end
+			if TableContainsKey(HeroTalentName,NAME) then
+				HERO.TALENT_NAME=HeroTalentName[NAME][tostring(j.num)]
+				print(HERO.TALENT_NAME)
+			else
+				HERO.TALENT_NAME=NAME
+			end
 			HERO.HERO_SELECT=true
 			HERO:SetAbilityPoints(HERO:GetLevel())
 			HERO:CalculateStatBonus(true)

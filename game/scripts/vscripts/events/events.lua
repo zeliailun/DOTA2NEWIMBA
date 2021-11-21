@@ -409,10 +409,10 @@ function L_TG:OnPlayerLearnedAbility(tg)
 	if string.find(abilityname, "special_bonus") then
 		local pl=PlayerResource:GetPlayer(playerid)
 		local hero=pl:GetAssignedHero()
-		local name=hero:GetName()
 		local modifier_name="modifier_"..abilityname
 		local AB=hero:FindAbilityByName(abilityname)
-			if TableContainsKey(HeroTalent,name) then
+		local name= hero.TALENT_NAME==nil and  hero:GetName() or hero.TALENT_NAME
+		if TableContainsKey(HeroTalent,name) then
 				local T=HeroTalent[name]
 				for k, v in pairs(T) do
 					if k==abilityname then
@@ -426,7 +426,7 @@ function L_TG:OnPlayerLearnedAbility(tg)
 						end
 					end
 				end
-			end
+		end
 	else
 		local PL=PlayerResource:GetPlayer(playerid)
 		local HERO= PL:GetAssignedHero()

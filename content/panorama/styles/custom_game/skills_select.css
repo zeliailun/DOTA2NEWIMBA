@@ -11,6 +11,7 @@
     background-image: url('file://{images}/custom_game/hud/gallery_background_png.png');
     background-size: 100% 100%;
     flow-children: down;
+    overflow: squish scroll;
     horizontal-align: center;
     vertical-align: center;
     visibility: collapse;

@@ -4155,7 +4155,7 @@
 			"LaningInfo"
 			{
 				"SoloDesire"		"0"
-				"RequiresBabysit"		"1"
+				"RequiresBabysit"		"0"
 				"ProvidesBabysit"		"0"
 				"SurvivalRating"		"1"
 				"RequiresFarm"		"1"

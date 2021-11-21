@@ -48,6 +48,106 @@
 {
 	"Version"		"1"
 
+	"npc_dota_hero_silencer"
+	{
+		"Ability1"		"silencer_curse_of_the_silent"
+		"Ability2"		"silencer_glaives_of_wisdom"
+		"Ability3"		"silencer_last_word"
+		"Ability4"		"generic_hidden"
+		"Ability5"		"generic_hidden"
+		"Ability6"		"silencer_global_silence"
+		"Ability10"		"special_bonus_unique_silencer"
+		"Ability11"		"special_bonus_attack_speed_20"
+		"Ability12"		"special_bonus_attack_range_100"
+		"Ability13"		"special_bonus_unique_silencer_6"
+		"Ability14"		"special_bonus_hp_400"
+		"Ability15"		"special_bonus_unique_silencer_4"
+		"Ability16"		"special_bonus_unique_silencer_3"
+		"Ability17"		"special_bonus_unique_silencer_2"
+		"Bot"
+		{
+			"SupportsEasyMode"	"1"
+			"Loadout"
+			{
+				"item_tango"			"ITEM_CONSUMABLE | ITEM_SELLABLE"
+				"item_flask"			"ITEM_CONSUMABLE | ITEM_SELLABLE"
+				"item_branches"			"ITEM_CORE | ITEM_SELLABLE"
+				"item_branches"			"ITEM_CORE | ITEM_SELLABLE"
+
+				"item_magic_stick"		"ITEM_CORE"
+				"item_recipe_magic_wand"			"ITEM_CORE"
+				"item_magic_wand"		"ITEM_DERIVED | ITEM_SELLABLE"
+
+				"item_boots"			"ITEM_CORE"
+				"item_quelling_blade"	"ITEM_CORE | ITEM_SELLABLE"
+
+				"item_bkbs"	"ITEM_CORE"
+				"item_gloves"			"ITEM_CORE"
+				"item_power_treads"		"ITEM_DERIVED"
+				
+				"item_ogre_axe"			"ITEM_CORE"
+				"item_quarterstaff"		"ITEM_CORE"
+				"item_sobi_mask"		"ITEM_CORE"
+				"item_robe"				"ITEM_CORE"
+				"item_oblivion_staff"	"ITEM_CORE | ITEM_DERIVED"
+				"item_echo_sabre"		"ITEM_DERIVED"
+
+				"item_blink"		"ITEM_CORE"
+
+				"item_ogre_axe"					"ITEM_EXTENSION"
+				"item_mithril_hammer"			"ITEM_EXTENSION"
+				"item_recipe_black_king_bar"	"ITEM_EXTENSION"
+				"item_black_king_bar"			"ITEM_DERIVED"
+
+				"item_reaver"		"ITEM_LUXURY"
+				"item_claymore"		"ITEM_LUXURY"
+				"item_lifesteal"	"ITEM_LUXURY"
+				"item_recipe_satanic"	"ITEM_LUXURY"
+				"item_satanic"		"ITEM_DERIVED"
+			}
+			"Build"
+			{
+				"1"		"silencer_curse_of_the_silent"
+				"2"		"silencer_last_word"
+				"3"		"silencer_last_word"
+				"4"		"silencer_glaives_of_wisdom"
+				"5"		"silencer_glaives_of_wisdom"
+				"6"		"silencer_global_silence"
+				"7"		"silencer_glaives_of_wisdom"
+				"8"		"silencer_glaives_of_wisdom"
+				"9"		"silencer_last_word"
+				"10"		"special_bonus_unique_silencer"
+				"11"		"silencer_last_word"
+				"12"		"silencer_global_silence"
+				"13"		"silencer_curse_of_the_silent"
+				"14"		"silencer_curse_of_the_silent"
+				"15"		"special_bonus_attack_range_100"
+				"16"		"silencer_curse_of_the_silent"
+				"17"		""
+				"18"		"silencer_global_silence"
+				"19"		""
+				"20"		"special_bonus_hp_400"
+				"21"		""
+				"22"		""
+				"23"		""
+				"24"		""
+				"25"		"special_bonus_unique_silencer_2"
+			}
+			"HeroType"		"DOTA_BOT_PURE_SUPPORT | DOTA_BOT_SEMI_CARRY"
+			"LaningInfo"
+			{
+				"SoloDesire"		"0"
+				"RequiresBabysit"		"0"
+				"ProvidesBabysit"		"1"
+				"SurvivalRating"		"0"
+				"RequiresFarm"		"1"
+				"ProvidesSetup"		"0"
+				"RequiresSetup"		"1"
+			}
+		}
+	}
+
+
 	"npc_dota_hero_winter_wyvern"
 	{
 		"Ability1"		"arctic_burn"
@@ -636,7 +736,7 @@
 
 		"npc_dota_hero_sven"
 	{
-				"Ability1"		"storm_bolt"	//"sven_storm_bolt"
+		"Ability1"		"storm_bolt"	//"sven_storm_bolt"
 		"Ability2"		"great_cleave"	//"sven_great_cleave"
 		"Ability3"		"warcry"//"sven_warcry"
 		"Ability4"		"generic_hidden"
@@ -650,6 +750,65 @@
 		"Ability15"		"special_bonus_sven_6"
 		"Ability16"		"special_bonus_sven_7"
 		"Ability17"		"special_bonus_sven_8"
+		"Bot"
+		{
+			"SupportsEasyMode"	"5"
+			"Loadout"
+			{
+				"item_tango"			"ITEM_CONSUMABLE | ITEM_SELLABLE"
+				"item_flask"			"ITEM_CONSUMABLE | ITEM_SELLABLE"
+				"item_magic_wand"			"ITEM_DERIVED | ITEM_SELLABLE"
+				"item_boots"			"ITEM_CORE"
+				"item_bkbs"			"ITEM_CORE"
+				"item_pool_blink"			"ITEM_CONSUMABLE | ITEM_SELLABLE"
+				"item_enchanted_edge"	"ITEM_CORE | ITEM_SELLABLE"
+				"item_imba_blink_boots"	"ITEM_LUXURY"
+				"item_greater_crit_v2"	"ITEM_LUXURY"
+				"item_abyssal_blade_v2"		"ITEM_LUXURY"
+				"item_imba_armlet_v2"		"ITEM_LUXURY"
+				"item_three_knives"	"ITEM_LUXURY"
+				"item_bkb"	"ITEM_LUXURY"
+			}
+			"Build"
+			{
+				"1"		"storm_bolt"
+				"2"		"warcry"
+				"3"		"warcry"
+				"4"		"great_cleave"
+				"5"		"great_cleave"
+				"6"		"gods_strength"
+				"7"		"great_cleave"
+				"8"		"great_cleave"
+				"9"		"warcry"
+				"10"		"special_bonus_sven_1"
+				"11"		"warcry"
+				"12"		"gods_strength"
+				"13"		"storm_bolt"
+				"14"		"storm_bolt"
+				"15"		"special_bonus_sven_3"
+				"16"		"storm_bolt"
+				"17"		""
+				"18"		"gods_strength"
+				"19"		""
+				"20"		"special_bonus_sven_5"
+				"21"		""
+				"22"		""
+				"23"		""
+				"24"		""
+				"25"		"special_bonus_sven_7"
+			}
+			"LaningInfo"
+			{
+				"SoloDesire"		"0"
+				"RequiresBabysit"		"0"
+				"ProvidesBabysit"		"0"
+				"SurvivalRating"		"1"
+				"RequiresFarm"		"1"
+				"ProvidesSetup"		"2"
+				"RequiresSetup"		"0"
+			}
+			"HeroType"		"DOTA_BOT_TANK | DOTA_BOT_SEMI_CARRY | DOTA_BOT_STUN_SUPPORT"
+		}
 	}
 
 		"npc_dota_hero_enigma"
@@ -1529,5 +1688,23 @@
 		"Ability18"		"special_bonus_imba_keeper_of_the_light_8"
 	}
 
+	"npc_dota_hero_marci"
+	{  
+		"Ability1"		"imba_marci_2"
+		"Ability2"		"imba_marci_1"
+		"Ability3"		"imba_marci_3"
+		"Ability4"		"imba_marci_4"
+		"Ability5"		"generic_hidden"
+		"Ability6"		"imba_marci_5"
 
+
+		"Ability10"		"special_bonus_imba_marci_t1"
+		"Ability11"		"special_bonus_imba_marci_t2"
+		"Ability12"		"special_bonus_imba_marci_t3"
+		"Ability13"		"special_bonus_imba_marci_t4"
+		"Ability14"		"special_bonus_imba_marci_t5"
+		"Ability15"		"special_bonus_imba_marci_t6"
+		"Ability16"		"special_bonus_imba_marci_t7"
+		"Ability17"		"special_bonus_imba_marci_t8"
+	}
 }

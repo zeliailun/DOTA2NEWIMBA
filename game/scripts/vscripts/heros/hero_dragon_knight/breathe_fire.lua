@@ -33,7 +33,7 @@ function breathe_fire:OnSpellStart()
         local Projectile =
         {
         Ability = self,
-        EffectName = fx,
+        EffectName = "particles/tg_loong_m.vpcf",
         vSpawnOrigin = caster_pos,
         fDistance = range,
         fStartRadius = start_radius,

@@ -85,7 +85,7 @@ function modifier_player:DeclareFunctions()
     {
         MODIFIER_EVENT_ON_ABILITY_EXECUTED,
         MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_EVENT_ON_HERO_KILLED,
+        MODIFIER_EVENT_ON_DEATH,
     }
 end
 
@@ -120,26 +120,26 @@ function modifier_player:OnAbilityExecuted(tg)
     end
  end
 
- function modifier_player:OnHeroKilled(tg)
+ function modifier_player:OnDeath(tg)
     if IsServer() then
          if tg.attacker==self.parent and tg.unit:IsRealHero() and not self.parent:IsIllusion() then
             local level1=self.parent:GetLevel()
             local level2=tg.unit:GetLevel()
             if level and level2 and level2>level1 then
                     local lv=level2-level
-                    self.parent:AddExperience(lv*750, DOTA_ModifyXP_Unspecified, false, false)
-                    PlayerResource:ModifyGold(self.id,lv*300 ,false,DOTA_ModifyGold_Unspecified)
+                    self.parent:AddExperience(lv*700, DOTA_ModifyXP_Unspecified, false, false)
+                    PlayerResource:ModifyGold(self.id,lv*200 ,false,DOTA_ModifyGold_Unspecified)
             end
          end
          if tg.unit==self.parent and not self.parent:IsIllusion() and tg.attacker:IsRealHero() then
             		if tg.unit:GetLevel()<tg.attacker:GetLevel() then
-                            PlayerResource:ModifyGold(self.parent,RandomInt(400,1000), false, DOTA_ModifyGold_Unspecified)
-                            tg.unit:AddExperience(RandomInt(400,1000), DOTA_ModifyXP_Unspecified, false, false)
+                            PlayerResource:ModifyGold(self.id,RandomInt(200,600), false, DOTA_ModifyGold_Unspecified)
+                            tg.unit:AddExperience(RandomInt(300,700), DOTA_ModifyXP_Unspecified, false, false)
 					end
                     if PlayerResource:GetConnectionState(self.id) == DOTA_CONNECTION_STATE_ABANDONED then
-                        self.parent:SetMinimumGoldBounty(0)
-                        self.parent:SetMaximumGoldBounty(0)
-                        self.parent:SetCustomDeathXP(0)
+                            self.parent:SetMinimumGoldBounty(0)
+                            self.parent:SetMaximumGoldBounty(0)
+                            self.parent:SetCustomDeathXP(0)
                     end
         end
     end

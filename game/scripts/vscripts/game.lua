@@ -45,7 +45,7 @@ GAME_LOSE_TEAM=nil
 GAME_WIN_TEAM=nil
 
 --出生延迟
-SPAWN_TIME=3
+SPAWN_TIME=5
 
 --大决战
 PVP=false
@@ -70,9 +70,9 @@ KILLSNUM=GetMapName() =="6v6v6" and 200 or 304
 --老将眼奖励
 Veteran_WARD = 1000
 
-Hero_KEG=200
+Hero_KEG=160
 
-Threshold_KEG=750
+Threshold_KEG=700
 
 Perc_KEG=0.05
 
@@ -293,11 +293,11 @@ Female_HERO=
 --随机技能1号表
 RandomAbility=
 {
-  "multishot","chilling_touch","axe_sprint","berserkers_call","counter_helix","double_edge","surge","dragon_blood","dragon_tail","searing_chains",
+  "multishot","chilling_touch","axe_sprint","berserkers_call","counter_helix","double_edge","dragon_blood","dragon_tail","searing_chains",
   "rocket_barrage","blade_dance","torrent","howl","mystic_snake","crippling_fear","essence_aura","purification","fortunes_end","shackleshot",
   "powershot","poison_nova","storm_bolt","slug","hellfire_blast","shock","caustic_finale","icarus_dive","phantom_strike","malefice","stifling_dagger",
   "epicenter","refraction","wave_of_silence","corrosive_skin","nethertoxin","plague_ward","venomous_gale","warcry","sniper_roll","burrowstrike",
-  "imba_rattletrap_battery_assault","guardian_angel","sanity_eclipse","boundless_strike","shapeshift","healing_ward","sprout","midnight_pulse","seriously_punch",
+  "imba_rattletrap_battery_assault","guardian_angel","sanity_eclipse","boundless_strike","shapeshift","healing_ward","midnight_pulse","seriously_punch",
   "ion_shell","culling_blade","ice_vortex","ice_blast","imba_storm_spirit_electric_vortex","imba_storm_spirit_ball_lightning","grenade","echo_stomp",
   "guided_missile","imba_bounty_hunter_shuriken_toss","imba_chaos_knight_chaos_bolt","imba_chaos_knight_chaos_strike","imba_lina_dragon_slave","imba_lina_light_strike_array",
   "imba_razor_plasma_field","oldsky_aseal","imba_leshrac_pulse_nova","aghsfort_mars_spear","imba_mirana_arrow","imba_mirana_leap","hoof_stomp","breathe_fire",
@@ -309,7 +309,7 @@ RandomAbility=
   "imba_tiny_grow","imba_tiny_avalanche","imba_treant_natures_grasp","imba_light_radiant_bind","imba_light_blinding_light","imba_luna_lucent_beam",
   "imba_luna_lunar_blessing", "imba_spectre_desolate","imba_phantom_lancer_spirit_lance","prot","flesh_heap","dismember","mountain","shockwave",
   "imba_phantom_lancer_doppelwalk","imba_phantom_lancer_phantom_edge","imba_bristleback_viscous_nasal_goo","imba_bristleback_quill_spray","empower",
-  "unstable_concoction_throw","winters_curse","splinter_blast","arctic_burn",
+  "unstable_concoction_throw","winters_curse","splinter_blast",
   "pangolier_swashbuckle","tidehunter_anchor_smash","rattletrap_hookshot", "earthshaker_aftershock","warlock_rain_of_chaos","pudge_meat_hook","queenofpain_blink",
   "shadow_shaman_voodoo",  "faceless_void_time_walk","dark_troll_warlord_ensnare","polar_furbolg_ursa_warrior_thunder_clap","centaur_khan_war_stomp","roshan_spell_block",
   "roshan_slam","hoodwink_scurry","filler_ability","necronomicon_archer_aoe","satyr_hellcaller_shockwave","victory","fiery_soul","laguna_blade","supernova",
@@ -355,7 +355,7 @@ RandomAbility2=
       "c_return",
       "untouchable",
       "rip_tide",
-      "psi_blades",
+     -- "psi_blades",
       "counter_helix",
       "natural_order_spirit",
       "impetus",

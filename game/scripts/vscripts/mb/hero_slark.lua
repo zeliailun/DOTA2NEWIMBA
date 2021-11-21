@@ -531,13 +531,19 @@ end
 -- Modifier Effects
 function modifier_imba_slark_pounce:DeclareFunctions()
 	local funcs = {
+		MODIFIER_PROPERTY_OVERRIDE_ANIMATION,
+		MODIFIER_PROPERTY_OVERRIDE_ANIMATION_WEIGHT,
 		MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS,
 		MODIFIER_EVENT_ON_ORDER,
 	}
 
 	return funcs
 end
+
+function modifier_imba_slark_pounce:GetOverrideAnimation() return ACT_DOTA_SLARK_POUNCE end
+function modifier_imba_slark_pounce:GetOverrideAnimationWeight() return 3 end 
 function modifier_imba_slark_pounce:GetActivityTranslationModifiers() return "latch" end
+
 function modifier_imba_slark_pounce:OnOrder(keys)
 	if keys.unit == self:GetParent() and self.freecontroll == true then
 		if self.freecontroll_commands[keys.order_type] then

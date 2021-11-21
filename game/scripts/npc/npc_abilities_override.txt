@@ -10954,7 +10954,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"40"
+		"AbilityCooldown"				"100"
 		"AbilityCastRange"				"800"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -13606,11 +13606,11 @@
 		//"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"		// heroes for whom this is a problem solve it in their code - ogre magi, meepo
 
 		
-		"ItemPermanent"					"0"
-		"ItemStockTime"					"1"			  
-		"ItemStockInitial"				"1"
-		"ItemStockMax"					"1"
-		"ItemInitialStockTime"			"1.0"
+		"ItemPermanent"				"0"
+		"ItemStockTime"				"1"			  
+		"ItemStockInitial"				"0"
+		"ItemStockMax"				"20"
+		"ItemInitialStockTime"			"300"
 	}
 
 

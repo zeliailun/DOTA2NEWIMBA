@@ -21,6 +21,7 @@ require('towers/building')
 require('players/player')
 require('tools/keyvalues')
 require('tools/animations')
+require('bots/bot_config')
 function Precache( context )
 	GameRules.L_TG = L_TG()
 
@@ -64,12 +65,22 @@ end
 
 --初始游戏设置
 function L_TG:InitGameMode()
+	local map=GetMapName()
 	mode = GameRules:GetGameModeEntity()
 
-	--GameRules:SetIgnoreLobbyTeamsInCustomGame(true)
+	if map =="dotaai" then
+		--设置是否可以选择相同的英雄。
+		GameRules:SetSameHeroSelectionEnabled(true)
+		mode:SetBotsAlwaysPushWithHuman(true)
+		mode:SetBotThinkingEnabled(true)
+		mode:SetBotsInLateGame(true)
+		bot_config:Start()
+	end
 
+	if map =="dota" then
 	--每个队伍最大BAN人数量
-	GameRules:SetCustomGameBansPerTeam(6)
+		GameRules:SetCustomGameBansPerTeam(6)
+	end
 
 	--为自定义游戏设置启用（true）或禁用（false）自动启动。
 	GameRules:EnableCustomGameSetupAutoLaunch(true)
@@ -113,11 +124,9 @@ function L_TG:InitGameMode()
 	--设置符文生成之间的时间间隔。
 	GameRules:SetRuneSpawnTime(120)
 
-	--设置是否可以选择相同的英雄。
-	GameRules:SetSameHeroSelectionEnabled(false)
 
 	--设置玩家在策略阶段和进入赛前阶段之间的时间。
-	GameRules:SetShowcaseTime(4)
+	GameRules:SetShowcaseTime(5)
 
 	--设置玩家在选择英雄和进入展示阶段之间的时间。
 	GameRules:SetStrategyTime(0)
@@ -252,9 +261,6 @@ function L_TG:InitGameMode()
 	--为背包中的物品设置交换冷却时间。
 	mode:SetCustomBackpackSwapCooldown(2)
 
-	--mode:SetBotsAlwaysPushWithHuman(true)
-	--mode:SetBotThinkingEnabled(true)
-	--mode:SetBotsInLateGame(true)
 
 
 		--地图抉择

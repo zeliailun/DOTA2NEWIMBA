@@ -11,7 +11,7 @@
 	"tip2"                 				"○The game can be slow to load"
 	"tip3"                 				"○Click the profile picture in the team information panel  to \n enter the profile interface"
 	"tip4"                 				"○Unable to start the game, possibly because there is no update"
-	"tip5"                 				"○Version：NEW-IMBA 2021.2.4G"
+	"tip5"                 				"○Version：NEW-IMBA 2021.2.4H"
 	"tip6"                 				"○Thanks for playing！"
 	"tip7"                 				"✰XXXXXXXXXXXXXX！"
 	"die"					"-重生时间恶化，现在每次死亡都会增加复活时间-"
@@ -217,15 +217,15 @@
 
 	//==\\ 攻击光环
 	"DOTA_Tooltip_ability_tower1_att"                 				"Dire Power"
-	"DOTA_Tooltip_ability_tower1_att_description"                 	"Increase %att% damage and %attsp% attack speed of friendly heroes within %rd% radius"
+	"DOTA_Tooltip_ability_tower1_att_description"                 	"Reduce %att% damage and %attsp% MagicalResistance of enemy heroes within %rd% radius"
 	"DOTA_Tooltip_ability_tower1_att_Lore"                 		"地是空虚混沌、渊面黑暗，神的灵运行在水面上。"
 	"DOTA_Tooltip_modifier_tower1_att"			"攻击光环"
 	"DOTA_Tooltip_modifier_tower1_att_arua"			"攻击光环"
-	"DOTA_Tooltip_modifier_tower1_att_arua_description"	"Gain damage and attack speed"
+	"DOTA_Tooltip_modifier_tower1_att_arua_description"	"Reduce damage and MagicalResistance"
 
 	//==\\ 防御光环
 	"DOTA_Tooltip_ability_tower1_def"                 				"Radiant blessing"
-	"DOTA_Tooltip_ability_tower1_def_description"                 	"Increases %ar% armor and %mr%% magic resistance of friendly heroes within %rd% radius"
+	"DOTA_Tooltip_ability_tower1_def_description"                 	"Increases %ar% armor and %mr%% magic resistance of friendly heroes within %rd% radius ,Increase (500-current level*10) HP bonus"
 	"DOTA_Tooltip_ability_tower1_def_Lore"                 			"神说、要有光、就有了光。"
 	"DOTA_Tooltip_modifier_tower1_def"					"防御光环"
 	"DOTA_Tooltip_modifier_tower1_def_arua"				"防御光环"
@@ -510,7 +510,7 @@
 
 	//--金箍棒v2
 	"DOTA_Tooltip_ability_item_monkey_king_bar_v2"									"<font color='#CDCD00'>mkb</font>"
-	"DOTA_Tooltip_ability_item_monkey_king_bar_v2_description"								"<h1><font color='#FFFF00'>Passive：穿刺LV.2</font></h1>Grants each attack a %ch%%% chance to pierce through evasion and deal %dam% bonus pure damage.\n<h1><font color='#FFFF00'>Passive：定海神针</font></h1>Each attack will reduce the target %sp%% movement speed for %dur% seconds. When it is stacked to the %stack% layer, it will be cleared and recalculated, and the next attack will attack all targets in the line ( Does not trigger attack effects) \n ● The linear attack effect is only effective in melee combat"
+	"DOTA_Tooltip_ability_item_monkey_king_bar_v2_description"								"<h1><font color='#FFFF00'>Passive：穿刺LV.2</font></h1>Grants each attack a %ch%%% chance to pierce through evasion and deal （ %dam% +Current Level*4） magic damage.\n<h1><font color='#FFFF00'>Passive：定海神针</font></h1>Each attack will reduce the target %sp%% movement speed for %dur% seconds. When it is stacked to the %stack% layer, it will be cleared and recalculated, and the next attack will attack all targets in the line ( Does not trigger attack effects) \n ● The linear attack effect is only effective in melee combat"
 	"DOTA_Tooltip_ability_item_monkey_king_bar_v2_att"								"+$damage"
 	"DOTA_Tooltip_ability_item_monkey_king_bar_v2_attsp"								"+$attack"
 	"DOTA_Tooltip_ability_item_monkey_king_bar_v2_rg"									"length:"
@@ -8141,6 +8141,122 @@
 		//////////////////////////////////////////////////////////////////////////////////////
 
 
+//////////////////////////////////////////////////////////////////////////////////////
+//// Ranger
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_fire_cover"										"火力掩护"
+"DOTA_Tooltip_ability_ranger_fire_cover_Description"							"召唤射手小队对指定目标区域降下弹雨。区域内的敌军受到伤害
+"DOTA_Tooltip_ability_ranger_fire_cover_Lore"									"卡德尔准备冲锋时会召唤射手小队进行支援和掩护。"
+"DOTA_Tooltip_ability_ranger_fire_cover_Note0"									"不能阻止使用物品。"
+"DOTA_Tooltip_ability_ranger_fire_cover_Note1"									"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
+"DOTA_Tooltip_ability_ranger_fire_cover_slow_movement_speed"					"%移动速度减缓："
+"DOTA_Tooltip_ability_ranger_fire_cover_radius"									"作用范围："
+"DOTA_Tooltip_ability_ranger_fire_cover_duration"								"持续时间："
+"DOTA_Tooltip_ability_ranger_fire_cover_fire_damage"							"伤害："
+		
+"DOTA_Tooltip_modifier_ranger_fire_cover"								"火力压制"
+"DOTA_Tooltip_modifier_ranger_fire_cover_Description"					"受到持续伤害和减速."
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_sliding_shooting"										"滑铲射击"
+"DOTA_Tooltip_ability_ranger_sliding_shooting_Description"							"游侠向前方滑铲移动一段距离.攻击沿途的敌人一次.\n<h1><
+"DOTA_Tooltip_ability_ranger_sliding_shooting_Lore"									"童年时对潜行兽的闪避练习现在被练就成攻防一体的技术。"
+"DOTA_Tooltip_ability_ranger_sliding_shooting_Note0"								"滑铲过程可以穿越单位并且有无敌帧."
+"DOTA_Tooltip_ability_ranger_sliding_shooting_Note1"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
+"DOTA_Tooltip_ability_ranger_sliding_shooting_slow_movement_speed"					"%移动速度减缓："
+"DOTA_Tooltip_ability_ranger_sliding_shooting_radius"									"冲刺距离："
+		
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_switch_weapon"										"武器切换"
+"DOTA_Tooltip_ability_ranger_switch_weapon_Description"							"游侠可以在卡宾枪和冲锋枪之间来回切换.\n<h1><font color='#
+"DOTA_Tooltip_ability_ranger_switch_weapon_Lore"								"卡德尔精通各种枪械使用。"
+"DOTA_Tooltip_ability_ranger_switch_weapon_Note0"								"切换有冷却限制."
+"DOTA_Tooltip_ability_ranger_switch_weapon_Note1"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
+"DOTA_Tooltip_ability_ranger_switch_weapon_bonus_attack_range"					"卡宾枪攻击距离提升："
+"DOTA_Tooltip_ability_ranger_switch_weapon_proc_chance"							"%触发几率："
+"DOTA_Tooltip_ability_ranger_switch_weapon_proc_aoe_damage"						"榴弹伤害："
+"DOTA_Tooltip_ability_ranger_switch_weapon_aoe_radius"							"榴弹范围："
+"DOTA_Tooltip_ability_ranger_switch_weapon_bonus_attack_time"					"冲锋枪攻击间隔："
+"DOTA_Tooltip_ability_ranger_switch_weapon_proc_damage"							"冲锋枪额外伤害："
+"DOTA_Tooltip_ability_ranger_switch_weapon_damage_reduction"					"%冲锋枪攻击减少："
+"DOTA_Tooltip_ability_ranger_switch_weapon_attack_range_limit"					"冲锋枪攻击距离："
+		
+"DOTA_Tooltip_modifier_ranger_take_aim"								"卡冰枪"
+"DOTA_Tooltip_modifier_ranger_take_aim_Description"					"提高射程和几率发射榴弹."
+"DOTA_Tooltip_modifier_ranger_take_aim_near"								"冲锋枪"
+"DOTA_Tooltip_modifier_ranger_take_aim_near_Description"					"牺牲射程伤害提升移速和攻击间隔."
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_electric_grenade"										"感电手雷"
+"DOTA_Tooltip_ability_ranger_electric_grenade_Description"							"游侠可以使用感电手雷.造成%grenade_damage%点魔法伤害.\
+"DOTA_Tooltip_ability_ranger_electric_grenade_Note0"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
+"DOTA_Tooltip_ability_ranger_electric_grenade_grenade_radius"						"感电范围："
+		
+"DOTA_Tooltip_modifier_ranger_electric_grenade_debuff"								"感电"
+"DOTA_Tooltip_modifier_ranger_electric_grenade_debuff_Description"					"被攻击几率受到电击伤害."
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_shooter_star"										"射手明星"
+"DOTA_Tooltip_ability_ranger_shooter_star_Description"							"游侠召唤射手小队随同一起攻击.\n<h1><font color='#FFFF00'>
+"DOTA_Tooltip_ability_ranger_shooter_star_Note0"								"召唤的射手超过游侠800码的时候会自动移动到游侠身边."
+"DOTA_Tooltip_ability_ranger_shooter_star_Note1"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
+"DOTA_Tooltip_ability_ranger_shooter_star_duration"								"持续时间："
+		
+"DOTA_Tooltip_modifier_ranger_shooter_star_controller"							"射手明星"
+"DOTA_Tooltip_modifier_ranger_shooter_star_controller_Description"				"摇一面包车人下来干架."
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_dr_marksmanship"								"射手天赋"
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_Description"					"卓尔游侠的战斗经验使她有概率发出极其精确高效的箭矢。箭矢将穿
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_Note0"							"<font color='#FFFF00'> ● 作者:神秘玩家</font>"
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_Lore"							"卓尔游侠是弓箭手登峰造极的典型。"
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_attack_bonus"					"攻击加成："
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_movement_speed_bonus"			"%移动速度加成："
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_range_bonus"					"射程加成："
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_pure_chance"					"%高效箭矢几率："
+"DOTA_Tooltip_ability_ranger_dr_marksmanship_pure_pct"						"高效箭矢伤害："
+		
+"DOTA_Tooltip_modifier_ranger_dr_trueshot_damage_stack"				"射手天赋"
+"DOTA_Tooltip_modifier_ranger_dr_trueshot_damage_stack_Description"	"由于卓尔游侠的教导而获得额外攻击力。"	
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_wr_focusfire"			"集中火力"
+"DOTA_Tooltip_ability_ranger_wr_focusfire_description"		"获得攻击速度加成。\n<h1><font color='#FFFF00'>被动：箭雨</font></h1>每次攻击
+"DOTA_Tooltip_ability_ranger_wr_focusfire_Lore"			"命中！"
+"DOTA_Tooltip_ability_ranger_wr_focusfire_Note0"			"1.额外箭矢飞行距离为1000，速度为5000，造成的伤害无视魔法免疫。"
+"DOTA_Tooltip_ability_ranger_wr_focusfire_dam"			"箭矢伤害:"
+"DOTA_Tooltip_ability_ranger_wr_focusfire_attsp"			"攻速加成:"
+"DOTA_Tooltip_ability_ranger_wr_focusfire_wh"			"箭矢宽度:"
+"DOTA_Tooltip_modifier_ranger_wr_focusfire_att"			"集中火力"
+"DOTA_Tooltip_modifier_ranger_wr_focusfire_attsp"			"攻速加成"
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses"					"蜥蜴绝吻"
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_Description"		"电炎绝手的伙伴在%duration_tooltip%秒内喷吐出密集的火团。火团造成
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_Note0"			"1.可以通过停止、停在原位或使用其他技能来终止。\n2.最短飞行时间为%
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_Lore"				"碧婆婆收养小莫迪时她一无所知，龙蜥——根本都不是蜥蜴——和他们遥远的
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_damage_per_impact"	"火团伤害："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_projectile_count"	"火团数量："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_impact_radius"		"撞击范围："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_burn_damage"		"每秒烧灼："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_move_slow_pct"		"%敌方移动速度减缓："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_burn_ground_duration"	"火痰持续时间："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_bonus_attack_speed"	"攻速提升："
+"DOTA_Tooltip_ability_ranger_snapfire_mortimer_kisses_Note0"			"<font color='#FFFF00'> ● 作者:神秘玩家</font>"
+"DOTA_Tooltip_modifier_ranger_snapfire_mortimer_kisses"						"蜥蜴绝吻"
+"DOTA_Tooltip_modifier_ranger_snapfire_mortimer_kisses_description"						"每次释放一团浓缩着爱意的浓痰。"
+"DOTA_Tooltip_modifier_ranger_snapfire_mortimer_kisses_debuff"				"蜥蜴绝吻"
+"DOTA_Tooltip_modifier_ranger_snapfire_mortimer_kisses_debuff_description"	"这个单位被减速，并持续受到伤害。"
+//////////////////////////////////////////////////////////////////////////////////////
+"DOTA_Tooltip_ability_ranger_sniper_assassinate"										"暗杀"
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_Description"							"狙击手锁定一个目标敌方单位，经过短时间瞄准后从远
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_scepter_description"					"暗杀释放得更快，并眩晕敌方目标。"
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_Lore"									"为了完成预言然后返回家乡，卡德尔必须和参加古老考
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_Note0"									"准星效果只对队友可见。"
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_Note1"									"隐身不能躲避该技能弹道。"
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_Note2"									"能够打断持续施法技能，打断效果无视技能免疫。"
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_damage"									"伤害："
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_abilitycastrange"						"施法距离："
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_abilitycastpoint"						"瞄准持续时间："
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_scepter_stun_duration"						"神杖升级眩晕时间："
+"DOTA_Tooltip_ability_ranger_sniper_assassinate_scepter_cast_point"						"神杖升级瞄准持续时间："
+"DOTA_Tooltip_modifier_ranger_sniper_assassinate_stack"						"职业游侠"
+"DOTA_Tooltip_modifier_ranger_sniper_assassinate_stack_description"			"提升暗杀的%dMODIFIER_PROPERTY_TOOLTIP%点伤害."
+
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		//// Monster Killer
@@ -9778,7 +9894,68 @@
 		//=================================================================================================================
 		// 艇的英雄 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 		//=================================================================================================================
+//////////////////////////////////////////////////////////////////////////////////////
+		//// MARCI 	玛西
+		//////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t1"	"+{s:value} 鹰击作用范围"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t2"	"+{s:value} 猛虎内劲破期间攻速"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t3"	"+{s:value} 翱翔每层高度增加"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t4"	"龙拳使用时闪避一次弹道"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t5"	"+{s:value} 鹰击跳跃持续时间"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6"	"大鹏坠击"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6_description"	"大鹏坠击拳额外对被抓取的目标造成100%高度的伤害"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t7"	"翱翔时获得{s:value}码高空视野"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t8"	"-{s:value} 龙虎斗刷新延迟"
 
+		//////////////////////////////////////////////////////////////////////////////////////
+		"DOTA_Tooltip_ability_imba_marci_2"	"鹰击"
+		"DOTA_Tooltip_ability_imba_marci_2_description"	"向目标点跳去，落地时如果附近%radisu_down%码内有敌人或者树木则会对其造成%damage% 伤害，随后会跳跃一次并且刷新该技能cd，任何时候从跳跃状态落地该技能都会进入cd。\n<h1><font color='#EE2C2C'>1.翱翔</font></h1>每次跳跃都会增加下次跳跃的高度和%jump_movespeed%% 移动速度，持续%duration% 秒，最多增加%jump_max% 次。\n<h1><font color='#EE2C2C'>2.魔晶</font></h1>当开启自动施法时，以英雄为目标的二次释放会抓取目标英雄，持续到你下次落地。\n" 
+		"DOTA_Tooltip_ability_imba_marci_2_Lore"	"(鹰声)！！"
+		"DOTA_Tooltip_ability_imba_marci_2_damage"	"鹰击伤害："
+		"DOTA_Tooltip_ability_imba_marci_2_jump_duration"	"跳跃时间："
+		"DOTA_Tooltip_ability_imba_marci_2_height"	"翱翔增加飞行高度："
+		"DOTA_Tooltip_ability_imba_marci_2_radius"	"作用范围："
+
+		"DOTA_Tooltip_modifier_imba_marci_2_jump"	"跳跃"
+		"DOTA_Tooltip_modifier_imba_marci_2_buff"	"翱翔"
+		
+
+
+
+		"DOTA_Tooltip_ability_imba_marci_3"	"大鹏坠击拳"
+		"DOTA_Tooltip_ability_imba_marci_3_description"	"向目标点跃去,重重的锤击目标地面，将目标点附近的单位造成%base_stun%秒眩晕。\n<h1><font color='#EE2C2C'>1.坠击</font></h1>根据释放时自身高度给予额外的伤害和眩晕。\n"
+		"DOTA_Tooltip_ability_imba_marci_3_damage"	"基础伤害："
+		"DOTA_Tooltip_ability_imba_marci_3_radius"	"作用范围："		
+		"DOTA_Tooltip_ability_imba_marci_3_stun"	"基础眩晕持续时间："
+		"DOTA_Tooltip_ability_imba_marci_3_Lore"	"yingyingying！！！"
+
+
+		"DOTA_Tooltip_ability_imba_marci_1_description"	"玛西向前方进行一次短距离突击，攻击路径上的所有敌人一次。\n<h1><font color='#EE2C2C'>1.飞龙</font></h1>处于鹰击的二段跳跃时，突进距离变为两倍。\n"
+		"DOTA_Tooltip_ability_imba_marci_1"	"龙拳"
+		"DOTA_Tooltip_ability_imba_marci_1_distance"	"突进距离："
+		"DOTA_Tooltip_ability_imba_marci_1_width"	"作用宽度："
+		"DOTA_Tooltip_ability_imba_marci_1_damage"	"突进时额外的攻击力加成："
+		
+		"DOTA_Tooltip_ability_imba_marci_1_Lore"	"芜湖(龙的叫声)！！"
+		
+		
+		"DOTA_Tooltip_ability_imba_marci_4"	"玛西"
+		"DOTA_Tooltip_ability_imba_marci_4_description"	"咻咻~咻咻咻~~~,咻咻。\n"
+		
+		
+		"DOTA_Tooltip_ability_imba_marci_5"	"猛虎内劲破"
+		"DOTA_Tooltip_ability_imba_marci_5_description"	"释放猛虎的气息暂时提高自身的攻击速度，同时攻击时有概率暴击,持续%duration%秒。\n<h1><font color='#EE2C2C'>1.龙虎斗</font></h1>任何时候造成暴击伤害时都会恢复自身%heal%% 的血量，如果在猛虎内劲破持续期间还会在%re_du%秒延迟后刷新龙拳的冷却时间。\n<h1><font color='#EE2C2C'>2.a杖</font></h1>大招buff期间造成暴击时，会额外释放一道脉冲攻击目标附近的敌人，伤害量为暴击伤害的%aoe_damage%%。\n"
+		"DOTA_Tooltip_ability_imba_marci_5_asp"		"攻击速度增加："
+		"DOTA_Tooltip_ability_imba_marci_5_chance"	"%暴击概率："
+		"DOTA_Tooltip_ability_imba_marci_5_crit"	"%暴击伤害："
+		"DOTA_Tooltip_modifier_imba_marci_5"	"猛虎内劲破"
+		"DOTA_Tooltip_modifier_imba_marci_5_description"	"嗷嗷嗷"
+		"DOTA_Tooltip_modifier_imba_marci_5_re"		"ola"
+		
+		"DOTA_Tooltip_ability_imba_marci_5_Lore"	"嗷嗷嗷"
+
+		//////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////伏击者///////////////////////////////////////////////////

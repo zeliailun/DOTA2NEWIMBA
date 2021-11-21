@@ -46,7 +46,7 @@ function modifier_item_bkbs_pa:DeclareFunctions()
 end
 
 function modifier_item_bkbs_pa:GetModifierHealthBonus()
-    return self.hp
+    return health
 end
 
 function modifier_item_bkbs_pa:GetModifierManaBonus()

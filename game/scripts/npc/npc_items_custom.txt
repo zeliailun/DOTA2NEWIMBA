@@ -1683,7 +1683,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"dam"				"110"
+				"dam"				"50"
 			}
 			"05"
 			{
@@ -7886,7 +7886,7 @@
 			"12"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"mjollnir_cooldown"	"0.1"
+				"mjollnir_cooldown"	"0.2"
 			}
 		}
 	}

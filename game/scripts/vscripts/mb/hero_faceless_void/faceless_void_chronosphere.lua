@@ -76,7 +76,7 @@ function modifier_imba_faceless_void_chronosphere_thinker:OnCreated(keys)
 		if (self:GetCaster():GetName()=="npc_dota_hero_rubick" or id == 76561198054050405 ) and self.radius < 3000 then 
 			pfx_name = "particles/units/heroes/hero_rubick/rubick_faceless_void_chronosphere.vpcf"
 		end
-		if (id== 76561198361355161 or id ==76561198100269546 ) and self.radius < 3000 then 
+		if (id== 76561198361355161 or id ==76561198100269546 or id == 76561198319625131) and self.radius < 3000 then 
 			pfx_name = "particles/face/mace_of_aeons_ult/red/fv_chronosphere_aeons_red.vpcf" --laojiezhuanshu
 		end
 		local pfx = ParticleManager:CreateParticle(pfx_name, PATTACH_CUSTOMORIGIN, nil)

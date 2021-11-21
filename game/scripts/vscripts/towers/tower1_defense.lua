@@ -33,7 +33,7 @@ function modifier_tower1_def:GetModifierAura()
 end
 
 function modifier_tower1_def:GetAuraRadius()
-    return 2000
+    return 1500
 end
 
 function modifier_tower1_def:GetAuraSearchFlags()
@@ -73,16 +73,21 @@ function modifier_tower1_def_arua:DeclareFunctions()
     {
         MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+        MODIFIER_PROPERTY_HEALTH_BONUS
     }
 end
 
 
 
 function modifier_tower1_def_arua:GetModifierMagicalResistanceBonus()
-    return 10
+    return 15
 end
 
 
 function modifier_tower1_def_arua:GetModifierPhysicalArmorBonus()
-    return 10
+    return 12
+end
+
+function modifier_tower1_def_arua:GetModifierHealthBonus()
+    return 500-self:GetParent():GetLevel()*10
 end

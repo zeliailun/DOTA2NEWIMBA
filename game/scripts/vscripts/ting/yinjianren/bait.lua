@@ -110,9 +110,11 @@ function bait_buff:OnCreated(keys)
 							ability = self.ability, --Optional.
 							}
 		self:GetParent():SetModelScale(3.0)
-		local enemies = FindUnitsInRadius(self.caster:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
+		local enemies = FindUnitsInRadius(self.caster:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 		for _, enemy in pairs(enemies) do
-			enemy:AddNewModifier_RS(self.parent, self.ability, "modifier_huskar_life_break_taunt", {duration = self.taunt_time})
+			if not enemy:IsMagicImmune() then
+				enemy:AddNewModifier_RS(self.parent, self.ability, "modifier_huskar_life_break_taunt", {duration = self.taunt_time})
+			end
 		end
 
 	end

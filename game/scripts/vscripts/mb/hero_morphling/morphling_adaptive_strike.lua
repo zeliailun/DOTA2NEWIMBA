@@ -146,7 +146,7 @@ function imba_morphling_adaptive_strike:OnProjectileHit_ExtraData(target, pos, k
 	local compare_bouns = self:GetSpecialValueFor("compare_bouns")
 	--结算
 	local gt = math.floor((caster_agi - caster_str)/caster_str * 100)
-	--damage 简单的初中知识
+	--damage
 	local damage_interval = AdaptiveStrikeQuadraticModel(damage_min,damage_max,-compare_bouns,compare_bouns,gt)
 	local stun_final = AdaptiveStrikeQuadraticModel(stun_max,stun_min,-compare_bouns,compare_bouns,gt)
 	local knockback_final = AdaptiveStrikeQuadraticModel(knockback_max,knockback_min,-compare_bouns,compare_bouns,gt)
@@ -187,16 +187,19 @@ function imba_morphling_adaptive_strike:OnProjectileHit_ExtraData(target, pos, k
 		center_x = caster_pos.x ,
 		center_y = caster_pos.y ,
 		center_z = caster_pos.z ,
-		duration = stun_final,
+		duration = TG_StatusResistance_GET(target,stun_final),
 		knockback_duration = 0.5,
 		knockback_distance = math.ceil(knockback_final),
 		knockback_height = 50
 	}
-	target:AddNewModifier( caster, self, "modifier_knockback", knockback_table )
+	local final_modifier = target:AddNewModifier( caster, self, "modifier_knockback", knockback_table )
+
 	--眩晕
 	--target:AddNewModifier_RS(caster, self, "modifier_stunned", {duration = stun_final})
 	--减攻速
-	target:AddNewModifier_RS(caster, self, "modifier_imba_morphling_adaptive_strike_debuff", {duration = self:GetSpecialValueFor("debuff_duration")})
+	local debuff_modifier = target:AddNewModifier_RS(caster, self, "modifier_imba_morphling_adaptive_strike_debuff", {duration = self:GetSpecialValueFor("debuff_duration")})
+
+	print("final_modifier debuff_modifier",final_modifier:GetDuration(),debuff_modifier:GetDuration())	
 	------------------------------------------------------------------------------------------------------------------------------------------ 
 	--击中特效
 	--------------------------------------------------------------------------------------------------

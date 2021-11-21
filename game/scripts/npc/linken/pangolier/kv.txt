@@ -85,7 +85,7 @@
 			"10"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"charged_int"	"20"
+				"charged_int"	"15"
 				"LinkedSpecialBonus"	"special_bonus_imba_pangolier_7"
 			}			
 		}
@@ -458,7 +458,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"180 260 340"
+				"damage"	"100 150 200"
 			}
 
 			"06"

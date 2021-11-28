@@ -138,6 +138,8 @@
 	//=================================================================================================================
 	// 通用修饰符
 	//=================================================================================================================
+	"DOTA_Tooltip_modifier_dfinv"	"protect"
+	"DOTA_Tooltip_modifier_dfinv_description"	"Gain 100%% damage reduction"
 
 	"DOTA_Tooltip_modifier_confuse"							"confuse"
 	"DOTA_Tooltip_modifier_confuse_description"						"Interrupt the player's command"
@@ -864,6 +866,10 @@
 		"DOTA_Tooltip_ability_item_gift"					"gift"
 		"DOTA_Tooltip_ability_item_gift_Description"			"Randomly obtain items"
 		"DOTA_Tooltip_ability_item_gift_Lore"				"确实"
+
+		"DOTA_Tooltip_ability_item_rd_book"					"Random Skill Book"
+		"DOTA_Tooltip_ability_item_rd_book_Description"				"Replace the current random skill"
+		"DOTA_Tooltip_ability_item_rd_book_Lore"				"买定离手"
 	//=================================================================================================================
 	//=================================================================================================================
 	//=================================================================================================================

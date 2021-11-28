@@ -145,6 +145,9 @@
 	// 通用修饰符
 	//=================================================================================================================
 
+	"DOTA_Tooltip_modifier_dfinv"	"泉水保护"
+	"DOTA_Tooltip_modifier_dfinv_description"	"获得100%% 减伤"
+
 	"DOTA_Tooltip_modifier_confuse"							"混乱"
 	"DOTA_Tooltip_modifier_confuse_description"						"打断玩家的操作指令"
 
@@ -870,6 +873,10 @@
 		"DOTA_Tooltip_ability_item_gift"					"爱的礼物"
 		"DOTA_Tooltip_ability_item_gift_Description"			"随机获得一个小fv物品，不想要也可以卖了！"
 		"DOTA_Tooltip_ability_item_gift_Lore"				"确实"
+
+		"DOTA_Tooltip_ability_item_rd_book"					"随机技能书"
+		"DOTA_Tooltip_ability_item_rd_book_Description"				"主动使用替换掉当前的随机技能"
+		"DOTA_Tooltip_ability_item_rd_book_Lore"				"买定离手"
 	//=================================================================================================================
 	//=================================================================================================================
 	//=================================================================================================================

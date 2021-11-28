@@ -1,32 +1,30 @@
 
 modifier_talent_attackrange=class({})
-
-function modifier_talent_attackrange:IsHidden() 			
-	return true 
+function modifier_talent_attackrange:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+function modifier_talent_attackrange:IsHidden()
+	return true
 end
 
-function modifier_talent_attackrange:IsPurgable() 		
-	return false 
+function modifier_talent_attackrange:IsPurgable()
+	return false
 end
 
-function modifier_talent_attackrange:IsPurgeException() 	
-	return false 
+function modifier_talent_attackrange:IsPurgeException()
+	return false
 end
 
-function modifier_talent_attackrange:RemoveOnDeath() 	
-	return false 
+function modifier_talent_attackrange:RemoveOnDeath()
+	return false
 end
 
-function modifier_talent_attackrange:GetAttributes() 
-	return MODIFIER_ATTRIBUTE_MULTIPLE 
-end
-
-function modifier_talent_attackrange:IsPermanent() 	
-	return true 
+function modifier_talent_attackrange:IsPermanent()
+	return true
 end
 
 function modifier_talent_attackrange:DeclareFunctions()
-    return 
+    return
     {
         MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
     }
@@ -37,8 +35,5 @@ function modifier_talent_attackrange:GetModifierAttackRangeBonus()
 end
 
 function modifier_talent_attackrange:OnCreated(tg)
-    self.value = self:GetParent():TG_GetTalentValue(self:GetAbility():GetName())  
+    self.value = self:GetParent():TG_GetTalentValue(self:GetAbility():GetName())
 end
-
-
-

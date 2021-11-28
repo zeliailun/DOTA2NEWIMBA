@@ -10946,33 +10946,44 @@
 
 	     //=================================================================================================================
 		// ting random ability
-		//=================================================================================================================
+		//=================================================================================================================	
 		"DOTA_Tooltip_ability_ra_branches"												"会成长的树枝"
 		"DOTA_Tooltip_ability_ra_branches_Description"								"被动的增加持有者的全属性。\n<h1><font color='#00FF00'>铁树开花</font></h1>当你的<font color='#00FF00'>可用物品栏有铁树枝干</font>时，每过60秒，就会额外增加你%stat_stack%点全属性，当树枝不在物品栏时，你会失去额外的属性。"
 		"DOTA_Tooltip_ability_ra_branches_Lore"										"老古董了"
 		"DOTA_Tooltip_ability_ra_branches_stat"													"增加全属性："
 		"DOTA_Tooltip_modifier_ra_branches_pa"										"增加的全属性"
-
+		
 		"DOTA_Tooltip_ability_ra_mango_tree"												"一颗比较特别的芒果"
 		"DOTA_Tooltip_ability_ra_mango_tree_Description"								"<h1><font color='#00FF00'>主动：种植芒果树</font></h1>在目标点种下一颗不会掉芒果的芒果树,芒果树拥有%vision%码高空视野。\n<h1><font color='#00FF00'>被动：孕育超级芒果</font></h1>当你使用了主动效果之后，%greater_mango_cd%秒后你会获得一颗超级芒果！\n<font color='#DC143C'>超级芒果扔进中立物品商店会直接消失！！\n该技能无法刷新！！</font>"
 		"DOTA_Tooltip_ability_ra_mango_tree_Lore"										"真好吃"
 		"DOTA_Tooltip_modifier_ra_greate_mango"										"超级芒果孕育中"
-
+		
 		"DOTA_Tooltip_ability_ra_flask"												"看起来很绿的大药"
 		"DOTA_Tooltip_ability_ra_flask_Description"								"<h1><font color='#00FF00'>主动：恢复</font></h1>给目标套一个大药，每秒恢复目标%re%生命，且不会被打断。\n<h1><font color='#00FF00'>主动：套大药</font></h1>如果使用主动时你物品栏/背包里有治疗药膏，则会额外每秒恢复目标%re_ex%%生命值，这个效果对自身不会被打断，对其他友军会被普通攻击打断。\n<font color='#DC143C'>第一次使用该技能可以获得%stack%个大药！</font>"
-		"DOTA_Tooltip_ability_ra_flask_Lore"										"大朗吃药"
+		"DOTA_Tooltip_ability_ra_flask_Lore"										"大郎吃药"
 		"DOTA_Tooltip_modifier_ra_flask_buff1"										"嗑药"
 		"DOTA_Tooltip_modifier_ra_flask_buff2"										"嗑大药"
-
+		
 		"DOTA_Tooltip_ability_ra_clarity"												"纯天然的精华药水"
 		"DOTA_Tooltip_ability_ra_clarity_Description"								"<h1><font color='#00FF00'>被动：回蓝</font></h1>每秒恢复自身%mana_re%%的蓝。\n<h1><font color='#00FF00'>主动：销售</font></h1>如果使用主动时你物品栏/背包里有精华药水，对目标使用会消耗一瓶，如果是敌人，则以一定的价格卖给他，如果是友军则其暂时获得被动的回蓝效果。\n<font color='#DC143C'>背包里没净化药水的时候主动无效！！</font>"
 		"DOTA_Tooltip_ability_ra_clarity_Lore"										"我们不生产水，我们只是大自然的搬运工"
 		"DOTA_Tooltip_ability_ra_clarity_gold"										"销售价格："
 		"DOTA_Tooltip_ability_ra_clarity_duration"									"持续时间："
-
+		
 		"DOTA_Tooltip_ability_ra_cheese"											"纯手工奶酪"
 		"DOTA_Tooltip_ability_ra_cheese_Description"								"<h1><font color='#00FF00'>主动：制作奶酪</font></h1>花费一点金币来制作一个奶酪。\n<font color='#DC143C'>奶酪现在全部回满！！</font>"
 		"DOTA_Tooltip_ability_ra_cheese_Lore"										"纯手工制作，亏本买卖"
+		
+		"DOTA_Tooltip_ability_ra_hand_of_midas"												"强欲的迈达斯之手"
+		"DOTA_Tooltip_ability_ra_hand_of_midas_Description"								"使用<font color='#00FF00'>迈达斯之手/上帝之手</font>后返还点金的%cd_re%%冷却时间。\n<h1><font color='#00FF00'>主动：强欲</font></h1>将目标可用物品栏里一件随机装备以%sale_gold%%的原价卖掉，你会获得该物品%gain_gold%% 原价的金钱。\n"
+		"DOTA_Tooltip_ability_ra_hand_of_midas_Lore"										"这游戏有bug！"
+		
+		"DOTA_Tooltip_ability_ra_greater_crit"												"仁慈的代达罗斯之殇"
+		"DOTA_Tooltip_ability_ra_greater_crit_Description"								"你在造成暴击伤害时，额外对目标造成一次%crit%% 的普通攻击伤害。\n<h1><font color='#00FF00'>主动：仁慈</font></h1>下次造成暴击时，额外造成%crit_ex%% 的普通攻击伤害。如果目标没死，则恢复其%hp_re%% 生命。\n<font color='#DC143C'>伤害效果在暴击倍率在170% 以上才会触发</font>"
+		"DOTA_Tooltip_ability_ra_greater_crit_Lore"										"如果你没死，也好"
+		"DOTA_Tooltip_modifier_ra_greater_crit_ex"										"仁慈"
+		
+
 
 
 

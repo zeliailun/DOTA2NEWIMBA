@@ -42,7 +42,7 @@ function  player:First_Player_Spawned(npc)
 				npc:AddExperience(GetXPNeededToReachNextLevel(4), DOTA_ModifyXP_Unspecified, false, false)
 				npc:AddNewModifier(npc, nil, "modifier_player",{})
 				npc:AddItemByName("item_magic_wand")
-				npc:AddItemByName("item_rd_book")
+				--npc:AddItemByName("item_rd_book")
 
 		end})
 		Timers:CreateTimer({
@@ -99,8 +99,10 @@ function  player:Player_Spawned(npc)
 													npc:AddNewModifier(npc, AB, modifier_name, {})
 												if  v~=nil then
 													for k2, v2 in pairs(v) do
-														if v2~=nil then
+														if v2~=nil  then
+																if v2["modifier_name"] and not npc:HasModifier(v2["modifier_name"]) then
 																npc:AddNewModifier(npc, AB, v2["modifier_name"],v2["talent_table"] or {})
+																end
 														end
 													end
 												end

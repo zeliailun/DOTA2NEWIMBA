@@ -50,7 +50,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"greater_mango_cd"				"1200" //产生高级芒果的cd
+				"greater_mango_cd"				"1000" //产生高级芒果的cd
 			}
 
 
@@ -67,7 +67,7 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY" 
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityCooldown"				"5"
-		"AbilityManaCost"				"100"
+		"AbilityManaCost"				"50"
 		"AbilityCastRange"				"500"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"re"						"50 60 70 80" //基础回血每秒
+				"re"						"60 90 130 170" //基础回血每秒
 			}
 			"02"
 			{
@@ -86,7 +86,7 @@
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"duration"					"10" //产生高级芒果的cd
+				"duration"					"15" //持续时间
 			}
 			"04"
 			{
@@ -99,6 +99,8 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
+	
+	//小净化
 	"ra_clarity"
 	{
 		"BaseClass"						"ability_lua"
@@ -108,8 +110,8 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH" 
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityCooldown"				"7"
-		"AbilityManaCost"				"100"
-		"AbilityCastRange"				"200"
+		"AbilityManaCost"				"1"
+		"AbilityCastRange"				"350"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -129,21 +131,17 @@
 				"var_type"					"FIELD_INTEGER"
 				"gold"						"100 150 200 250" //推销金币
 			}
-
-
-
-
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-	
+	//奶酪
 	"ra_cheese"
 	{
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"ting/random_ab/ra_cheese.lua"	
 		"AbilityTextureName"			"ting_ra/ra_cheese"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"90 80 70 60"
+		"AbilityCooldown"				"40"
 		"AbilityGoldCost"				"500"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -153,4 +151,79 @@
 		}
 
 	}
+	//迈达斯
+	"ra_hand_of_midas"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"ting/random_ab/ra_hand_of_midas.lua"	
+		"AbilityTextureName"			"ting_ra/ra_hand_of_midas"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY" 
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityCooldown"				"60"
+		"AbilityManaCost"				"300"
+		"AbilityCastRange"				"500"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"sale_gold"					"85" //出售价格百分比
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"gain_gold"					"10" //获取价格百分比
+			}			
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"cd_re"						"30 40 50 60" //迈达斯之手返还cd
+			}
+
+
+
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//大炮
+	"ra_greater_crit"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"ting/random_ab/ra_greater_crit.lua"	
+		"AbilityTextureName"			"ting_ra/ra_greater_crit"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET|DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+
+		"AbilityCooldown"				"7"
+		"AbilityManaCost"				"100"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit"						"50 70 90 110" //被动暴击
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"crit_ex"					"300 400 500 600" //主动暴击
+			}			
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"hp_re"						"30" //回血%
+			}
+
+
+
+
+		}
+
+	}
+	
 }

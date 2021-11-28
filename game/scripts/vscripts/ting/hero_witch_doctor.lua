@@ -207,6 +207,7 @@ end
 
 function modifier_imba_witch_doctor_voodoo_restoration:OnIntervalThink()
 	if not IsServer() then return end
+	if not self:GetAbility()  then return end
 	local interval	= self:GetAbility():GetSpecialValueFor("heal_interval")
 	local mana_cost = self:GetAbility():GetSpecialValueFor("mana_per_second")*interval
 	if self.isCaster == 1 then --thinker参数 不消耗巫医的蓝

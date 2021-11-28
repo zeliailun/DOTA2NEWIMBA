@@ -16,12 +16,13 @@ require('tools/pseudorandom')
 require('tools/abilitychargecontroller')
 require('events/events')
 require('events/custom_events')
-require('units/unit')
 require('towers/building')
-require('players/player')
 require('tools/keyvalues')
 require('tools/animations')
 require('bots/bot_config')
+require('player')
+require('unit')
+
 function Precache( context )
 	GameRules.L_TG = L_TG()
 
@@ -67,7 +68,6 @@ end
 function L_TG:InitGameMode()
 	local map=GetMapName()
 	mode = GameRules:GetGameModeEntity()
-
 	if map =="dotaai" then
 		--设置是否可以选择相同的英雄。
 		GameRules:SetSameHeroSelectionEnabled(true)
@@ -94,18 +94,6 @@ function L_TG:InitGameMode()
 	--设置等待自动启动的时间。
 	GameRules:SetCustomGameSetupAutoLaunchDelay(15)
 
-	--设置剩余时间（以秒为单位），用于自定义游戏设置。0 =立即完成，-1 =永远等待
-	--GameRules:SetCustomGameSetupRemainingTime(10)
-
-	--设置（游戏前）阶段超时。0 =即时，-1 =永远（直到调用FinishCustomGameGameSetup）
-	--GameRules:SetCustomGameSetupTimeout(10)
-
-	--设置胜利消息。
-	--GameRules:SetCustomVictoryMessage("小废物们赢了的呢")
-
-	--置胜利消息的持续时间。
-	--GameRules:SetCustomVictoryMessageDuration(10)
-
 	--设置是否已触发“第一滴血”。
 	GameRules:SetFirstBloodActive(true)
 
@@ -115,9 +103,6 @@ function L_TG:InitGameMode()
 	--设置英雄随机分配之前的惩罚时间
 	GameRules:SetHeroSelectPenaltyTime(0)
 
-	--设置玩家选择英雄的时间。
-	GameRules:SetHeroSelectionTime(60)
-
 	--设置是否在屏幕上方显示多重杀手，连胜和第一流的标语。
 	GameRules:SetHideKillMessageHeaders(false)
 
@@ -126,13 +111,10 @@ function L_TG:InitGameMode()
 
 
 	--设置玩家在策略阶段和进入赛前阶段之间的时间。
-	GameRules:SetShowcaseTime(5)
+	GameRules:SetShowcaseTime(6)
 
 	--设置玩家在选择英雄和进入展示阶段之间的时间。
 	GameRules:SetStrategyTime(0)
-
-	--设置白天时间
-	--GameRules:SetTimeOfDay(DAY)
 
 	--设置树的重新生长时间。
 	GameRules:SetTreeRegrowTime(60)
@@ -145,9 +127,6 @@ function L_TG:InitGameMode()
 
 	--设置商店是否可以购买全部物品
 	GameRules:SetUseUniversalShopMode(true)
-
-	--设置风的方向
-	--GameRules:SetWeatherWindDirection(WEATHER_DIR)
 
 
 --------------------------------------------------------------------------??
@@ -196,11 +175,6 @@ function L_TG:InitGameMode()
 	--是否启动买活。
 	mode:SetBuybackEnabled(true)
 
-	--mode:SetCustomBuybackCostEnabled( BUYBACK )
-
-
-	--mode:SetCustomBuybackCooldownEnabled( BUYBACK )
-
 	--为团队雕文设置自定义冷却时间。
 	mode:SetCustomGlyphCooldown(360)
 
@@ -213,20 +187,8 @@ function L_TG:InitGameMode()
 	--允许定义英雄XP值表
 	--mode:SetCustomXPRequiredToReachNextLevel(XP_TABLE)
 
-	--启用或禁用昼/夜循环。
-	mode:SetDaynightCycleDisabled(false)
-
-	--ban人时间
-	mode:SetDraftingBanningTimeOverride(20)
-
-	--选人时间
-	mode:SetDraftingHeroPickSelectTimeOverride(60)
-
 	--设置一个固定的延迟，让所有玩家在之后重生。
 	mode:SetFixedRespawnTime(6)
-
-	--打开或关闭战争迷雾。
-	mode:SetFogOfWarDisabled(false)
 
 	--设置喷泉恢复魔力的恒定速率。（默认为-1）
 	mode:SetFountainConstantManaRegen(10)
@@ -262,20 +224,28 @@ function L_TG:InitGameMode()
 	mode:SetCustomBackpackSwapCooldown(2)
 
 
-
 		--地图抉择
+	if map =="6v6v6" then
+		GameRules:SetHeroSelectionTime(0)
+		mode:SetDraftingBanningTimeOverride(0)
+		mode:SetDraftingHeroPickSelectTimeOverride(0)
+		GameRules:SetSameHeroSelectionEnabled(true)
+		GameRules:SetStartingGold(1000)
+		GameRules:SetCreepSpawningEnabled(false)
+		GameRules:SetPreGameTime(0)
+		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS,6)
+		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS,6)
+		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1,6)
+
+	else
+		GameRules:SetHeroSelectionTime(60)
+		mode:SetDraftingBanningTimeOverride(20)
+		mode:SetDraftingHeroPickSelectTimeOverride(60)
 		GameRules:SetStartingGold(2000)
 		GameRules:SetCreepSpawningEnabled(true)
 		GameRules:SetPreGameTime(90)
 		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS,10)
 		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS,10)
-	if GetMapName() =="6v6v6" then
-		GameRules:SetStartingGold(1000)
-		GameRules:SetCreepSpawningEnabled(false)
-		GameRules:SetPreGameTime(10)
-		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS,6)
-		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS,6)
-		GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1,6)
 	end
 
 --------------------------------------------------------------------------??
@@ -293,7 +263,7 @@ function L_TG:InitGameMode()
 	ListenToGameEvent("dota_tower_kill", Dynamic_Wrap(L_TG, 'OnTowerKill'), self)
 	ListenToGameEvent("dota_player_learned_ability", Dynamic_Wrap(L_TG, 'OnPlayerLearnedAbility'), self)
 	ListenToGameEvent( "dota_match_done", Dynamic_Wrap( L_TG, "OnGameFinished" ), self )
-	ListenToGameEvent('player_disconnect', Dynamic_Wrap(L_TG, 'OnDisconnect'), self)
+	--ListenToGameEvent('player_disconnect', Dynamic_Wrap(L_TG, 'OnDisconnect'), self)
 	--ListenToGameEvent( "dota_hero_entered_shop", Dynamic_Wrap( L_TG, "OnHeroEnteredShop" ), self )
 	--ListenToGameEvent( "dota_player_team_changed", Dynamic_Wrap( L_TG, "OnPlayerTeamChanged" ), self )
 	--ListenToGameEvent( "dota_player_used_ability", Dynamic_Wrap( L_TG, 'OnPlayerUsedAB' ), self )
@@ -838,8 +808,8 @@ function L_TG:ExpFilter(tg)
 	local experience=tg.experience
 ----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
-	if const == DOTA_ModifyXP_HeroKill then
-		tg.experience=experience+experience*0.09
+	if const == DOTA_ModifyXP_Outpost then
+		tg.experience=experience*Outpost_XP
 	end
 	return true
 end
@@ -891,6 +861,8 @@ function L_TG:GoldFilter(tg)
 		tg.gold=gold*Neutral_KEG
 	elseif const == DOTA_ModifyGold_CreepKill then
 		tg.gold=gold*Creep_KEG
+	elseif const == DOTA_ModifyGold_SharedGold then
+		tg.gold=gold*Shared_G
 	end
 
 ----------------------------------------------------------------------------------------------------------------------------------------

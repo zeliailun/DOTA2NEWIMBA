@@ -11,6 +11,8 @@ LinkLuaModifier("modifier_imba_marci_2_jump", "ting/hero_marci", LUA_MODIFIER_MO
 LinkLuaModifier("modifier_imba_marci_2_motion_down", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_2_shard", "ting/hero_marci", LUA_MODIFIER_MOTION_BOTH)
 LinkLuaModifier("modifier_imba_marci_2_shard_buff", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_2_cd", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+
 LinkLuaModifier("modifier_paralyzed", "ting/hero_lich", LUA_MODIFIER_MOTION_NONE)
 function imba_marci_2:IsStealable() return false end
 
@@ -115,6 +117,7 @@ function modifier_imba_marci_2_buff:OnCreated()
 	end
 end
 
+
 function modifier_imba_marci_2_buff:OnIntervalThink()
 	if IsServer() then
 		if self.parent:HasModifier("modifier_imba_marci_2_jump") or  self.parent:HasModifier("modifier_imba_marci_2_motion_down") then
@@ -130,8 +133,13 @@ function modifier_imba_marci_2_shard_buff:IsHidden() return true end
 function modifier_imba_marci_2_shard_buff:IsPurgable() return false end
 function modifier_imba_marci_2_shard_buff:IsPurgeException() return false end
 
-
-
+--鹰击cd
+modifier_imba_marci_2_cd = class({})
+function modifier_imba_marci_2_cd:IsHidden() return false end
+function modifier_imba_marci_2_cd:IsPurgable() return false end
+function modifier_imba_marci_2_cd:IsPurgeException() return false end
+function modifier_imba_marci_2_cd:GetEffectName() return "particles/units/heroes/hero_marci/marci_sidekick_buff_model_glow1.vpcf" end
+function modifier_imba_marci_2_cd:GetEffectAttachType() return PATTACH_OVERHEAD_FOLLOW end
 
 modifier_imba_marci_2_motion_down = class({})
 
@@ -150,10 +158,11 @@ function modifier_imba_marci_2_motion_down:CheckState()
 			[MODIFIER_STATE_COMMAND_RESTRICTED] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			--[MODIFIER_STATE_SILENCED] = true,
-			[MODIFIER_STATE_INVULNERABLE] = true,
+			--[MODIFIER_STATE_INVULNERABLE] = true,
 			[MODIFIER_STATE_DISARMED] = true,
 			[MODIFIER_STATE_TETHERED] = true,
 			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true,
+			[MODIFIER_STATE_ATTACK_IMMUNE] = self.attimm,
 			}
 end
 function modifier_imba_marci_2_motion_down:GetPriority() return MODIFIER_PRIORITY_HIGH end
@@ -168,10 +177,14 @@ function modifier_imba_marci_2_motion_down:OnCreated(keys)
 			self.impact_radius = self.ability:GetSpecialValueFor("radius")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_marci_t1")
 			self.damage = self.ability:GetSpecialValueFor("damage")
 			self.jump = self.ability:GetSpecialValueFor("jump_duration")
-			self.damage_down = self.ability:GetSpecialValueFor("damage_down")
+			self.damage_down = self.ability:GetSpecialValueFor("damage_down")			
+			self.mb = self.ability:GetSpecialValueFor("slow")
+			self.attimm = self:GetParent():TG_HasTalent("special_bonus_imba_marci_t7")
+			
 			self.shard_tar_debug = nil
 			self.parent = self:GetParent()
 			self.use_cd = not self.parent:HasScepter()
+			
 			if keys.tar ~= nil then
 				self.tar = EntIndexToHScript(keys.tar)
 			end
@@ -183,7 +196,8 @@ function modifier_imba_marci_2_motion_down:OnCreated(keys)
 			self.height = keys.height or self:GetParent():GetAbsOrigin().z+200
 			self.height_damage =  self.height*self.damage_down*0.01
 			self.down = math.max((self.height-400),1)/ (self:GetDuration()/0.02 )
-			self.mb = self.parent:TG_GetTalentValue("special_bonus_imba_marci_t7")
+			
+			self.catch = self.parent:TG_HasTalent("special_bonus_imba_marci_t6")
 			--print(tostring(self.height),"jumpdown")
 			self.damageInfo =
 					{
@@ -267,11 +281,13 @@ function modifier_imba_marci_2_motion_down:OnDestroy()
 				if IsInTable(self.tar, enemies) then
 				--print("intable")
 					if self.tar:TriggerStandardTargetSpell(self.ability) then
+						self.ability:UseResources(false, false, true)
 						return
 						else
-						if self.tar ~= self.shard_tar_debug then
+						if self.tar ~= self.shard_tar_debug and not self.parent:HasModifier("modifier_imba_marci_2_cd") and self.catch then
 						self.tar:AddNewModifier(self.parent,self.ability,"modifier_imba_marci_2_shard",{duration = 4})
 						self.parent:AddNewModifier(self.tar,self.ability,"modifier_imba_marci_2_shard_buff",{duration = 4})
+						self.parent:AddNewModifier(self.parent,self.ability,"modifier_imba_marci_2_cd",{duration = 15})
 						end
 					end
 					
@@ -365,10 +381,11 @@ function modifier_imba_marci_2_jump:CheckState()
 			--[MODIFIER_STATE_INVULNERABLE] = true,
 			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true,
 			[MODIFIER_STATE_DISARMED] = true,
-			[MODIFIER_STATE_ATTACK_IMMUNE] = true,
+			[MODIFIER_STATE_ATTACK_IMMUNE] = self.attimm,
 			
 			}
 end
+
 function modifier_imba_marci_2_jump:IsMotionController() return true end
 function modifier_imba_marci_2_jump:GetMotionControllerPriority() return DOTA_MOTION_CONTROLLER_PRIORITY_MEDIUM end
 function modifier_imba_marci_2_jump:GetPriority() return MODIFIER_PRIORITY_HIGH end
@@ -381,23 +398,17 @@ function modifier_imba_marci_2_jump:OnCreated(keys)
 			self.parent = self:GetParent()
 			self.caster = self:GetCaster()
 			self.use_cd = not self.caster:HasScepter()
-			self.h = self.ability:GetSpecialValueFor("height")+self.caster:TG_GetTalentValue("special_bonus_imba_marci_t3")
-			local mod = self.caster:AddNewModifier(self.caster,self.ability,"modifier_imba_marci_2_buff",{duration = self.ability:GetSpecialValueFor("duration")})
-			local h = 0
-			if mod then
-				h = mod:GetStackCount()
-			end
-			--self.duration = keys.duration
-			--self.damage = keys.damage
+			self.caster:AddNewModifier(self.caster,self.ability,"modifier_imba_marci_2_buff",{duration = self.ability:GetSpecialValueFor("duration")})
+
 			self.pos = Vector(keys.pos_x,keys.pos_y,keys.pos_z)
-			
-			--print(tostring(self.pos))
+
 			self.parent:SetOrigin(self.pos)
-			--self.pos = self.parent:GetAbsOrigin()
+			
 			self.next_pos_z = nil
 			self.height = math.min(self.parent:GetAbsOrigin().z +180,self.ability:GetSpecialValueFor("height"))
 			
-		local nFXIndex = ParticleManager:CreateParticle( "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_ambient_ground_arcs_flat.vpcf", PATTACH_WORLDORIGIN, self.parent )
+			self.attimm = self.caster:TG_HasTalent("special_bonus_imba_marci_t7")
+			local nFXIndex = ParticleManager:CreateParticle( "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_ambient_ground_arcs_flat.vpcf", PATTACH_WORLDORIGIN, self.parent )
 			ParticleManager:SetParticleControl( nFXIndex, 0, self.parent:GetAbsOrigin() )
 
 			ParticleManager:ReleaseParticleIndex( nFXIndex )
@@ -536,7 +547,7 @@ function modifier_imba_marci_2_motion:CheckState()
 			[MODIFIER_STATE_COMMAND_RESTRICTED] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			--[MODIFIER_STATE_SILENCED] = true,
-			[MODIFIER_STATE_INVULNERABLE] = true,
+			--[MODIFIER_STATE_INVULNERABLE] = true,
 			[MODIFIER_STATE_TETHERED] = true,
 			[MODIFIER_STATE_COMMAND_RESTRICTED] = true,}
 end
@@ -1064,7 +1075,7 @@ function modifier_imba_marci_3_down:CheckState()
 	return {--[MODIFIER_STATE_STUNNED] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			--[MODIFIER_STATE_SILENCED] = true,
-			[MODIFIER_STATE_INVULNERABLE] = true,
+			--[MODIFIER_STATE_INVULNERABLE] = true,
 			[MODIFIER_STATE_TETHERED] = true,
 			[MODIFIER_STATE_COMMAND_RESTRICTED] = true,}
 end
@@ -1077,6 +1088,7 @@ function modifier_imba_marci_3_down:OnCreated(keys)
 			self.ability = self:GetAbility()
 			self.impact_radius = self.ability:GetSpecialValueFor("radius")
 			self.stun = self.ability:GetSpecialValueFor("base_stun")
+			self.h = self.ability:GetSpecialValueFor("h")
 			self.parent = self:GetParent()	
 			self.use_cd = not self.parent:HasScepter()
 
@@ -1087,8 +1099,8 @@ function modifier_imba_marci_3_down:OnCreated(keys)
 			local dis_t =(self.dis/self.duration)
 			self.distance = dis_t*FrameTime()
 			self.height = keys.height+100 or self.parent:GetAbsOrigin().z+350
-			self.height_talent = self.height+20
-			self.height_ex = math.max(math.ceil((self.height-400)/10)*0.03,0)
+			self.height_talent = self.height+220
+			self.height_ex = math.max(math.ceil((self.height-200)/10)*0.03,0)
 			--print(tostring(self.height_ex))
 			self.stun = self.stun + self.height_ex*0.3
 			self.damage = self.ability:GetSpecialValueFor("damage")*math.max(self.height_ex,1)
@@ -1147,10 +1159,10 @@ function modifier_imba_marci_3_down:OnDestroy()
 	local enemies = FindUnitsInRadius( self:GetCaster():GetTeamNumber(),self.parent:GetAbsOrigin(), nil, self.impact_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
 			for _,enemy in pairs( enemies ) do
 				if shard_tar ~= nil then
-					if enemy == shard_tar and self.parent:TG_HasTalent("special_bonus_imba_marci_t6") then
+					if enemy == shard_tar  then
 						self.damageInfo.victim = enemy
 						--print(tostring(self.height_talent))
-						self.damageInfo.damage = self.height_talent*self.parent:TG_GetTalentValue("special_bonus_imba_marci_t6")*0.01
+						self.damageInfo.damage = self.height_talent*self.h*0.01
 						ApplyDamage( self.damageInfo )
 					end
 				end
@@ -1184,7 +1196,7 @@ end
 imba_marci_1 = class({})
 
 LinkLuaModifier("modifier_imba_marci_1_move", "ting/hero_marci", LUA_MODIFIER_MOTION_BOTH)
-
+LinkLuaModifier("modifier_imba_marci_1_buff", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 
 function imba_marci_1:IsStealable() return false end
 
@@ -1195,13 +1207,41 @@ function imba_marci_1:OnSpellStart()
 	self.caster = self:GetCaster()
 	EmitSoundOn("Hero_Lina.DragonSlave", self.caster)
 	self.caster:AddNewModifier(self.caster,self,"modifier_imba_marci_1_move",{duration = 0.1})
+	self.caster:AddNewModifier(self.caster,self,"modifier_imba_marci_1_buff",{duration = self:GetSpecialValueFor("duration")})
 	if self.caster:TG_HasTalent("special_bonus_imba_marci_t4") then
 		ProjectileManager:ProjectileDodge(self.caster)
 	end
-	
-
-	
-	
+end
+--龙魂
+modifier_imba_marci_1_buff = class({})
+function modifier_imba_marci_1_buff:IsDebuff() return false end
+function modifier_imba_marci_1_buff:IsPurgable() return false end
+function modifier_imba_marci_1_buff:IsPurgeException() return false end
+function modifier_imba_marci_1_buff:GetEffectName()	return "particles/units/heroes/hero_marci/marci_unleash_buff.vpcf" end
+function modifier_imba_marci_1_buff:IsHidden() return false end
+function modifier_imba_marci_1_buff:DeclareFunctions() 
+    return {
+        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,MODIFIER_PROPERTY_EVASION_CONSTANT,
+    } 
+end
+function modifier_imba_marci_1_buff:GetModifierPreAttack_BonusDamage() return self.att*self:GetStackCount() end
+function modifier_imba_marci_1_buff:GetModifierAttackSpeedBonus_Constant() return self.asp*self:GetStackCount() end
+function modifier_imba_marci_1_buff:GetModifierEvasion_Constant() return self.ev*self:GetStackCount() end
+function modifier_imba_marci_1_buff:OnCreated()
+	if self:GetAbility() == nil then return end
+	self.ab = self:GetAbility()
+	self.att = self.ab:GetSpecialValueFor("att")
+	self.asp = self.ab:GetSpecialValueFor("asp")
+	self.ev = self.ab:GetSpecialValueFor("ev")
+	self.max = self.ab:GetSpecialValueFor("smax")
+	if IsServer() then
+		self:OnRefresh()
+	end
+end
+function modifier_imba_marci_1_buff:OnRefresh()
+	if IsServer() then
+		self:SetStackCount(math.min(self:GetStackCount()+1,self.max))	
+	end
 end
 
 modifier_imba_marci_1_move = class({})
@@ -1213,9 +1253,6 @@ end
 function modifier_imba_marci_1_move:IsDebuff() return false end
 function modifier_imba_marci_1_move:IsHidden() return true end
 function modifier_imba_marci_1_move:IsPurgable() return false end
-
-function modifier_imba_marci_1_move:DeclareFunctions() return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE} end
-function modifier_imba_marci_1_move:GetModifierPreAttack_BonusDamage() return self.damage end
 function modifier_imba_marci_1_move:GetMotionPriority() 	
 	return DOTA_MOTION_CONTROLLER_PRIORITY_LOW
 end
@@ -1241,7 +1278,7 @@ function modifier_imba_marci_1_move:OnCreated(params)
 	--print(tostring(self.base_dis))
 	--	print(tostring(self.distance))
 	self.width =self.ability:GetSpecialValueFor("width")
-	self.damage = self.ability:GetSpecialValueFor("damage")
+
 	
 	self.pos = self.parent:GetAbsOrigin()
 	self.angle = self:GetParent():GetForwardVector() 
@@ -1264,6 +1301,8 @@ function modifier_imba_marci_1_move:OnCreated(params)
 	ParticleManager:SetParticleControlForward( p1, 2, self.angle*-1 )
     --ParticleManager:SetParticleControl(p1, 2, self.force_pos)
     ParticleManager:ReleaseParticleIndex(p1)
+	
+		
 	
 	if self:GetParent():HasModifier("modifier_imba_marci_2_jump") then
 		self:GetParent():SetOrigin( self.force_pos )
@@ -1323,14 +1362,200 @@ function modifier_imba_marci_1_move:CheckState()
 	return
 end
 
+
+
 --玛西被动
 
 imba_marci_4 = class({})  
 
 LinkLuaModifier("modifier_imba_marci_4", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_4_ex", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_4_ex_think", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_4_armor", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_5_slow", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 function imba_marci_4:GetIntrinsicModifierName() return "modifier_imba_marci_4" end
+function imba_marci_4:GetBehavior()
+	if self:GetCaster():HasModifier("modifier_imba_marci_5_ex") and not self:GetCaster():HasModifier("modifier_imba_marci_2_jump") then
+		return DOTA_ABILITY_BEHAVIOR_POINT+DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+	else
+		return DOTA_ABILITY_BEHAVIOR_PASSIVE+DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+	end
+end
 function imba_marci_4:Set_InitialUpgrade() 			
     return {LV=1} 
+end
+
+function imba_marci_4:OnSpellStart()
+	self.caster = self:GetCaster()
+	--self.caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_2_END,2)
+	local pos = self:GetCursorPosition()
+	local c_pos = self.caster:GetAbsOrigin()
+	local direction = (pos - c_pos):Normalized()
+	self.caster:SetForwardVector(direction)
+	--local distance = math.min(max_distance, (self.caster:GetAbsOrigin() - pos):Length2D())
+	EmitSoundOn("Ability.TossImpact", self.caster)
+	self.caster:AddNewModifier(self.caster,self,"modifier_imba_marci_4_ex",{duration = 0.6})
+	self.caster:RemoveModifierByName("modifier_imba_marci_5_ex")
+	local particle= ParticleManager:CreateParticle("particles/econ/items/elder_titan/elder_titan_ti7/elder_titan_echo_stomp_ti7.vpcf", PATTACH_CUSTOMORIGIN,nil)
+    ParticleManager:SetParticleControl(particle, 0,c_pos)
+	ParticleManager:SetParticleControl(particle, 2,Vector(255,165,0))
+    ParticleManager:ReleaseParticleIndex( particle )
+	
+	local enemies = FindUnitsInRadius( self.caster:GetTeamNumber(), self.caster:GetAbsOrigin(), nil, 600, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
+		for _,enemy in pairs( enemies ) do
+			enemy:AddNewModifier(self.caster,self,"modifier_imba_marci_5_slow",{duration = 2})
+		end
+end
+
+function imba_marci_4:OnProjectileHit_ExtraData( target, vLocation, kv )
+    local caster = self:GetCaster()
+    if target==nil then
+        return
+    end
+    if not target:IsMagicImmune() then
+        local dam = self:GetSpecialValueFor("damage")
+        local dur = self:GetSpecialValueFor("stun_duration")
+        local damageTable = {
+            victim = target,
+            attacker = caster,
+            damage =dam,
+            damage_type =DAMAGE_TYPE_MAGICAL,
+            ability = self,
+            }
+        ApplyDamage(damageTable)
+        target:AddNewModifier(caster, self, "modifier_imba_stunned", {duration=dur})
+		caster:PerformAttack(target, true, true, true, false, false, false, true)	
+    end
+
+end
+modifier_imba_marci_4_ex = class({})
+function modifier_imba_marci_4_ex:GetEffectName()
+    return "particles/econ/items/wraith_king/wraith_king_arcana/wk_arc_reincarn_streak_inward.vpcf"
+end
+function modifier_imba_marci_4_ex:CheckState()
+	return {--[MODIFIER_STATE_STUNNED] = true,
+			[MODIFIER_STATE_COMMAND_RESTRICTED] = true,
+			--[MODIFIER_STATE_SILENCED] = true,
+			[MODIFIER_STATE_INVULNERABLE] = true,
+			[MODIFIER_STATE_DISARMED] = true,
+
+			}
+end
+function modifier_imba_marci_4_ex:GetPriority() return MODIFIER_PRIORITY_HIGH end
+function modifier_imba_marci_4_ex:IsDebuff() return false end
+function modifier_imba_marci_4_ex:IsHidden() return true end
+function modifier_imba_marci_4_ex:IsPurgable() return false end
+
+function modifier_imba_marci_4_ex:GetModifierPreAttack_BonusDamage() return self.damage end
+function modifier_imba_marci_4_ex:GetPriority() return MODIFIER_PRIORITY_HIGH end
+function modifier_imba_marci_4_ex:OnDestroy(params)
+	if not IsServer() then return end
+	if self:GetAbility() == nil then return end
+	
+	
+	self.caster = self:GetCaster()
+	self.parent = self:GetParent()   
+	self.ability = self:GetAbility()
+	self.width = self.ability:GetSpecialValueFor("width")
+	
+	self.dis = self.ability:GetSpecialValueFor("distance")
+	self.pos = self.caster:GetAbsOrigin()
+	self.angle = self.caster:GetForwardVector() 
+	self.force_pos = GetGroundPosition(( self.pos + self.angle * self.dis ), nil)
+
+	
+	
+	
+	
+	self.caster:StartGestureWithPlaybackRate(ACT_DOTA_ATTACK,1.5)
+	EmitSoundOn("Hero_Lina.DragonSlave", self.caster)
+    local p1 = ParticleManager:CreateParticle("particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_v2_omni_dash.vpcf", PATTACH_CUSTOMORIGIN, nil)
+    ParticleManager:SetParticleControlEnt(p1, 0, self.caster, PATTACH_ABSORIGIN, nil, self.caster:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControl(p1, 0, self.force_pos)
+    ParticleManager:SetParticleControl(p1, 1, self.caster:GetAbsOrigin())
+	ParticleManager:SetParticleControl(p1, 2, self.force_pos)
+	ParticleManager:SetParticleControlForward( p1, 0, self.angle*-1 )
+	ParticleManager:SetParticleControlForward( p1, 1, self.angle*-1 )
+	ParticleManager:SetParticleControlForward( p1, 2, self.angle*-1 )
+    --ParticleManager:SetParticleControl(p1, 2, self.force_pos)
+    ParticleManager:ReleaseParticleIndex(p1)
+	
+		
+		
+	 local projectile = {
+        Ability = self.ability,
+        EffectName = "particles/heroes/ting_marc/marci_5_ex2/dragon_1.vpcf",
+        vSpawnOrigin =self.caster:GetAbsOrigin(),
+        fDistance = self.dis,
+        fStartRadius = self.width,
+        fEndRadius = self.width,
+        fExpireTime = GameRules:GetGameTime() + 10,
+        Source = self.caster,
+        bHasFrontalCone = false,
+        bReplaceExisting = false,
+        bProvidesVision = true,
+        iVisionRadius = 500,
+        iVisionTeamNumber = self.caster:GetTeamNumber(),
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
+        vVelocity = self.angle*6500,
+    }
+    ProjectileManager:CreateLinearProjectile(projectile)
+	
+	CreateModifierThinker(self.caster, self.ability, "modifier_imba_marci_4_ex_think", {duration=1}, self.pos, self.caster:GetTeamNumber(), false)
+	local enemies = FindUnitsInLine(
+			self.caster:GetTeamNumber(),
+			self.pos,
+			self.force_pos, 
+			self.parent,
+			self.width, 
+			DOTA_UNIT_TARGET_TEAM_ENEMY, 
+			DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, 
+			DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES)
+	
+			for _,enemy in pairs( enemies ) do
+				enemy:AddNewModifier(self.caster,self.ability,"modifier_imba_marci_4_armor",{duration = self.ability:GetSpecialValueFor("duration")})
+			end	
+	local aab = self.caster:FindAbilityByName("imba_marci_1") 		
+	if aab and aab:GetLevel() > 0 then
+		local mod = self.caster:AddNewModifier(self.caster,aab,"modifier_imba_marci_1_buff",{duration = aab:GetSpecialValueFor("duration")})
+		mod:SetStackCount(aab:GetSpecialValueFor("smax"))
+	end
+end
+modifier_imba_marci_4_ex_think=class({})
+
+function modifier_imba_marci_4_ex_think:IsPurgable()
+    return false
+end
+
+function modifier_imba_marci_4_ex_think:IsPurgeException()
+    return false
+end
+
+function modifier_imba_marci_4_ex_think:IsHidden()
+    return true
+end
+
+function modifier_imba_marci_4_ex_think:OnCreated()
+if not IsServer() then return end
+	if self:GetAbility() == nil then return end
+	
+	
+	self.caster = self:GetCaster()
+	self.parent = self:GetParent()   
+	self.ability = self:GetAbility()
+
+	self.pos = self.parent:GetAbsOrigin()
+	self.angle = self.caster:GetForwardVector() 
+	self.dis = self.ability:GetSpecialValueFor("distance")
+
+		self.pfx = ParticleManager:CreateParticle("particles/heroes/ting_marc/marci_5_ex2/ex2.vpcf", PATTACH_CUSTOMORIGIN, nil )
+        ParticleManager:SetParticleControl( self.pfx, 0, self.caster:GetAbsOrigin() )
+        ParticleManager:SetParticleControl( self.pfx, 1, self.pos + self.angle * self.dis)
+        ParticleManager:SetParticleControl( self.pfx, 2, Vector(3,0,0))
+        self:AddParticle(self.pfx, false, false, 1, false, false)
+    
 end
 
 
@@ -1348,7 +1573,7 @@ end
 function modifier_imba_marci_4:CheckState()
 	return
 		{
-			[MODIFIER_STATE_SILENCED] = false,
+		--	[MODIFIER_STATE_SILENCED] = self:GetParent():IsHexed(),
 		}
 end
 
@@ -1358,14 +1583,44 @@ end
 function modifier_imba_marci_4:GetPriority() return MODIFIER_PRIORITY_SUPER_ULTRA  end
 
 
+modifier_imba_marci_4_armor = class({})
+function modifier_imba_marci_4_armor:IsDebuff() return false end
+function modifier_imba_marci_4_armor:IsPurgable() return false end
+function modifier_imba_marci_4_armor:IsPurgeException() return false end
+function modifier_imba_marci_4_armor:RemoveOnDeath() return false end
+function modifier_imba_marci_4_armor:IsHidden() return true end
+function modifier_imba_marci_4_armor:DeclareFunctions() 
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+    } 
+end
+
+function modifier_imba_marci_4_armor:GetModifierPhysicalArmorBonus() 
+    return self.armor
+end
+function modifier_imba_marci_4_armor:OnCreated()
+	if self:GetAbility() == nil then return end
+	self.armor = self:GetAbility():GetSpecialValueFor("armor")*-1   
+end
+
+
 --猛虎内劲破
 imba_marci_5 = class({})
 LinkLuaModifier("modifier_imba_marci_5", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_5_pa", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_5_re", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_marci_5_slow", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_5_ex", "ting/hero_marci", LUA_MODIFIER_MOTION_NONE)
+
 function imba_marci_5:GetIntrinsicModifierName()
 	return "modifier_imba_marci_5_pa"
+end
+function imba_marci_5:OnUpgrade()
+	if not IsServer() then return end
+	local ab = self:GetCaster():FindAbilityByName("imba_marci_4")
+	if ab then
+		ab:SetLevel(self:GetLevel())
+	end
 end
 
 function imba_marci_5:OnSpellStart()
@@ -1383,14 +1638,22 @@ function imba_marci_5:OnSpellStart()
 	ParticleManager:ReleaseParticleIndex( nFXIndex )
 
 	caster:AddNewModifier(caster, self, "modifier_imba_marci_5", {duration = self:GetSpecialValueFor("duration")})
+	caster:AddNewModifier(caster, self, "modifier_imba_marci_5_ex", {duration = self:GetSpecialValueFor("duration")})
 end
+
+modifier_imba_marci_5_ex = class({})
+function modifier_imba_marci_5_ex:IsDebuff()			return false end
+function modifier_imba_marci_5_ex:IsHidden() 			return false end
+function modifier_imba_marci_5_ex:IsPurgable() 		return false end
+function modifier_imba_marci_5_ex:IsPurgeException() 	return false end
+
 
 modifier_imba_marci_5 = class({})
 function modifier_imba_marci_5:IsDebuff()			return false end
 function modifier_imba_marci_5:IsHidden() 			return false end
 function modifier_imba_marci_5:IsPurgable() 		return false end
 function modifier_imba_marci_5:IsPurgeException() 	return false end
-function modifier_imba_marci_5:GetAttackSound() return "Hero_Marci.Unleash.Charged.3d" end
+function modifier_imba_marci_5:GetAttackSound() return "Hero_Marci.Unleash.Charged" end
 function modifier_imba_marci_5:GetPriority()
 	return MODIFIER_PRIORITY_SUPER_ULTRA 
 end
@@ -1458,8 +1721,6 @@ function modifier_imba_marci_5_pa:OnAttackLanded(keys)
 
 				--大招buff 
 				if  keys.attacker:HasModifier("modifier_imba_marci_5") then
-				
-					EmitSoundOn("Hero_Marci.Unleash.Charged.3d", keys.attacker)
 					EmitSoundOn("Hero_Marci.Unleash.Charged", keys.attacker)
 					if not keys.attacker:HasModifier("modifier_imba_marci_5_re") then --暴击延迟刷新
 						keys.attacker:AddNewModifier(keys.attacker,ability,"modifier_imba_marci_5_re",{duration = re_du})
@@ -1488,7 +1749,7 @@ function modifier_imba_marci_5_pa:OnAttackLanded(keys)
 						
 						local enemies = FindUnitsInRadius( keys.attacker:GetTeamNumber(), keys.attacker:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false )
 						for _,enemy in pairs( enemies ) do
-						enemy:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_marci_5_slow",{duration = 0.4})
+						enemy:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_imba_marci_5_slow",{duration = 0.5})
 							local damageInfo =
 							{
 								victim = enemy,
@@ -1549,12 +1810,12 @@ end
 
 
 function modifier_imba_marci_5_slow:GetModifierTurnRate_Percentage() 
-    return -30
+    return -50
 end
 function modifier_imba_marci_5_slow:GetModifierAttackSpeedBonus_Constant()
     return -120
 end
 function modifier_imba_marci_5_slow:GetModifierMoveSpeedBonus_Percentage()
-    return -30
+    return -35
 end
 --particles/units/heroes/hero_marci/marci_unleash_buff.vpcf

@@ -308,7 +308,7 @@ function modifier_imba_light_illuminate_thinker:OnCreated( params )
 			SendOverheadEventMessage(nil, OVERHEAD_ALERT_MANA_ADD, self.caster, self.mana_re, nil)
 		end	
 		
-		if self.caster:TG_HasTalent("special_bonus_imba_keeper_of_the_light_4") then
+		if self.caster:TG_HasTalent("special_bonus_imba_keeper_of_the_light_3") then
 			local cooldown_reduction = self.cd_re
 			for i = 0, 23 do
 				local current_ability = self.caster:GetAbilityByIndex(i)
@@ -377,8 +377,8 @@ function modifier_imba_light_illuminate_thinker:OnIntervalThink()
 				}
 				
 				ApplyDamage(damageTable)
-				target:AddNewModifier(self.parent, self:GetAbility(), "modifier_imba_light_will_o_wisp_move", {duration = 0.4})
-				
+				target:AddNewModifier(self.parent, self:GetAbility(), "modifier_imba_light_will_o_wisp_move", {duration = self.ability:GetSpecialValueFor("stun_duration")})
+				target:Stop()
 			else
 				if self.caster:HasScepter() then
 				target:Heal(damage, self.caster)
@@ -388,7 +388,7 @@ function modifier_imba_light_illuminate_thinker:OnIntervalThink()
 					target:GiveMana(self.mana_re)
 					SendOverheadEventMessage(nil, OVERHEAD_ALERT_MANA_ADD, target, self.mana_re, nil)
 				end	
-				if self.caster:TG_HasTalent("special_bonus_imba_keeper_of_the_light_4") then
+				if self.caster:TG_HasTalent("special_bonus_imba_keeper_of_the_light_3") then
 						local cooldown_reduction = self.cd_re
 								for i = 0, 23 do
 									local current_ability = target:GetAbilityByIndex(i)
@@ -525,7 +525,7 @@ modifier_imba_radiant_bind_debuff = class({})
 LinkLuaModifier("modifier_imba_radiant_bind_debuff_flag", "ting/hero_keeper_of_the_light", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_imba_radiant_bind_debuff:IsDebuff() return true end
-function modifier_imba_radiant_bind_debuff:IsPurgable() return not (self:GetParent():HasModifier("modifier_imba_light_blinding_light_debuff") and self.talant) end
+function modifier_imba_radiant_bind_debuff:IsPurgable() return true end
 function modifier_imba_radiant_bind_debuff:IsHidden() return false end
 function modifier_imba_radiant_bind_debuff:GetEffectName() return "particles/units/heroes/hero_wisp/wisp_overcharge_b.vpcf" end
 function modifier_imba_radiant_bind_debuff:GetEffectAttachType() return PATTACH_OVERHEAD_FOLLOW end
@@ -544,7 +544,6 @@ function modifier_imba_radiant_bind_debuff:OnCreated()
 	self.mag = self:GetAbility():GetSpecialValueFor("magic_resistance")*-1
 	self.move_distance =  self:GetAbility():GetSpecialValueFor("move_distance")
 	self.mana_cost = self:GetAbility():GetSpecialValueFor("mana_cost")*0.01
-	self.talant = self:GetCaster():TG_HasTalent("special_bonus_imba_keeper_of_the_light_4")
 	if IsServer() then
 	self.pfx2 = ParticleManager:CreateParticle("particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_radiant_bind_ambient.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 	ParticleManager:SetParticleControlEnt(self.pfx2, 0, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetAbsOrigin(), true)
@@ -587,6 +586,14 @@ end
 
 function modifier_imba_radiant_bind_debuff:OnDestroy()
 	if IsServer() then
+	if self:GetRemainingTime() > 0.03 and self:GetCaster():TG_HasTalent("special_bonus_imba_keeper_of_the_light_4") then
+			local ab = self:GetAbility()
+			local cd = 1-self:GetCaster():TG_GetTalentValue("special_bonus_imba_keeper_of_the_light_4")*0.01
+			print(self:GetRemainingTime())
+			local cooldown_remaining = self:GetAbility():GetCooldownTimeRemaining()
+				ab:EndCooldown()
+				ab:StartCooldown( cooldown_remaining*cd)
+			end
 	StopSoundEvent("Hero_KeeperOfTheLight.ManaLeak.Target.FP", self:GetParent())
 	self:GetCaster():RemoveModifierByNameAndCaster("modifier_imba_radiant_bind_debuff_flag",self:GetParent())
 	end
@@ -707,7 +714,7 @@ end
 
 modifier_imba_light_blinding_light_debuff = class({})
 function modifier_imba_light_blinding_light_debuff:IsDebuff() return true end
-function modifier_imba_light_blinding_light_debuff:IsPurgable() return not (self:GetParent():HasModifier("modifier_imba_radiant_bind_debuff") and self.talant)  end
+function modifier_imba_light_blinding_light_debuff:IsPurgable() return false end
 function modifier_imba_light_blinding_light_debuff:IsHidden() return false end
 function modifier_imba_light_blinding_light_debuff:GetPriority() return MODIFIER_PRIORITY_ULTRA  end
 function modifier_imba_light_blinding_light_debuff:GetEffectName()
@@ -716,7 +723,7 @@ end
 
 function modifier_imba_light_blinding_light_debuff:OnCreated()
 	self.miss_rate = self:GetAbility():GetSpecialValueFor("miss_rate")
-	self.talant = self:GetCaster():TG_HasTalent("special_bonus_imba_keeper_of_the_light_4")
+
 end
 
 function modifier_imba_light_blinding_light_debuff:CheckState() return {[MODIFIER_STATE_CANNOT_MISS] = false} end
@@ -962,7 +969,7 @@ function modifier_imba_light_will_o_wisp_t_on:GetAuraRadius()
 end
 
 function modifier_imba_light_will_o_wisp_t_on:GetAuraSearchFlags() 
-    return DOTA_UNIT_TARGET_FLAG_NONE
+    return DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 end
 
 function modifier_imba_light_will_o_wisp_t_on:GetAuraSearchTeam() 
@@ -1021,12 +1028,14 @@ function modifier_imba_light_will_o_wisp_t_on_in:IsPurgable() return false end
 function modifier_imba_light_will_o_wisp_t_on_in:IsPurgeException() return false end
 function modifier_imba_light_will_o_wisp_t_on_in:IsHidden() return false end
 
-function modifier_imba_light_will_o_wisp_t_on_in:DeclareFunctions() return {MODIFIER_PROPERTY_INVISIBILITY_LEVEL} end
-function modifier_imba_light_will_o_wisp_t_on_in:CheckState()
-	return {[MODIFIER_STATE_INVISIBLE] = (self:GetParent():GetUnitName() ~= "npc_dota_ignis_fatuus"), [MODIFIER_STATE_NO_UNIT_COLLISION] = true}
-end
-function modifier_imba_light_will_o_wisp_t_on_in:GetModifierInvisibilityLevel() 
-	return 1
+function modifier_imba_light_will_o_wisp_t_on_in:DeclareFunctions() return {MODIFIER_PROPERTY_EVASION_CONSTANT} end
+function modifier_imba_light_will_o_wisp_t_on_in:GetModifierEvasion_Constant() return self.miss end
+
+function modifier_imba_light_will_o_wisp_t_on_in:OnCreated()
+	if self:GetAbility() == nil then
+		return 
+	end
+	self.miss = self:GetAbility():GetSpecialValueFor("miss")
 end
 
 --熄灭

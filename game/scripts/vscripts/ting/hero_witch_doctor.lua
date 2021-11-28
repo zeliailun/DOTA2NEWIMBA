@@ -1,4 +1,4 @@
-CreateTalents("npc_dota_hero_witch_doctor", "ting/hero_witch_doctor")
+CreateTalents("npc_dota_hero_witch_doctor", "ting/hero_witch_doctor.lua")
 --麻痹药剂
 imba_witch_doctor_paralyzing_cask = class({})
 LinkLuaModifier("modifier_imba_witch_doctor_voodoo_restoration", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
@@ -9,12 +9,12 @@ function imba_witch_doctor_paralyzing_cask:GetCooldown(level)
 	local caster = self:GetCaster()
 	local Talent = caster:TG_GetTalentValue("special_bonus_imba_witch_doctor_2")
 	local  Getcd = cooldown - Talent
-	if caster:TG_HasTalent("special_bonus_imba_witch_doctor_2") then 
+	if caster:TG_HasTalent("special_bonus_imba_witch_doctor_2") then
 		return (Getcd)
 	end
 	return cooldown
 end
-function imba_witch_doctor_paralyzing_cask:OnSpellStart() 
+function imba_witch_doctor_paralyzing_cask:OnSpellStart()
 	local pfx_name = "particles/econ/items/witch_doctor/wd_monkey/witchdoctor_cask_monkey.vpcf"
 	local caster = self:GetCaster()
 	local pos = self:GetCursorPosition()
@@ -23,18 +23,18 @@ function imba_witch_doctor_paralyzing_cask:OnSpellStart()
 	local distance = self:GetSpecialValueFor("dis")
 	local ab = caster:FindAbilityByName("imba_witch_doctor_voodoo_restoration")
 	--local next_pos = GetGroundPosition(caster:GetAbsOrigin() + direction * distance, caster)
-	--for i = 1,3,1 do 
+	--for i = 1,3,1 do
 	local next_pos = GetGroundPosition(caster:GetAbsOrigin() + direction * distance, caster) --不开自动就往目标方向300码距离扔
-	if self:GetAutoCastState() then --开自动就往目标点扔 
+	if self:GetAutoCastState() then --开自动就往目标点扔
 		next_pos = Vector(pos.x,pos.y,pos.z+200)
 	end
-	
-	local target = CreateModifierThinker(caster, self, "modifier_dummy_thinker", {duration = 4}, next_pos, caster:GetTeamNumber(), false)	
+
+	local target = CreateModifierThinker(caster, self, "modifier_dummy_thinker", {duration = 4}, next_pos, caster:GetTeamNumber(), false)
 
 	local P1= {
 				Target = target,
 				Source = caster,
-				Ability = self,	
+				Ability = self,
 				EffectName = pfx_name,
 				iMoveSpeed = speed,
 				vSourceLoc= caster:GetAbsOrigin(),                -- Optional (HOW)
@@ -51,18 +51,18 @@ function imba_witch_doctor_paralyzing_cask:OnSpellStart()
 --	end
 	EmitSoundOn("Hero_WitchDoctor.Paralyzing_Cask_Cast.Bonkers", self:GetCaster())
 
-	
+
 end
 
 function imba_witch_doctor_paralyzing_cask:OnProjectileThink_ExtraData(pos, keys)
 	AddFOWViewer(self:GetCaster():GetTeamNumber(), pos, 300, FrameTime(), false)
 end
 
-function imba_witch_doctor_paralyzing_cask:OnProjectileHit_ExtraData(target, location, keys) 
+function imba_witch_doctor_paralyzing_cask:OnProjectileHit_ExtraData(target, location, keys)
 	if target then
 	local caster = self:GetCaster()
 	target:EmitSound("Hero_WitchDoctor.Paralyzing_Cask_Bounce.ti8")
-	
+
 	local enemies = FindUnitsInRadius(caster:GetTeamNumber(), target:GetAbsOrigin(), nil, self:GetSpecialValueFor("stun_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC , DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 	for _,enemy in pairs(enemies) do
 		enemy:AddNewModifier_RS(caster,self,"modifier_imba_stunned",{duration = self:GetSpecialValueFor("stun_duration")})
@@ -89,12 +89,12 @@ function imba_witch_doctor_paralyzing_cask:OnProjectileHit_ExtraData(target, loc
 	local distnce = self:GetSpecialValueFor("dis")
 	local direction = Vector(keys.direction_x,keys.direction_y,keys.direction_z)
 	local count = keys.count + 1
-	CreateModifierThinker(caster, self, "modifier_imba_witch_doctor_paralyzing_cask", {duration = 0.3}, location, caster:GetTeamNumber(), false)	
+	CreateModifierThinker(caster, self, "modifier_imba_witch_doctor_paralyzing_cask", {duration = 0.3}, location, caster:GetTeamNumber(), false)
 	if  count > self:GetSpecialValueFor("bounces_enemy") - 1 then  		--超过次数方向就变为向巫医的方向
 		direction = GetDirection2D(self:GetCaster():GetAbsOrigin(), location)
 	end
-	if  count > self:GetSpecialValueFor("bounces") - 1 then 
-		return 
+	if  count > self:GetSpecialValueFor("bounces") - 1 then
+		return
 	end
 	local tar = target
 	local speed = self:GetSpecialValueFor("speed")
@@ -102,11 +102,11 @@ function imba_witch_doctor_paralyzing_cask:OnProjectileHit_ExtraData(target, loc
 	local pfx_name = "particles/econ/items/witch_doctor/wd_monkey/witchdoctor_cask_monkey.vpcf"
 	local ab = caster:FindAbilityByName("imba_witch_doctor_voodoo_restoration")
 
-	local target = CreateModifierThinker(caster, ab, "modifier_dummy_thinker", {duration = 8}, next_pos, caster:GetTeamNumber(), false)		
+	local target = CreateModifierThinker(caster, ab, "modifier_dummy_thinker", {duration = 8}, next_pos, caster:GetTeamNumber(), false)
 	local P1= {
 				Target = target,
 				Source = tar,
-				Ability = self,	
+				Ability = self,
 				EffectName = pfx_name,
 				iMoveSpeed = 1800,
 				vSourceLoc= tar,                -- Optional (HOW)
@@ -120,10 +120,10 @@ function imba_witch_doctor_paralyzing_cask:OnProjectileHit_ExtraData(target, loc
 				}
 		Timers:CreateTimer(0.3, function() --弹跳延迟
 			 ProjectileManager:CreateTrackingProjectile(P1)
-		end)			
+		end)
 	end
-	
-	
+
+
 end
 modifier_imba_witch_doctor_paralyzing_cask = class({})
 LinkLuaModifier("modifier_imba_witch_doctor_voodoo_debuff", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
@@ -134,12 +134,12 @@ function modifier_imba_witch_doctor_paralyzing_cask:IsPurgeException() 	return f
 function modifier_imba_witch_doctor_paralyzing_cask:OnCreated()
 	if not IsServer() then return end
 	local pfx_name = "particles/units/heroes/hero_witchdoctor/witchdoctor_voodoo_restoration.vpcf"
-	self.radius = self:GetAbility():GetSpecialValueFor("stun_radius") 
+	self.radius = self:GetAbility():GetSpecialValueFor("stun_radius")
 	self.mainParticle = ParticleManager:CreateParticle(pfx_name, PATTACH_POINT_FOLLOW, self:GetParent())
 			ParticleManager:SetParticleControlEnt(self.mainParticle, 0, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetAbsOrigin(), true)
 			ParticleManager:SetParticleControl(self.mainParticle, 1, Vector( self.radius, self.radius, self.radius ) )
 			ParticleManager:SetParticleControlEnt(self.mainParticle, 2, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetAbsOrigin(), true)
-	self:AddParticle(self.mainParticle, false, false, 0, false, false)	
+	self:AddParticle(self.mainParticle, false, false, 0, false, false)
 end
 --巫毒疗法
 imba_witch_doctor_voodoo_restoration = class({})
@@ -150,16 +150,16 @@ function imba_witch_doctor_voodoo_restoration:GetBehavior()
 	if self:GetCaster():TG_HasTalent("special_bonus_imba_witch_doctor_4")  then
 		return DOTA_ABILITY_BEHAVIOR_TOGGLE + DOTA_ABILITY_BEHAVIOR_IMMEDIATE
 	else
-		return DOTA_ABILITY_BEHAVIOR_NO_TARGET 
-	end 
+		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
+	end
 end
-function imba_witch_doctor_voodoo_restoration:OnSpellStart() 
+function imba_witch_doctor_voodoo_restoration:OnSpellStart()
 	local caster = self:GetCaster()
 	caster:AddNewModifier(caster,self,"modifier_imba_witch_doctor_voodoo_restoration",{duration = self:GetSpecialValueFor("duration"),isCaster = 1 , radius = self:GetSpecialValueFor("radius")}) --参数用来判断持续消蓝
 end
 function imba_witch_doctor_voodoo_restoration:GetCooldown(level)
 	local cooldown = self.BaseClass.GetCooldown(self, level)
-	if  self:GetCaster():TG_HasTalent("special_bonus_imba_witch_doctor_4") then 
+	if  self:GetCaster():TG_HasTalent("special_bonus_imba_witch_doctor_4") then
 		cooldown = 0
 	end
 	return cooldown
@@ -168,7 +168,7 @@ function imba_witch_doctor_voodoo_restoration:OnToggle()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
 	if self:GetToggleState() then
-		caster:AddNewModifier(caster, self, "modifier_imba_witch_doctor_voodoo_restoration", {isCaster = 1,radius = self:GetSpecialValueFor("radius")}) 
+		caster:AddNewModifier(caster, self, "modifier_imba_witch_doctor_voodoo_restoration", {isCaster = 1,radius = self:GetSpecialValueFor("radius")})
 	else
         caster:RemoveModifierByName("modifier_imba_witch_doctor_voodoo_restoration")
     end
@@ -193,7 +193,7 @@ function modifier_imba_witch_doctor_voodoo_restoration:OnCreated(params)
 			ParticleManager:SetParticleControlEnt(self.mainParticle, 0, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetAbsOrigin(), true)
 			ParticleManager:SetParticleControl(self.mainParticle, 1, Vector( self.radius, self.radius, self.radius ) )
 			ParticleManager:SetParticleControlEnt(self.mainParticle, 2, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetAbsOrigin(), true)
-	self:AddParticle(self.mainParticle, false, false, 0, false, false)	
+	self:AddParticle(self.mainParticle, false, false, 0, false, false)
 	self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("heal_interval"))
 end
 function modifier_imba_witch_doctor_voodoo_restoration:OnDestroy()
@@ -211,7 +211,7 @@ function modifier_imba_witch_doctor_voodoo_restoration:OnIntervalThink()
 	local mana_cost = self:GetAbility():GetSpecialValueFor("mana_per_second")*interval
 	if self.isCaster == 1 then --thinker参数 不消耗巫医的蓝
 	if self:GetCaster():GetMana() >= mana_cost then
-		self:GetCaster():SpendMana(mana_cost, self:GetAbility())		
+		self:GetCaster():SpendMana(mana_cost, self:GetAbility())
 	else
 		if self:GetCaster():TG_HasTalent("special_bonus_imba_witch_doctor_4") then
 			self:GetAbility():ToggleAbility()
@@ -219,7 +219,7 @@ function modifier_imba_witch_doctor_voodoo_restoration:OnIntervalThink()
 	end
 	end
 	local heal = (self:GetAbility():GetSpecialValueFor("heal") + self:GetCaster():GetBaseIntellect())*interval
-	if self.per ~= nil then 
+	if self.per ~= nil then
 		heal = heal*self.per
 	end
 	local parent = self:GetParent()
@@ -241,7 +241,7 @@ function modifier_imba_witch_doctor_voodoo_restoration:OnIntervalThink()
 							ability = self:GetAbility(), --Optional.
 							}
 			ApplyDamage(damageTable)
-			
+
 		end
 	end
 end
@@ -264,7 +264,7 @@ imba_witch_doctor_maledict = class({})
 LinkLuaModifier("modifier_maledict_imba_thinker", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
 function imba_witch_doctor_maledict:OnInventoryContentsChanged()
 	if not IsServer() then return end
-    if self:GetCaster():HasScepter() then 
+    if self:GetCaster():HasScepter() then
        self:SetHidden(false)
 	   self:SetStolen(true)
        self:SetLevel(1)
@@ -274,7 +274,7 @@ function imba_witch_doctor_maledict:OnInventoryContentsChanged()
 			self:SetStolen(true)
     end
 end
-function imba_witch_doctor_maledict:OnSpellStart() 
+function imba_witch_doctor_maledict:OnSpellStart()
 	local vPosition = self:GetCursorPosition()
 	local caster = self:GetCaster()
 	local radius = self:GetSpecialValueFor("radius")
@@ -302,9 +302,9 @@ function modifier_maledict_imba_thinker:OnCreated()
 	self.time = 0.1
 	self.inv = self:GetAbility():GetSpecialValueFor("inv")
 	self.slow = self:GetAbility():GetSpecialValueFor("slow")*-1
-	local pfx_name = "particles/units/heroes/hero_witchdoctor/witchdoctor_maledict.vpcf"		
+	local pfx_name = "particles/units/heroes/hero_witchdoctor/witchdoctor_maledict.vpcf"
 	local maledictFX = ParticleManager:CreateParticle("particles/units/heroes/hero_witchdoctor/witchdoctor_maledict.vpcf", PATTACH_POINT_FOLLOW, self:GetParent())
-	ParticleManager:SetParticleControl( maledictFX, 1, Vector(2,0,0) )		
+	ParticleManager:SetParticleControl( maledictFX, 1, Vector(2,0,0) )
 	self:AddParticle(maledictFX, false, false, 0, false, false)
 	if IsServer() then
 		self:StartIntervalThink( self.inv )
@@ -318,17 +318,17 @@ function modifier_maledict_imba_thinker:OnDestroy()
 		if self:GetParent() then
 		ApplyDamage(
 		{
-		victim = self:GetParent(), 
-		attacker = self:GetCaster(), 
-		damage = (self:GetParent():GetMaxHealth() - self:GetParent():GetHealth())*self:GetAbility():GetSpecialValueFor("damage")*0.01 , 
+		victim = self:GetParent(),
+		attacker = self:GetCaster(),
+		damage = (self:GetParent():GetMaxHealth() - self:GetParent():GetHealth())*self:GetAbility():GetSpecialValueFor("damage")*0.01 ,
 		damage_type = DAMAGE_TYPE_MAGICAL,
 		damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} --不吃法强
 		)
-			
+
 		StopSoundEvent("Hero_WitchDoctor.Maledict_Loop", self:GetParent())
 		end
 	end
-		
+
 end
 
 function modifier_maledict_imba_thinker:OnIntervalThink()
@@ -371,25 +371,25 @@ end
 imba_witch_doctor_voodoo_switcheroo = class({})
 LinkLuaModifier("modifier_death_voodoo_handling", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_death_voodoo_handling_slow", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
-function imba_witch_doctor_voodoo_switcheroo:GetChannelTime() 
+function imba_witch_doctor_voodoo_switcheroo:GetChannelTime()
 	return 5 + self:GetCaster():TG_GetTalentValue("special_bonus_imba_witch_doctor_5")
 end
-function imba_witch_doctor_voodoo_switcheroo:OnSpellStart() 
+function imba_witch_doctor_voodoo_switcheroo:OnSpellStart()
 	local caster = self:GetCaster()
     local caster_pos = caster:GetAbsOrigin()
 	local pos = self:GetCursorPosition()
 	EmitSoundOn("Hero_WitchDoctor.Death_WardBuild", caster)
-	local duration = self:GetSpecialValueFor("duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_witch_doctor_5") + 0.1 
-	if self:GetCursorTarget() then --对自己用不创造守卫 
-		if self:GetCursorTarget() == self:GetCaster() then 
+	local duration = self:GetSpecialValueFor("duration") + self:GetCaster():TG_GetTalentValue("special_bonus_imba_witch_doctor_5") + 0.1
+	if self:GetCursorTarget() then --对自己用不创造守卫
+		if self:GetCursorTarget() == self:GetCaster() then
 			caster:AddNewModifier(caster,self,"modifier_death_voodoo_handling",{duration = duration })
 			caster:Stop()
-			return 
+			return
 		end
 	end
 	local num = caster:Has_Aghanims_Shard() and self:GetSpecialValueFor("num_shard") or  self:GetSpecialValueFor("num")
-	self.ward = {}	--守卫集合 
-	for i = 1,num,1 do 
+	self.ward = {}	--守卫集合
+	for i = 1,num,1 do
 		self.ward[i] = CreateUnitByName("npc_dota_witch_doctor_death_ward", pos, true, caster, caster, caster:GetTeamNumber())
 		self.ward[i]:SetOwner(caster)
 		self.ward[i]:SetBaseDamageMax( self:GetSpecialValueFor("damage") )
@@ -403,7 +403,7 @@ function imba_witch_doctor_voodoo_switcheroo:OnSpellStart()
 end
 
 function imba_witch_doctor_voodoo_switcheroo:OnChannelFinish()
-	if IsServer() then	
+	if IsServer() then
 		if self.ward then
 		if not self:GetCaster():Has_Aghanims_Shard() then --有魔晶就不打断持续施法
 			StopSoundEvent("Hero_WitchDoctor.Death_WardBuild", self:GetCaster())
@@ -430,14 +430,14 @@ function imba_witch_doctor_voodoo_switcheroo:OnProjectileHit_ExtraData(target, v
 			self:kno(target,ward)
 		end
 	end
-	
+
 	end
 	if extraData.ca == 1 then	 --参数判断 触发特效的是不是施法者  是就往套娃 弹射
 			ApplyDamage(
 		{
-		victim = target, 
-		attacker = self:GetCaster(), 
-		damage = extraData.damg, 
+		victim = target,
+		attacker = self:GetCaster(),
+		damage = extraData.damg,
 		damage_type = 1,
 		damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION,}
 		)
@@ -447,10 +447,10 @@ function imba_witch_doctor_voodoo_switcheroo:OnProjectileHit_ExtraData(target, v
 				extraData[tostring(target:GetEntityIndex())] = 1 --记录当前目标 (设置为1)，不再弹射这个单位 ？ 这个多余ma
 
 				self:CreateBounceAttack(target, extraData)	--弹射
-		end		
+		end
 	end
-	
-	
+
+
 end
 function imba_witch_doctor_voodoo_switcheroo:kno(target,caster)
 	if not IsServer() then return end
@@ -465,10 +465,10 @@ function imba_witch_doctor_voodoo_switcheroo:kno(target,caster)
           center_y =  caster:GetAbsOrigin().y,
           center_z =  caster:GetAbsOrigin().z,
 		}
-	  		target:AddNewModifier(self:GetCaster(), self, "modifier_knockback", Knockback)  --白牛的击退	
-			target:AddNewModifier(self:GetCaster(), self, "modifier_death_voodoo_handling_slow", {duration = 0.3})	
-	end	
-	
+	  		target:AddNewModifier(self:GetCaster(), self, "modifier_knockback", Knockback)  --白牛的击退
+			target:AddNewModifier(self:GetCaster(), self, "modifier_death_voodoo_handling_slow", {duration = 0.3})
+	end
+
 end
 function imba_witch_doctor_voodoo_switcheroo:CreateBounceAttack(originalTarget, extraData)
     local caster = self:GetCaster()
@@ -503,9 +503,9 @@ LinkLuaModifier("modifier_death_voodoo_handling_slow", "ting/hero_witch_doctor",
 function modifier_death_voodoo_handling:OnCreated()
 	if not IsServer() then return end
 	self.damage = self:GetAbility():GetSpecialValueFor("damage")
-	
+
 	if self:GetParent()~= self:GetCaster() then
-	self.wardParticle = ParticleManager:CreateParticle("particles/units/heroes/hero_witchdoctor/witchdoctor_ward_skull.vpcf", PATTACH_POINT_FOLLOW, self:GetParent()) 
+	self.wardParticle = ParticleManager:CreateParticle("particles/units/heroes/hero_witchdoctor/witchdoctor_ward_skull.vpcf", PATTACH_POINT_FOLLOW, self:GetParent())
 		ParticleManager:SetParticleControlEnt(self.wardParticle, 0, self:GetParent(), PATTACH_POINT_FOLLOW, "attach_attack1", self:GetParent():GetAbsOrigin(), true)
 		ParticleManager:SetParticleControl(self.wardParticle, 2, self:GetParent():GetAbsOrigin())
 		self:AddParticle(self.wardParticle, false, false, 15, false, false)
@@ -549,7 +549,7 @@ function modifier_death_voodoo_handling:OnAttackLanded(keys)
 		local units = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), keys.target:GetAbsOrigin(), nil, 800, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE + DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS, 1, false)
 		local bounces = 3
 		for _, unit in pairs(units) do
-			if unit ~= keys.target then 
+			if unit ~= keys.target then
 			local projectile = {
 				Target = unit,
 				Source = keys.target,
@@ -577,9 +577,9 @@ function modifier_death_voodoo_handling:OnAttackLanded(keys)
           center_y =  self:GetCaster():GetAbsOrigin().y,
           center_z =  self:GetCaster():GetAbsOrigin().z,
 		}
-	  		keys.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_knockback", Knockback)  --白牛的击退	
-			keys.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_death_voodoo_handling_slow", {duration = 0.3}) 	
-		end			
+	  		keys.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_knockback", Knockback)  --白牛的击退
+			keys.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_death_voodoo_handling_slow", {duration = 0.3})
+		end
 end
 function modifier_death_voodoo_handling:OnDestroy()
 	if IsServer() then
@@ -630,7 +630,7 @@ function modifier_death_voodoo_handling_slow:DeclareFunctions()
 	return funcs
 end
 function modifier_death_voodoo_handling_slow:GetModifierMoveSpeedBonus_Percentage()
-	return self.slow 
+	return self.slow
 end
 
 function modifier_death_voodoo_handling_slow:IsHidden()
@@ -641,7 +641,7 @@ imba_witch_doctor_death_ward = class({})
 LinkLuaModifier("modifier_death_ward_handling", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_witch_doctor_voodoo_restoration", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_death_ward_bkb", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
-function imba_witch_doctor_death_ward:OnSpellStart() 
+function imba_witch_doctor_death_ward:OnSpellStart()
 	local caster = self:GetCaster()
     local caster_pos = caster:GetAbsOrigin()
     local pos = self:GetCursorPosition()
@@ -658,40 +658,40 @@ function imba_witch_doctor_death_ward:OnSpellStart()
 		self.death_ward:SetHealth(hp)
     --self.death_ward:AddNewModifier(caster, self, "modifier_plague_ward", {duration=duration})
     --self.death_ward:AddNewModifier(caster, self, "modifier_kill", {duration=duration})
-	
+
 	local ab = caster:FindAbilityByName("imba_witch_doctor_voodoo_restoration")
 	if ab and ab:GetLevel() > 0 then
 		self.death_ward:AddNewModifier(caster,ab,"modifier_imba_witch_doctor_voodoo_restoration",{duration = duration ,isCaster = 0 , per = self:GetSpecialValueFor("per") , radius = self:GetSpecialValueFor("heal_radius")})
 	end
-	
+
 	self.death_ward:AddNewModifier(caster,self,"modifier_death_ward_handling",{duration = duration})
     self.death_ward:SetControllableByPlayer(caster:GetPlayerOwnerID(), false)
-	
+
 end
 
 function imba_witch_doctor_death_ward:OnChannelFinish()
-	if IsServer() then		
+	if IsServer() then
 		StopSoundEvent("Hero_WitchDoctor.Death_WardBuild", self:GetCaster())
 		self:GetCaster():RemoveModifierByName("modifier_death_ward_bkb")
-		UTIL_Remove(self.death_ward)	
+		UTIL_Remove(self.death_ward)
 	end
 end
 
 function imba_witch_doctor_death_ward:OnProjectileHit_ExtraData(target, vLocation, extraData)
 	if not IsServer() then return end
-	if not self.death_ward:IsNull() then	
+	if not self.death_ward:IsNull() then
 		if not target:IsMagicImmune() then
 			target:AddNewModifier(self:GetCaster(),self,"modifier_imba_stunned",{duration = self:GetSpecialValueFor("stun")})
 		end
 		if self:GetCaster():HasModifier("modifier_item_monkey_king_bar_v2_pa") then
-			local mod = self:GetCaster():FindModifierByName("modifier_item_monkey_king_bar_v2_pa") 
-			if mod then 
-				mod.miss = true 
+			local mod = self:GetCaster():FindModifierByName("modifier_item_monkey_king_bar_v2_pa")
+			if mod then
+				mod.miss = true
 				self:GetCaster():PerformAttack(target, true, true, true, false, false, false, true)
 				mod.miss = false
 			end
 		else
-			self:GetCaster():PerformAttack(target, true, true, true, false, false, false, true)		
+			self:GetCaster():PerformAttack(target, true, true, true, false, false, false, true)
 		end
 	end
 end
@@ -700,7 +700,7 @@ end
 modifier_death_ward_handling = class({})
 
 function modifier_death_ward_handling:OnCreated()
-	self.wardParticle = ParticleManager:CreateParticle("particles/econ/items/witch_doctor/witch_doctor_ribbitar/witchdoctor_ribbitar_ward_skull.vpcf", PATTACH_POINT_FOLLOW, self:GetParent()) 
+	self.wardParticle = ParticleManager:CreateParticle("particles/econ/items/witch_doctor/witch_doctor_ribbitar/witchdoctor_ribbitar_ward_skull.vpcf", PATTACH_POINT_FOLLOW, self:GetParent())
 		ParticleManager:SetParticleControlEnt(self.wardParticle, 0, self:GetParent(), PATTACH_POINT_FOLLOW, "attach_attack1", self:GetParent():GetAbsOrigin(), true)
 		ParticleManager:SetParticleControl(self.wardParticle, 2, self:GetParent():GetAbsOrigin())
 	if IsServer() then
@@ -728,7 +728,7 @@ function modifier_death_ward_handling:OnIntervalThink()
 	end
 end
 function modifier_death_ward_handling:CheckState()
-    return 
+    return
     {
         [MODIFIER_STATE_MAGIC_IMMUNE] = true,
     }
@@ -737,10 +737,10 @@ end
 function modifier_death_ward_handling:OnAttackLanded(keys)
     if not IsServer() then
         return
-	end  
+	end
     if  keys.target == self:GetParent() then
         if self:GetParent():GetHealth()>0 then
-        self:GetParent():SetHealth(self:GetParent():GetHealth() - 1) 
+        self:GetParent():SetHealth(self:GetParent():GetHealth() - 1)
         elseif self:GetParent():GetHealth()<=0 then
         self:GetParent():Kill(self:GetAbility(), keys.attacker)
 		self:GetCaster():Stop()
@@ -755,36 +755,36 @@ function modifier_death_ward_handling:OnDestroy()
 	end
 end
 
-function modifier_death_ward_handling:DeclareFunctions() 
-    return 
+function modifier_death_ward_handling:DeclareFunctions()
+    return
     {
-        MODIFIER_PROPERTY_MODEL_CHANGE,        
+        MODIFIER_PROPERTY_MODEL_CHANGE,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, 
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, 
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, 
-        MODIFIER_PROPERTY_DISABLE_HEALING, 
-    } 
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+        MODIFIER_PROPERTY_DISABLE_HEALING,
+    }
 end
 
-function modifier_death_ward_handling:GetModifierModelChange() 
+function modifier_death_ward_handling:GetModifierModelChange()
     return "models/items/witchdoctor/wd_ward/ribbitar_ward/ribbitar_ward.vmdl"
 end
 
-function modifier_death_ward_handling:GetDisableHealing() 
-    return 1 
+function modifier_death_ward_handling:GetDisableHealing()
+    return 1
 end
 
-function modifier_death_ward_handling:GetAbsoluteNoDamageMagical() 
-    return 1 
+function modifier_death_ward_handling:GetAbsoluteNoDamageMagical()
+    return 1
 end
 
-function modifier_death_ward_handling:GetAbsoluteNoDamagePhysical() 
-    return 1 
+function modifier_death_ward_handling:GetAbsoluteNoDamagePhysical()
+    return 1
 end
 
-function modifier_death_ward_handling:GetAbsoluteNoDamagePure() 
-    return 1 
+function modifier_death_ward_handling:GetAbsoluteNoDamagePure()
+    return 1
 end
 function modifier_death_ward_handling:IsHidden()
     return true

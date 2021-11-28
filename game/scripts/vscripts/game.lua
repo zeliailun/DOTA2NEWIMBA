@@ -70,7 +70,7 @@ KILLSNUM=GetMapName() =="6v6v6" and 200 or 304
 --老将眼奖励
 Veteran_WARD = 1000
 
-Hero_KEG=160
+Hero_KEG=150
 
 Threshold_KEG=700
 
@@ -79,6 +79,10 @@ Perc_KEG=0.05
 Neutral_KEG=3
 
 Creep_KEG=3
+
+Shared_G=1.1
+
+Outpost_XP=1.2
 ----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -147,6 +151,8 @@ if GameRules.dummy == nil then
 	  GameRules.dummy = {}
 end
 
+GameRules.QuitG = {}
+GameRules.QuitB = {}
 ----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -199,7 +205,6 @@ TOWER_ABILITY_TABLE4=
 --旺旺大礼包
 Gift_ITEM=
 {
-  "item_magic_wand",
   "item_ward_sentry",
   "item_ward_observer",
   "item_pool_blink",
@@ -313,7 +318,7 @@ RandomAbility=
   "pangolier_swashbuckle","tidehunter_anchor_smash","rattletrap_hookshot", "earthshaker_aftershock","warlock_rain_of_chaos","pudge_meat_hook","queenofpain_blink",
   "shadow_shaman_voodoo",  "faceless_void_time_walk","dark_troll_warlord_ensnare","polar_furbolg_ursa_warrior_thunder_clap","centaur_khan_war_stomp","roshan_spell_block",
   "roshan_slam","hoodwink_scurry","filler_ability","necronomicon_archer_aoe","satyr_hellcaller_shockwave","victory","fiery_soul","laguna_blade","supernova",
-
+  "ra_mango_tree","ra_flask","ra_clarity","ra_cheese",
   --"droiyan","traitor","truce","flak_cannon","seer_vacuum"
 }
 
@@ -321,6 +326,7 @@ RandomAbility=
 --随机技能被动表
 RandomAbility2=
   {
+    "ra_branches",
     "filler_ability",
     "roshan_spell_block",
     "necronomicon_archer_aoe",
@@ -347,6 +353,16 @@ RandomAbility2=
     "beastmaster_inner_beast",
     "dragon_knight_elder_dragon_form",
     "huskar_berserkers_blood",
+    "antimage_mana_break",
+    "axe_counter_helix",
+    "abaddon_frostmourne",
+    "pangolier_lucky_shot",
+    "jakiro_liquid_fire",
+    "luna_lunar_blessing",
+    "viper_poison_attack",
+    "beastmaster_boar_poison",
+    "nevermore_dark_lord",
+    "storm_spirit_overload",
 
       "greater_bash",
       "tower1_watchtower",
@@ -400,7 +416,6 @@ RandomAbility2=
       "imba_bristleback_warpath",
       "prot",
       "fiery_soul",
-
   }
 
 
@@ -468,6 +483,7 @@ NOT_RS_ITEM_TK=
   "item_laojie",
   "item_imba_seer_of_disk",
   "item_imba_relic_chip",
+  "item_greaves_v2",
 }
 
 

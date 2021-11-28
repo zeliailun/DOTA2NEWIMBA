@@ -550,7 +550,7 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"shadowraze_damage"	"90 160 230 300"	
+				"shadowraze_damage"	"100 200 300 400"	
 				"LinkedSpecialBonus"	"special_bonus_unique_nevermore_2"	
 			}
 			"02"
@@ -620,7 +620,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"shadowraze_damage"		"90 160 230 300"	
+				"shadowraze_damage"		"100 200 300 400"	
 				"LinkedSpecialBonus" "special_bonus_unique_nevermore_2"	
 			}
 			"02"
@@ -689,7 +689,7 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"shadowraze_damage"	"90 160 230 300"		
+				"shadowraze_damage"	"100 200 300 400"		
 				"LinkedSpecialBonus" "special_bonus_unique_nevermore_2"	
 			}
 			"02"
@@ -857,7 +857,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"				"100 150 200"
+		"AbilityDamage"				"200 250 300"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------

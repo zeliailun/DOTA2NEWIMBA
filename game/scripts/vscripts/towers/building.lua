@@ -1,3 +1,4 @@
+
 building = class({})
 
 --设置建筑属性和技能

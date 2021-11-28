@@ -41,16 +41,15 @@ function activate_fire_remnant:OnSpellStart()
     if caster:HasModifier("modifier_sleight_of_fist_buff") then
         caster:RemoveModifierByName("modifier_sleight_of_fist_buff")
     end
-
-    if caster.fire_remnantTB and #caster.fire_remnantTB>0 then
-        for a=#caster.fire_remnantTB,1,-1 do
-            if caster.fire_remnantTB[a] and IsValidEntity(caster.fire_remnantTB[a]) and caster.fire_remnantTB[a]:IsAlive() then
-                EmitSoundOn("Hero_EmberSpirit.FireRemnant.Activate", caster)
-                caster:Purge(false, true, false, true, true)
-                caster:AddNewModifier(caster, self, "modifier_activate_fire_remnant", {dir=dir,target=caster.fire_remnantTB[a]:entindex()})
-                return
+    if caster.fireRemnantTB and #caster.fireRemnantTB>0 then
+            for a=#caster.fireRemnantTB,1,-1 do
+                    if caster.fireRemnantTB[a] and IsValidEntity(caster.fireRemnantTB[a]) and caster.fireRemnantTB[a]:IsAlive() then
+                        EmitSoundOn("Hero_EmberSpirit.FireRemnant.Activate", caster)
+                        caster:Purge(false, true, false, true, true)
+                        caster:AddNewModifier(caster, self, "modifier_activate_fire_remnant", {dir=dir,target=caster.fireRemnantTB[a]:entindex()})
+                        return
+                    end
             end
-        end
     end
 end
 
@@ -114,15 +113,15 @@ function modifier_activate_fire_remnant:UpdateHorizontalMotion( t, g )
         if self.mod  then
             self.mod:DecrementStackCount()
         end
-        if self.caster.fire_remnantTB  then
+        if self.caster.fireRemnantTB  then
             if self.pf then
                 ParticleManager:SetParticleControl(self.pf, 60, Vector(RandomInt(0, 255),RandomInt(0, 255),RandomInt(0, 255)))
             end
             StopSoundOn("Hero_EmberSpirit.FireRemnant.Activate", self.parent)
             EmitSoundOn("Hero_EmberSpirit.FireRemnant.Stop", self.parent)
-           -- for a=#self.caster.fire_remnantTB,1,-1 do
-           --     if self.caster.fire_remnantTB[a] and IsValidEntity(self.caster.fire_remnantTB[a]) and self.caster.fire_remnantTB[a]:IsAlive() then
-           --         self.target=self.caster.fire_remnantTB[a]
+           -- for a=#self.caster.fireRemnantTB,1,-1 do
+           --     if self.caster.fireRemnantTB[a] and IsValidEntity(self.caster.fireRemnantTB[a]) and self.caster.fireRemnantTB[a]:IsAlive() then
+           --         self.target=self.caster.fireRemnantTB[a]
           --          return
           --      end
           --  end

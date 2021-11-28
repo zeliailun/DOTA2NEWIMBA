@@ -1,5 +1,7 @@
 modifier_player=class({})
 
+CreateTalents("custom_value_talent", "modifier/player/modifier_player.lua")
+
 function modifier_player:IsHidden()
     return false
 end
@@ -125,16 +127,16 @@ function modifier_player:OnAbilityExecuted(tg)
          if tg.attacker==self.parent and tg.unit:IsRealHero() and not self.parent:IsIllusion() then
             local level1=self.parent:GetLevel()
             local level2=tg.unit:GetLevel()
-            if level and level2 and level2>level1 then
-                    local lv=level2-level
-                    self.parent:AddExperience(lv*700, DOTA_ModifyXP_Unspecified, false, false)
-                    PlayerResource:ModifyGold(self.id,lv*200 ,false,DOTA_ModifyGold_Unspecified)
+            if level1 and level2 and level2>level1 then
+                    local lv=level2-level1
+                    self.parent:AddExperience(lv*500, DOTA_ModifyXP_Unspecified, false, false)
+                    PlayerResource:ModifyGold(self.id,lv*100 ,false,DOTA_ModifyGold_Unspecified)
             end
          end
          if tg.unit==self.parent and not self.parent:IsIllusion() and tg.attacker:IsRealHero() then
             		if tg.unit:GetLevel()<tg.attacker:GetLevel() then
-                            PlayerResource:ModifyGold(self.id,RandomInt(200,600), false, DOTA_ModifyGold_Unspecified)
-                            tg.unit:AddExperience(RandomInt(300,700), DOTA_ModifyXP_Unspecified, false, false)
+                            PlayerResource:ModifyGold(self.id,RandomInt(200,800), false, DOTA_ModifyGold_Unspecified)
+                            tg.unit:AddExperience(RandomInt(300,900), DOTA_ModifyXP_Unspecified, false, false)
 					end
                     if PlayerResource:GetConnectionState(self.id) == DOTA_CONNECTION_STATE_ABANDONED then
                             self.parent:SetMinimumGoldBounty(0)

@@ -221,8 +221,11 @@ function modifier_imba_treant_leech_seed_debuff:OnIntervalThink()
 	local damage = self:GetAbility():GetSpecialValueFor("leech_damage")
 	local radius = self:GetAbility():GetSpecialValueFor("radius")
 	if self:GetParent():IsHero() then
-		local trees = GridNav:GetAllTreesAroundPoint( self:GetParent():GetOrigin(),radius , false )
-		damage = self:GetAbility():GetSpecialValueFor("leech_damage") + #trees*self:GetParent():GetHealth()*0.01*self:GetAbility():GetSpecialValueFor("heal_tree")
+		if  GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),self:GetAbility():GetSpecialValueFor("radius_v"), true) then
+			AddFOWViewer(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self:GetAbility():GetSpecialValueFor("radius_vision") , 1.5, false)
+		end
+		
+		
 	end	
 	
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_treant/treant_leech_seed_damage_pulse.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
@@ -604,6 +607,8 @@ end
 imba_treant_eyes_in_the_forest = class({})
 LinkLuaModifier("modifier_imba_treant_eyes_in_the_forest", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_treant_eyes_in_the_forest_passive", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("imba_treant_eyes_in_the_forest_unit_buff", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
+
 function imba_treant_eyes_in_the_forest:GetIntrinsicModifierName() return "modifier_imba_treant_eyes_in_the_forest_passive" end
 function imba_treant_eyes_in_the_forest:IsStealable() return false end
 function imba_treant_eyes_in_the_forest:OnInventoryContentsChanged()
@@ -627,9 +632,19 @@ function imba_treant_eyes_in_the_forest:OnSpellStart()
 	local tar = self:GetCursorTarget()
 	local pos = tar:GetAbsOrigin()	
 	local caster = self:GetCaster()
+	local hp = self:GetSpecialValueFor("count")
 	local tree = CreateUnitByName("npc_dota_treant_eyes", pos, false, self:GetCaster(), self:GetCaster(),caster:GetTeamNumber())
+	
 	tree:AddNewModifier(self:GetCaster(),self,"modifier_treant_eyes_in_the_forest",{duration = -1 })
 	tree:AddNewModifier(self:GetCaster(),self,"modifier_imba_treant_eyes_in_the_forest",{duration = -1 ,pos_x = pos.x,pos_y = pos.y,po_z = pos.z})
+	
+	local trees_2 = CreateUnitByName("npc_dota_lich_ice_spire", pos, true, caster, caster, caster:GetTeamNumber())
+		trees_2:SetOwner(caster)
+		trees_2:SetBaseMaxHealth(hp)
+		trees_2:SetMaxHealth(hp)
+		trees_2:SetHealth(hp)
+		
+	trees_2:AddNewModifier(self:GetCaster(),self,"imba_treant_eyes_in_the_forest_unit_buff",{duration = -1,pos_x = pos.x,pos_y = pos.y,po_z = pos.z})
 	local mod = self:GetCaster():FindModifierByName("modifier_imba_treant_eyes_in_the_forest_passive")
 	if mod then
 		mod:SetStackCount(mod:GetStackCount() + 1 )
@@ -650,6 +665,87 @@ function imba_treant_eyes_in_the_forest:OnSpellStart()
 	
 	end
 end
+
+
+imba_treant_eyes_in_the_forest_unit_buff = class({})
+function imba_treant_eyes_in_the_forest_unit_buff:RemoveOnDeath() return true end
+
+function imba_treant_eyes_in_the_forest_unit_buff:CheckState()
+    return 
+    {
+			[MODIFIER_STATE_MAGIC_IMMUNE] = true,
+			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true,
+			[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true,
+			[MODIFIER_STATE_INVISIBLE] = true, 
+			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
+			[MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES] = true,
+			--[MODIFIER_STATE_NO_HEALTH_BAR] = true,
+    }
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:OnAttackLanded(keys)
+    if not IsServer() then
+        return
+	end  
+    if  keys.target == self:GetParent() then
+        if self:GetParent():GetHealth()>0 then
+        self:GetParent():SetHealth(self:GetParent():GetHealth() - 1) 
+        elseif self:GetParent():GetHealth()<=0 then
+        self:GetParent():Kill(self:GetAbility(), keys.attacker)
+        end
+    end
+end
+function imba_treant_eyes_in_the_forest_unit_buff:OnCreated(parms)
+	if IsServer() then
+		self.pos = Vector(parms.pos_x,parms.pos_y,parms.pos_Z)
+		if self.pos~=nil then
+		self:GetParent():SetAbsOrigin(self.pos)
+		end
+	end
+end
+function imba_treant_eyes_in_the_forest_unit_buff:OnDestroy()
+	if IsServer() then
+		GridNav:DestroyTreesAroundPoint(self.pos, 10, false)
+		UTIL_Remove(self:GetParent())
+	end
+end
+	
+function imba_treant_eyes_in_the_forest_unit_buff:DeclareFunctions() 
+    return 
+    {
+        MODIFIER_PROPERTY_MODEL_CHANGE,        
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, 
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, 
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, 
+        MODIFIER_PROPERTY_DISABLE_HEALING, 
+    } 
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:GetModifierModelChange() 
+    return "models/items/furion/treant/np_desert_traveller_treant/np_desert_traveller_treant.vmdl"
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:GetDisableHealing() 
+    return 1 
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamageMagical() 
+    return 1 
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePhysical() 
+    return 1 
+end
+
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePure() 
+    return 1 
+end
+function imba_treant_eyes_in_the_forest_unit_buff:IsHidden()
+    return true
+end
+function imba_treant_eyes_in_the_forest_unit_buff:GetModifierInvisibilityLevel() return 1 end
+
 --树眼unit修饰器
 modifier_imba_treant_eyes_in_the_forest = class({})
 LinkLuaModifier("modifier_imba_treant_overgrowth_root", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
@@ -733,6 +829,18 @@ function modifier_imba_treant_eyes_in_the_forest:OnIntervalThink()
 		self.caster:AddNewModifier(self.caster,self:GetAbility(),"modifier_imba_treant_overgrowth_pa",{duration = self.duration})
 	end
 end
+function modifier_imba_treant_eyes_in_the_forest:OnDestroy()
+	if not IsServer() then return end
+	local tre =  FindUnitsInRadius(self:GetCaster():GetTeamNumber(),
+			self.pos, nil,10, 
+			DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)	
+		for _,t in pairs(tre) do		
+			if t:GetUnitName() == "npc_dota_lich_ice_spire" then
+				 t:Kill(self:GetAbility(), self:GetCaster())
+			end
+		end
+end
+
 modifier_imba_treant_eyes_in_the_forest_passive = class({})
 LinkLuaModifier("modifier_imba_treant_natures_guise_passive_inv", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 function modifier_imba_treant_eyes_in_the_forest_passive:IsHidden() 			return false end
@@ -960,6 +1068,9 @@ function modifier_imba_treant_natures_guise_passive_inv:OnAttackLanded(keys)
 			keys.target:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_rooted",{duration = keys.attacker:TG_GetTalentValue("special_bonus_imba_treant_3")})		
 		end
 		keys.attacker:RemoveModifierByName("modifier_imba_treant_natures_guise_passive_inv")
+	end
+	if keys.target == self:GetParent() then
+		self:GetAbility():StartCooldown(self:GetAbility():GetSpecialValueFor("invcd")) 
 	end
 end
 function modifier_imba_treant_natures_guise_passive_inv:OnDestroy()

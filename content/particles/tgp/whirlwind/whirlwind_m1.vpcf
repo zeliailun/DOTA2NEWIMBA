@@ -57,7 +57,7 @@
 		{
 			_class = "C_OP_InterpolateRadius"
 			m_flStartScale = 0.0
-			m_flEndScale = 5.0
+			m_flEndScale = 3.0
 			m_flBias = 0.75
 		},
 	]
@@ -73,7 +73,7 @@
 			m_vecTexturesInput = 
 			[
 				{
-					m_hTexture = resource:"materials/particle/warp_water_ripple_psd_39821b57.vtex"
+					m_hTexture = resource:"materials/particle/warp_water_ripple.vtex"
 				},
 			]
 		},

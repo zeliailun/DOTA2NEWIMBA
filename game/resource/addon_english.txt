@@ -11,7 +11,7 @@
 	"tip2"                 				"○The game can be slow to load"
 	"tip3"                 				"○Click the profile picture in the team information panel  to \n enter the profile interface"
 	"tip4"                 				"○Unable to start the game, possibly because there is no update"
-	"tip5"                 				"○Version：NEW-IMBA 2021.2.4H"
+	"tip5"                 				"○Version：NEW-IMBA 2021.2.4I"
 	"tip6"                 				"○Thanks for playing！"
 	"tip7"                 				"✰XXXXXXXXXXXXXX！"
 	"die"					"-重生时间恶化，现在每次死亡都会增加复活时间-"
@@ -225,7 +225,7 @@
 
 	//==\\ 防御光环
 	"DOTA_Tooltip_ability_tower1_def"                 				"Radiant blessing"
-	"DOTA_Tooltip_ability_tower1_def_description"                 	"Increases %ar% armor and %mr%% magic resistance of friendly heroes within %rd% radius ,Increase (500-current level*10) HP bonus"
+	"DOTA_Tooltip_ability_tower1_def_description"                 	"Increases %ar% armor and %mr%% magic resistance of friendly heroes within %rd% radius ,Increase 500 HP bonus"
 	"DOTA_Tooltip_ability_tower1_def_Lore"                 			"神说、要有光、就有了光。"
 	"DOTA_Tooltip_modifier_tower1_def"					"防御光环"
 	"DOTA_Tooltip_modifier_tower1_def_arua"				"防御光环"
@@ -3145,7 +3145,7 @@
 
 
 		"DOTA_Tooltip_ability_wukongs_command"							"斗战胜佛"
-		"DOTA_Tooltip_ability_wukongs_command_description"				"俺老孙来也！\n<h1><font color='#54FF9F'>1.大圣归来</font></h1>● 孙悟空跳向前方并召唤出筋斗云，在空中飞行。\n● 孙悟空可以看到自身%eyes%码范围的隐身英雄。\n● 大招期间可以抵挡一次指向性技能。\n<h1><font color='#54FF9F'>2.猴阵</font></h1> 落地后在地面创建猴阵每隔1.5秒会创造幻影自动攻击范围内的敌人，持续6秒 \n<font color='#FFFF00'>●技能设计者:小太阳</font>"
+		"DOTA_Tooltip_ability_wukongs_command_description"				"俺老孙来也！\n<h1><font color='#54FF9F'>1.大圣归来</font></h1>● 孙悟空跳向前方并召唤出筋斗云，在空中飞行。\n● 孙悟空可以看到自身%eyes%码范围的隐身英雄。\n● 大招期间可以抵挡一次指向性技能。\n<h1><font color='#54FF9F'>2.猴阵</font></h1> 落地后在地面创建猴阵每隔1秒会创造幻影自动攻击范围内的敌人，持续6秒 \n<font color='#FFFF00'>●技能设计者:小太阳</font>"
 		"DOTA_Tooltip_ability_wukongs_command_Lore"						"我就是花果山水帘洞美猴王齐天大圣孙悟空！"
 		"DOTA_Tooltip_ability_wukongs_command_Note0"					"1.A帐效果会在跳跃结束后生效。"
 		"DOTA_Tooltip_ability_wukongs_command_dur"					"持续时间："
@@ -3301,7 +3301,7 @@
 		//tk
 		"DOTA_Tooltip_ability_rearm"						"再装填"
 		"DOTA_Tooltip_ability_rearm_Lore"					"这儿换块新电池，那儿塞几枚火箭弹，鲍什不断改进现有的技术。 "
-		"DOTA_Tooltip_ability_rearm_description"			"持续施法 - 重置修补匠的大多数物品和技能的冷却时间。\n<h1><font color='#63B8FF'>1.无法刷新的技能列表</font></h1>1.黑皇杖，2.白皇杖，3.上帝之手，4.迈达斯之手，5.微光披风，6.红颜披风，7.冰眼，8.幻影斧，9.莲花，10.刷新球，11.知识之书，12.永恒之盘，13.奥术鞋，14.林肯法球，15.陨星锤，16.死灵书，17.支配头盔。\n ● 拥有该技能的英雄羊刀持续时间降低至1秒"
+		"DOTA_Tooltip_ability_rearm_description"			"持续施法 - 重置修补匠的大多数物品和技能的冷却时间。\n<h1><font color='#63B8FF'>1.无法刷新的技能列表</font></h1>1.黑皇杖，2.白皇杖，3.上帝之手，4.迈达斯之手，5.微光披风，6.红颜披风，7.冰眼，8.幻影斧，9.莲花，10.刷新球，11.知识之书，12.永恒之盘，13.奥术鞋，14.林肯法球，15.陨星锤，16.死灵书，17.支配头盔，18.卫士胫甲.V2。\n ● 拥有该技能的英雄羊刀持续时间降低至1秒"
 		"DOTA_Tooltip_ability_rearm_shard_description"		"羊刀刷新不再受限制"
 		"DOTA_Tooltip_ability_rearm_ct"							"持续施法时间:"
 
@@ -4758,98 +4758,79 @@
 		"DOTA_Tooltip_ability_special_bonus_imba_beastmaster_6"		"-{s:value}秒 狂暴之心冷却"
 		"DOTA_Tooltip_ability_special_bonus_imba_beastmaster_7"		"战争咆哮忽视战鹰角度需求"
 		"DOTA_Tooltip_ability_special_bonus_imba_beastmaster_8"		"野性呼唤不会杀死之前召唤的生物"
-        //////////////////////////////////////////////////////////////////////////////////////
-		//////玛西 marci
+   //////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_swing"					"冲刺"
-		"DOTA_Tooltip_ability_imba_marci_swing_description"		"玛西快速冲向目标地点\n<h1><font color='#EE2C2C'>1.无言</font></h1>玛西被沉默时依然可以释放全部技能，并且被沉默时冲刺距离为%silence_distance%。"
-		"DOTA_Tooltip_ability_imba_marci_swing_Lore"				"玛西可以在敌人堆里穿梭自如。"
-		"DOTA_Tooltip_ability_imba_marci_swing_distance"		"最大冲刺距离："
-		"DOTA_Tooltip_ability_imba_marci_swing_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-
+		//// MARCI 	玛西
 		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_grapple"					"回旋背摔"
-		"DOTA_Tooltip_ability_imba_marci_grapple_description"		"<font color='#EE2C2C'>此技能为无目标技能。玛西旋转一圈抓取附近的敌人背摔到身后。落地区域内所有敌方单位会受到伤害并被眩晕。</font>\n<h1><font color='#EE2C2C'>1.擒拿</font></h1>冲刺时回旋背摔技能前摇降低为0。\n<h1><font color='#EE2C2C'>2.空中回旋</font></h1>背摔期间可自由控制落地点。"
-		"DOTA_Tooltip_ability_imba_marci_grapple_Lore"									"玛西擅于扫除米拉娜公主在路上碰到的障碍"
-		"DOTA_Tooltip_ability_imba_marci_grapple_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-		"DOTA_Tooltip_ability_imba_marci_grapple_cap_radius"						"抓取范围："
-		"DOTA_Tooltip_ability_imba_marci_grapple_stun_duration"						"眩晕时间："
-		"DOTA_Tooltip_ability_imba_marci_grapple_impact_damage"				"撞击伤害："
-        "DOTA_Tooltip_ability_imba_marci_grapple_impact_radius"				"撞击范围："
-		"DOTA_Tooltip_ability_imba_marci_grapple_move_distance"				"背摔距离："
-
+		//////////////////////////////////////////////////////////////////////////////////////
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t1"	"+{s:value} 鹰击作用范围"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t2"	"+{s:value} 猛虎内劲破期间攻速"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t3"	"鹰击跳跃期间额外获得{s:value}码高空视野"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t4"	"龙拳使用时闪避一次弹道"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t5"	"龙拳冲击距离变为攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t5_description"	"龙拳开启自动施法可以禁用这个效果"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6"	"鹰抓"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6_description"	"鹰击开启自动施法后，对着敌人使用可以将其抓起一起跳跃，这个效果具有%{s:value}%秒的冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t7"	"鹰击跳跃期间不会被普通攻击选中"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t8"	"-{s:value} 龙虎斗刷新延迟"
 
 		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_companion_run"					"回身踢"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_description"		"以矢量为目标。玛西跃向目标单位，选好她要弹离的方向和距离。到达目标后玛西冲向最终的目的地，对区域内敌人造成伤害和减速。若她冲向友方单位，友军将获得%ally_movespeed_pct%% 移动速度加成，持续%buff_duration%秒。\n<h1><font color='#EE2C2C'>1.丛林战</font></h1>此技能可以以树木为目标，此时第二次弹跳距离最大为%min_range%。"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_Lore"									"有了他人亲切或粗暴的托垫，玛西可以直入任何焦灼的战斗中。"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_move_speed"						"弹跳速度："
-		"DOTA_Tooltip_ability_imba_marci_companion_run_landing_radius"					"撞击范围："
-		"DOTA_Tooltip_ability_imba_marci_companion_run_impact_damage"				    "撞击伤害："
-		"DOTA_Tooltip_ability_imba_marci_companion_run_movement_slow_pct"				"%移速减缓"
-        "DOTA_Tooltip_ability_imba_marci_companion_run_debuff_duration"				"减速时间"
-        "DOTA_Tooltip_ability_imba_marci_companion_run_debuff_duration"				"减速时间"
-        "DOTA_Tooltip_ability_imba_marci_companion_run_cast_range"				"弹跳最大距离"
-        "DOTA_Tooltip_ability_imba_marci_companion_run_min_range"				"弹跳最小距离"
+		"DOTA_Tooltip_ability_imba_marci_2"	"鹰击"
+		"DOTA_Tooltip_ability_imba_marci_2_description"	"向目标点跳去，落地时如果附近有敌人或者树木则会对其造成伤害，随后会跳跃一次并且刷新该技能cd，任何时候从跳跃状态落地该技能都会进入cd。\n<h1><font color='#EE2C2C'>1.翱翔</font></h1>连续跳跃会增加跳跃高度，和%jump_movespeed%% 移动速度，持续%duration% 秒。\n<h1><font color='#EE2C2C'>2.鹰踏</font></h1>麻痹作用范围内的敌方单位%slow%秒。\n \n<h1><font color='#EE2C2C'>阿哈利姆神杖效果</font></h1>鹰击除了踩空、被林肯法球抵挡之外的行为落地不会进入cd。\n"
+		"DOTA_Tooltip_ability_imba_marci_2_Lore"	"(鹰声)！！"
+		"DOTA_Tooltip_ability_imba_marci_2_damage"	"鹰击伤害："
+		"DOTA_Tooltip_ability_imba_marci_2_jump_duration"	"跳跃时间："
+		"DOTA_Tooltip_ability_imba_marci_2_damage_down"		"%俯冲高度伤害："
+		"DOTA_Tooltip_ability_imba_marci_2_radius"	"鹰击作用范围："
 
-		"DOTA_Tooltip_modifier_imba_companion_run_buff"				"回身踢"
-		"DOTA_Tooltip_modifier_imba_companion_run_buff_description"	"增加移动速度。"
+		"DOTA_Tooltip_modifier_imba_marci_2_jump"	"跳跃"
+		"DOTA_Tooltip_modifier_imba_marci_2_buff"	"翱翔"
+		"DOTA_Tooltip_modifier_imba_marci_2_cd"	"鹰击抓取冷却时间"
 
-        "DOTA_Tooltip_modifier_imba_companion_run_debuff"				"回身踢"
-		"DOTA_Tooltip_modifier_imba_companion_run_debuff_description"	"减低移动速度。"
+
+
+
+
+		"DOTA_Tooltip_ability_imba_marci_3"	"大鹏坠击拳"
+		"DOTA_Tooltip_ability_imba_marci_3_description"	"向目标点跃去,重重的锤击目标地面，将目标点附近的单位造成%base_stun%秒眩晕。\n<h1><font color='#EE2C2C'>1.坠击</font></h1>根据释放时自身高度给予额外的伤害和眩晕。\n<h1><font color='#EE2C2C'>2.大鹏坠击</font></h1>释放时对于被鹰击抓取(<font color='#EE2C2C'>需要天赋</font>)的目标额外造成%h%%高度的伤害。\n"
+		"DOTA_Tooltip_ability_imba_marci_3_damage"	"基础伤害："
+		"DOTA_Tooltip_ability_imba_marci_3_radius"	"作用范围："
+		"DOTA_Tooltip_ability_imba_marci_3_stun"	"基础眩晕持续时间："
+		"DOTA_Tooltip_ability_imba_marci_3_Lore"	"yingyingying！！！"
+
+
+		"DOTA_Tooltip_ability_imba_marci_1_description"	"玛西向前方进行一次短距离突击，攻击路径上的所有敌人一次。\n<h1><font color='#EE2C2C'>1.飞龙</font></h1>处于鹰击的二段跳跃时，突进距离变为两倍。\n<h1><font color='#EE2C2C'>2.迅龙</font></h1>每次释放龙拳都会在%duration%秒内增加攻速,攻击和闪避，最多增加%smax%次。\n"
+		"DOTA_Tooltip_ability_imba_marci_1"	"龙拳"
+		"DOTA_Tooltip_ability_imba_marci_1_distance"	"突进距离："
+		"DOTA_Tooltip_ability_imba_marci_1_width"	"作用宽度："
+		"DOTA_Tooltip_modifier_imba_marci_1_buff"	"迅龙"
+		"DOTA_Tooltip_ability_imba_marci_1_att"	"迅龙攻击加成："
+		"DOTA_Tooltip_ability_imba_marci_1_asp"	"迅龙攻速加成："
+		"DOTA_Tooltip_ability_imba_marci_1_ev"	"迅龙闪避加成："
+		"DOTA_Tooltip_modifier_imba_marci_5_ex" "华影破龙拳"
+		"DOTA_Tooltip_ability_imba_marci_1_Lore"	"芜湖(龙的叫声)！！"
+
+
+		"DOTA_Tooltip_ability_imba_marci_4"	"华影破龙拳"
+		"DOTA_Tooltip_ability_imba_marci_4_description"	"立刻减速附近的单位，在0.7秒蓄力后，对前方释放一次远距离龙拳冲击,对前方敌人造成巨量伤害，同时降低受到影响的单位护甲,并且眩晕%stun_duration%秒。\n<h1><font color='#EE2C2C'>1.龙脉</font></h1>释放之后立刻使龙拳的迅龙增加至满层。\n<h1><font color='#EE2C2C'>2.地脉</font></h1>该技能会在猛虎内劲破升级时自动升级，只能在地上使用。"
+		"DOTA_Tooltip_ability_imba_marci_4_damage" 	"伤害："
+		"DOTA_Tooltip_ability_imba_marci_4_armor"	"护甲降低："
+		"DOTA_Tooltip_ability_imba_marci_4_armor"	"护甲降低："
+		"DOTA_Tooltip_ability_imba_marci_4_distance"	"最大距离："
+		"DOTA_Tooltip_ability_imba_marci_5"	"猛虎内劲破"
+		"DOTA_Tooltip_ability_imba_marci_5_description"	"释放猛虎的气息暂时提高自身的攻击速度，同时攻击时有概率暴击,持续%duration%秒。\n<h1><font color='#EE2C2C'>1.龙虎斗</font></h1>任何时候造成暴击伤害时都会恢复自身%heal%% 的血量，如果在猛虎内劲破持续期间还会在%re_du%秒延迟后刷新龙拳的冷却时间。\n<h1><font color='#EE2C2C'>2.华影破龙拳</font></h1>每次猛虎内劲破期间可以使用一次华影破龙拳。\n<h1><font color='#EE2C2C'>阿哈利姆魔晶效果</font></h1>猛虎内劲破暴击时会额外释放一道脉冲对附近敌人造成%aoe_damage%% 暴击伤害的伤害并且对他们造成减速。\n"
+		"DOTA_Tooltip_ability_imba_marci_5_asp"		"攻击速度增加："
+		"DOTA_Tooltip_ability_imba_marci_5_chance"	"%暴击概率："
+		"DOTA_Tooltip_ability_imba_marci_5_crit"	"%暴击伤害："
+		"DOTA_Tooltip_modifier_imba_marci_5"	"猛虎内劲破"
+		"DOTA_Tooltip_modifier_imba_marci_5_ex"	"华影破龙拳准备就绪"
+		"DOTA_Tooltip_modifier_imba_marci_5_slow"	"减速"
+		"DOTA_Tooltip_modifier_imba_marci_5_description"	"嗷嗷嗷"
+		"DOTA_Tooltip_modifier_imba_marci_5_re"		"ola"
+
+		"DOTA_Tooltip_ability_imba_marci_5_Lore"	"嗷嗷嗷"
+
 		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_guardian"				"健体·怒拳破"
-		"DOTA_Tooltip_ability_imba_marci_guardian_description"	"玛西的忠诚保证了她的安全，为选定的友方英雄和她自身注入了吸血效果和攻击力加成。\n<h1><font color='#EE2C2C'>1.怒拳破</font></h1>玛西每次施法都会获得怒拳破效果，可快速攻击一定次数，最后一击造成脉冲，使范围内敌人受到伤害并减少攻击速度和移动速度。此效果拥有内置冷却%cd%秒。\n<h1><font color='#EE2C2C'>2.狂怒</font></h1>攻击时有%chance_pct%% 几率获得怒拳破效果\n ● 怒拳破不攻击时效果永久持续，但是两次攻击间隔大于%disap_time%秒时被移除。\n ● 怒拳破持续期间再次获得时此效果时不会补充攻击次数。"
-		"DOTA_Tooltip_ability_imba_marci_guardian_Note0"			"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-		"DOTA_Tooltip_ability_imba_marci_guardian_Lore"			"虽然有不少人在探究玛西神力的源头，但玛西对他们全不理睬。"
-		"DOTA_Tooltip_ability_imba_marci_guardian_buff_duration"	    "健体术持续时间："
-		"DOTA_Tooltip_ability_imba_marci_guardian_lifesteal_pct"		"%健体术攻击吸血："
-		"DOTA_Tooltip_ability_imba_marci_guardian_bonus_damage"		"健体术增加攻击力："
-        "DOTA_Tooltip_ability_imba_marci_guardian_nearest_ally_search_range"		"健体术搜索英雄范围："
-        "DOTA_Tooltip_ability_imba_marci_guardian_max_stack"		"怒拳破攻击次数："
-        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_range"		"怒拳破脉冲范围："
-        "DOTA_Tooltip_ability_imba_marci_guardian_move_slow"		"%怒拳破脉冲减移速："
-        "DOTA_Tooltip_ability_imba_marci_guardian_atsp_slow"		"怒拳破脉冲减攻速："
-        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_damage"		"怒拳破脉冲伤害："
-
-		"DOTA_Tooltip_modifier_imba_grapple_buff1"				"怒拳破"
-		"DOTA_Tooltip_modifier_imba_grapple_buff1_description"	"获得攻击狂怒连技，攻击速度极大提升。"
-
-        "DOTA_Tooltip_modifier_imba_grapple_cd"				"怒拳破内置冷却"
-		"DOTA_Tooltip_modifier_imba_grapple_cd_description"	"无法继续触发怒拳破。"
-
-        "DOTA_Tooltip_modifier_imba_grapple_debuff"				"怒拳破脉冲"
-		"DOTA_Tooltip_modifier_imba_grapple_debuff_description"	"减低攻击速度和移动速度。"
-
-		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_unleash"								"轰气空裂拳"
-		"DOTA_Tooltip_ability_imba_marci_unleash_description"					"玛西短暂蓄力后打出破坏力巨大的直拳，攻击极小范围内的敌人造成特殊暴击，并产生拳风。\n<h1><font color='#EE2C2C'>1.交牙龙杀</font></h1><font color='#EE2C2C'>玛西摆出架势的瞬间</font>对出拳方向使用冲刺会对冲刺路径上所有敌人造成直拳伤害。并立即减少本技能%restitution_cd%秒冷却\n<h1><font color='#EE2C2C'>2.轰气龙杀</font></h1><font color='#EE2C2C'>玛西摆出架势之前</font>使用健体·怒拳破，并成功触发交牙龙杀，则拳风范围增加至%per_distance%，并且拳风附加玛西的一次攻击，并造成特殊暴击\n ● 此技能特殊暴击不会触发攻击特效。\n ● 摆出架势指右臂出拳前的准备动作（约蓄力期间经过1秒）。"
-		"DOTA_Tooltip_ability_imba_marci_unleash_Note0"						"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-		"DOTA_Tooltip_ability_imba_marci_unleash_Lore"							"玛西有自己最珍爱的东西"
-		"DOTA_Tooltip_ability_imba_marci_unleash_damage"					"拳风伤害："
-		"DOTA_Tooltip_ability_imba_marci_unleash_bj"						"%特殊暴击："
-        "DOTA_Tooltip_ability_imba_marci_unleash_distance"						"拳风距离："
-
-        "DOTA_Tooltip_ability_imba_marci_unleash_st_width"						"拳风开始伤害宽度："
-        "DOTA_Tooltip_ability_imba_marci_unleash_en_width"						"拳风结束伤害宽度："
-        "DOTA_Tooltip_ability_imba_marci_unleash_punch_range"					"直拳伤害范围："
-
-
-		//////////////////////////////////////////////////////////////////////////////////////
-		"DOTA_Tooltip_ability_imba_marci_companion_run_scepter_description"		"回身踢落地撞击时牵引敌人至中心。"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_shard_description"		"回身踢第一次目标为树木时，距离不再减少。"
-
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_1"		"+{s:value} 回旋背摔移动距离"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_2"		"+{s:value} 回身踢距离"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_3"		"-{s:value} 怒拳破内置冷却"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_4"		"+{s:value} 怒拳破脉冲范围"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_5"		"轰气空裂拳结束后怒拳破+{s:value}攻击次数"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_5_description" "攻击防御塔则移除攻击次数"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_6"		"+{s:value}% 轰气空裂拳特殊暴击"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_7"		"轰气空裂拳技能期间无敌"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_8"		"回旋背摔未抓住敌人时返还{s:value}秒冷却"
-
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		//// 电狗
@@ -8315,7 +8296,7 @@
 "DOTA_Tooltip_ability_ranger_fire_cover_radius"									"作用范围："
 "DOTA_Tooltip_ability_ranger_fire_cover_duration"								"持续时间："
 "DOTA_Tooltip_ability_ranger_fire_cover_fire_damage"							"伤害："
-		
+
 "DOTA_Tooltip_modifier_ranger_fire_cover"								"火力压制"
 "DOTA_Tooltip_modifier_ranger_fire_cover_Description"					"受到持续伤害和减速."
 //////////////////////////////////////////////////////////////////////////////////////
@@ -8326,7 +8307,7 @@
 "DOTA_Tooltip_ability_ranger_sliding_shooting_Note1"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
 "DOTA_Tooltip_ability_ranger_sliding_shooting_slow_movement_speed"					"%移动速度减缓："
 "DOTA_Tooltip_ability_ranger_sliding_shooting_radius"									"冲刺距离："
-		
+
 //////////////////////////////////////////////////////////////////////////////////////
 "DOTA_Tooltip_ability_ranger_switch_weapon"										"武器切换"
 "DOTA_Tooltip_ability_ranger_switch_weapon_Description"							"游侠可以在卡宾枪和冲锋枪之间来回切换.\n<h1><font color='#
@@ -8341,7 +8322,7 @@
 "DOTA_Tooltip_ability_ranger_switch_weapon_proc_damage"							"冲锋枪额外伤害："
 "DOTA_Tooltip_ability_ranger_switch_weapon_damage_reduction"					"%冲锋枪攻击减少："
 "DOTA_Tooltip_ability_ranger_switch_weapon_attack_range_limit"					"冲锋枪攻击距离："
-		
+
 "DOTA_Tooltip_modifier_ranger_take_aim"								"卡冰枪"
 "DOTA_Tooltip_modifier_ranger_take_aim_Description"					"提高射程和几率发射榴弹."
 "DOTA_Tooltip_modifier_ranger_take_aim_near"								"冲锋枪"
@@ -8351,7 +8332,7 @@
 "DOTA_Tooltip_ability_ranger_electric_grenade_Description"							"游侠可以使用感电手雷.造成%grenade_damage%点魔法伤害.\
 "DOTA_Tooltip_ability_ranger_electric_grenade_Note0"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
 "DOTA_Tooltip_ability_ranger_electric_grenade_grenade_radius"						"感电范围："
-		
+
 "DOTA_Tooltip_modifier_ranger_electric_grenade_debuff"								"感电"
 "DOTA_Tooltip_modifier_ranger_electric_grenade_debuff_Description"					"被攻击几率受到电击伤害."
 //////////////////////////////////////////////////////////////////////////////////////
@@ -8360,7 +8341,7 @@
 "DOTA_Tooltip_ability_ranger_shooter_star_Note0"								"召唤的射手超过游侠800码的时候会自动移动到游侠身边."
 "DOTA_Tooltip_ability_ranger_shooter_star_Note1"								"<font color='#FFFF00'> ● 作者:神秘玩家</font>."
 "DOTA_Tooltip_ability_ranger_shooter_star_duration"								"持续时间："
-		
+
 "DOTA_Tooltip_modifier_ranger_shooter_star_controller"							"射手明星"
 "DOTA_Tooltip_modifier_ranger_shooter_star_controller_Description"				"摇一面包车人下来干架."
 //////////////////////////////////////////////////////////////////////////////////////
@@ -8373,9 +8354,9 @@
 "DOTA_Tooltip_ability_ranger_dr_marksmanship_range_bonus"					"射程加成："
 "DOTA_Tooltip_ability_ranger_dr_marksmanship_pure_chance"					"%高效箭矢几率："
 "DOTA_Tooltip_ability_ranger_dr_marksmanship_pure_pct"						"高效箭矢伤害："
-		
+
 "DOTA_Tooltip_modifier_ranger_dr_trueshot_damage_stack"				"射手天赋"
-"DOTA_Tooltip_modifier_ranger_dr_trueshot_damage_stack_Description"	"由于卓尔游侠的教导而获得额外攻击力。"	
+"DOTA_Tooltip_modifier_ranger_dr_trueshot_damage_stack_Description"	"由于卓尔游侠的教导而获得额外攻击力。"
 //////////////////////////////////////////////////////////////////////////////////////
 "DOTA_Tooltip_ability_ranger_wr_focusfire"			"集中火力"
 "DOTA_Tooltip_ability_ranger_wr_focusfire_description"		"获得攻击速度加成。\n<h1><font color='#FFFF00'>被动：箭雨</font></h1>每次攻击
@@ -10056,7 +10037,7 @@
 		//=================================================================================================================
 		// 艇的英雄 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 		//=================================================================================================================
-//////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////
 		//// MARCI 	玛西
 		//////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////
@@ -10066,14 +10047,14 @@
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_t4"	"龙拳使用时闪避一次弹道"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_t5"	"龙拳冲击距离变为攻击距离"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_t5_description"	"龙拳开启自动施法可以禁用这个效果"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6"	"大鹏坠击"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6_description"	"大鹏坠击拳额外对被抓取的目标造成100%高度的伤害"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_t7"	"鹰击对目标造成{s:value}麻痹"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6"	"鹰抓"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t6_description"	"鹰击开启自动施法后，对着敌人使用可以将其抓起一起跳跃，这个效果具有%{s:value}%秒的冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_t7"	"鹰击跳跃期间不会被普通攻击选中"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_t8"	"-{s:value} 龙虎斗刷新延迟"
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_2"	"鹰击"
-		"DOTA_Tooltip_ability_imba_marci_2_description"	"向目标点跳去，落地时如果附近有敌人或者树木则会对其造成伤害，随后会跳跃一次并且刷新该技能cd，任何时候从跳跃状态落地该技能都会进入cd。\n<h1><font color='#EE2C2C'>1.翱翔</font></h1>连续跳跃会增加跳跃高度，和%jump_movespeed%% 移动速度，持续%duration% 秒。\n<h1><font color='#EE2C2C'>2.俯冲</font></h1>以英雄为目标的二次释放会抓取目标英雄，持续到你下次落地。\n ● <font color='#EE2C2C'>抓取单位时鹰击施法距离减半，俯冲会对目标额外造成%damage_down%% 高度的伤害。 </font>  \n" 
+		"DOTA_Tooltip_ability_imba_marci_2_description"	"向目标点跳去，落地时如果附近有敌人或者树木则会对其造成伤害，随后会跳跃一次并且刷新该技能cd，任何时候从跳跃状态落地该技能都会进入cd。\n<h1><font color='#EE2C2C'>1.翱翔</font></h1>连续跳跃会增加跳跃高度，和%jump_movespeed%% 移动速度，持续%duration% 秒。\n<h1><font color='#EE2C2C'>2.鹰踏</font></h1>麻痹作用范围内的敌方单位%slow%秒。\n \n<h1><font color='#EE2C2C'>阿哈利姆神杖效果</font></h1>鹰击除了踩空、被林肯法球抵挡之外的行为落地不会进入cd。\n"
 		"DOTA_Tooltip_ability_imba_marci_2_Lore"	"(鹰声)！！"
 		"DOTA_Tooltip_ability_imba_marci_2_damage"	"鹰击伤害："
 		"DOTA_Tooltip_ability_imba_marci_2_jump_duration"	"跳跃时间："
@@ -10082,47 +10063,53 @@
 
 		"DOTA_Tooltip_modifier_imba_marci_2_jump"	"跳跃"
 		"DOTA_Tooltip_modifier_imba_marci_2_buff"	"翱翔"
-		
+		"DOTA_Tooltip_modifier_imba_marci_2_cd"	"鹰击抓取冷却时间"
+
+
 
 
 
 		"DOTA_Tooltip_ability_imba_marci_3"	"大鹏坠击拳"
-		"DOTA_Tooltip_ability_imba_marci_3_description"	"向目标点跃去,重重的锤击目标地面，将目标点附近的单位造成%base_stun%秒眩晕。\n<h1><font color='#EE2C2C'>1.坠击</font></h1>根据释放时自身高度给予额外的伤害和眩晕。\n"
+		"DOTA_Tooltip_ability_imba_marci_3_description"	"向目标点跃去,重重的锤击目标地面，将目标点附近的单位造成%base_stun%秒眩晕。\n<h1><font color='#EE2C2C'>1.坠击</font></h1>根据释放时自身高度给予额外的伤害和眩晕。\n<h1><font color='#EE2C2C'>2.大鹏坠击</font></h1>释放时对于被鹰击抓取(<font color='#EE2C2C'>需要天赋</font>)的目标额外造成%h%%高度的伤害。\n"
 		"DOTA_Tooltip_ability_imba_marci_3_damage"	"基础伤害："
-		"DOTA_Tooltip_ability_imba_marci_3_radius"	"作用范围："		
+		"DOTA_Tooltip_ability_imba_marci_3_radius"	"作用范围："
 		"DOTA_Tooltip_ability_imba_marci_3_stun"	"基础眩晕持续时间："
 		"DOTA_Tooltip_ability_imba_marci_3_Lore"	"yingyingying！！！"
 
 
-		"DOTA_Tooltip_ability_imba_marci_1_description"	"玛西向前方进行一次短距离突击，攻击路径上的所有敌人一次。\n<h1><font color='#EE2C2C'>1.飞龙</font></h1>处于鹰击的二段跳跃时，突进距离变为两倍。\n"
+		"DOTA_Tooltip_ability_imba_marci_1_description"	"玛西向前方进行一次短距离突击，攻击路径上的所有敌人一次。\n<h1><font color='#EE2C2C'>1.飞龙</font></h1>处于鹰击的二段跳跃时，突进距离变为两倍。\n<h1><font color='#EE2C2C'>2.迅龙</font></h1>每次释放龙拳都会在%duration%秒内增加攻速,攻击和闪避，最多增加%smax%次。\n"
 		"DOTA_Tooltip_ability_imba_marci_1"	"龙拳"
 		"DOTA_Tooltip_ability_imba_marci_1_distance"	"突进距离："
 		"DOTA_Tooltip_ability_imba_marci_1_width"	"作用宽度："
-		"DOTA_Tooltip_ability_imba_marci_1_damage"	"突进时额外的攻击力加成："
-		
+		"DOTA_Tooltip_modifier_imba_marci_1_buff"	"迅龙"
+		"DOTA_Tooltip_ability_imba_marci_1_att"	"迅龙攻击加成："
+		"DOTA_Tooltip_ability_imba_marci_1_asp"	"迅龙攻速加成："
+		"DOTA_Tooltip_ability_imba_marci_1_ev"	"迅龙闪避加成："
+		"DOTA_Tooltip_modifier_imba_marci_5_ex" "华影破龙拳"
 		"DOTA_Tooltip_ability_imba_marci_1_Lore"	"芜湖(龙的叫声)！！"
-		
-		
-		"DOTA_Tooltip_ability_imba_marci_4"	"玛西"
-		"DOTA_Tooltip_ability_imba_marci_4_description"	"咻咻~咻咻咻~~~,咻咻。\n"
-		
-		
+
+
+		"DOTA_Tooltip_ability_imba_marci_4"	"华影破龙拳"
+		"DOTA_Tooltip_ability_imba_marci_4_description"	"立刻减速附近的单位，在0.7秒蓄力后，对前方释放一次远距离龙拳冲击,对前方敌人造成巨量伤害，同时降低受到影响的单位护甲,并且眩晕%stun_duration%秒。\n<h1><font color='#EE2C2C'>1.龙脉</font></h1>释放之后立刻使龙拳的迅龙增加至满层。\n<h1><font color='#EE2C2C'>2.地脉</font></h1>该技能会在猛虎内劲破升级时自动升级，只能在地上使用。"
+		"DOTA_Tooltip_ability_imba_marci_4_damage" 	"伤害："
+		"DOTA_Tooltip_ability_imba_marci_4_armor"	"护甲降低："
+		"DOTA_Tooltip_ability_imba_marci_4_armor"	"护甲降低："
+		"DOTA_Tooltip_ability_imba_marci_4_distance"	"最大距离："
 		"DOTA_Tooltip_ability_imba_marci_5"	"猛虎内劲破"
-		"DOTA_Tooltip_ability_imba_marci_5_description"	"释放猛虎的气息暂时提高自身的攻击速度，同时攻击时有概率暴击,持续%duration%秒。\n<h1><font color='#EE2C2C'>1.龙虎斗</font></h1>任何时候造成暴击伤害时都会恢复自身%heal%% 的血量，如果在猛虎内劲破持续期间还会在%re_du%秒延迟后刷新龙拳的冷却时间。\n"
+		"DOTA_Tooltip_ability_imba_marci_5_description"	"释放猛虎的气息暂时提高自身的攻击速度，同时攻击时有概率暴击,持续%duration%秒。\n<h1><font color='#EE2C2C'>1.龙虎斗</font></h1>任何时候造成暴击伤害时都会恢复自身%heal%% 的血量，如果在猛虎内劲破持续期间还会在%re_du%秒延迟后刷新龙拳的冷却时间。\n<h1><font color='#EE2C2C'>2.华影破龙拳</font></h1>每次猛虎内劲破期间可以使用一次华影破龙拳。\n<h1><font color='#EE2C2C'>阿哈利姆魔晶效果</font></h1>猛虎内劲破暴击时会额外释放一道脉冲对附近敌人造成%aoe_damage%% 暴击伤害的伤害并且对他们造成减速。\n"
 		"DOTA_Tooltip_ability_imba_marci_5_asp"		"攻击速度增加："
 		"DOTA_Tooltip_ability_imba_marci_5_chance"	"%暴击概率："
 		"DOTA_Tooltip_ability_imba_marci_5_crit"	"%暴击伤害："
 		"DOTA_Tooltip_modifier_imba_marci_5"	"猛虎内劲破"
+		"DOTA_Tooltip_modifier_imba_marci_5_ex"	"华影破龙拳准备就绪"
+		"DOTA_Tooltip_modifier_imba_marci_5_slow"	"减速"
 		"DOTA_Tooltip_modifier_imba_marci_5_description"	"嗷嗷嗷"
 		"DOTA_Tooltip_modifier_imba_marci_5_re"		"ola"
-		
+
 		"DOTA_Tooltip_ability_imba_marci_5_Lore"	"嗷嗷嗷"
-		"DOTA_Tooltip_modifier_imba_marci_5_slow"	"减速"
 
-
-		"DOTA_Tooltip_ability_imba_marci_2_scepter_description"	"鹰击除了踩空外，被其他行为落地将不会再进入cd。"
-		"DOTA_Tooltip_ability_imba_marci_5_shard_description"	"猛虎内劲破暴击时会额外释放一道脉冲对附近敌人造成%aoe_damage%% 暴击伤害的伤害并且对他们造成减速。"
 		//////////////////////////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////伏击者///////////////////////////////////////////////////
@@ -10191,7 +10178,7 @@
 
 
 
-		//////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////
 		////KEEPER_OF_LIGHT
 		///////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_1"									"冲击波基础伤害不再需要蓄力"
@@ -10199,8 +10186,8 @@
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_2"									"{s:value}码范围阳炎之缚"
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_3"									"查克拉魔法"
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_3_description"						"被冲击波击中的友军会根据魔力融合额外消耗的魔法而恢复魔法和减少基础技能cd"
-		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_4"									"列光"
-		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_4_description"						"敌人同时被阳炎之缚和致盲作用时，这两种debuff都会变为无法驱散"
+		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_4"									"阳炎再生"
+		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_4_description"						"阳炎之缚被驱散时立刻减少阳炎之缚{s:value}%的冷却时间"
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_5"									"光之守卫"
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_5_description"						"冲击波总是会作用到光法"
 		"DOTA_Tooltip_ability_special_bonus_imba_keeper_of_the_light_6"									"致盲之光会让受到影响的单位眩晕{s:value}秒"
@@ -10247,7 +10234,7 @@
 		"DOTA_Tooltip_modifier_imba_light_blinding_light_fattus_dur"							"我是一个io"
 
 		"DOTA_Tooltip_ability_imba_light_will_o_wisp"									"幻火"
-		"DOTA_Tooltip_ability_imba_light_will_o_wisp_description"						"在目标区域召唤幻火。每秒交替闪亮和闪灭。闪亮时将使附近所有敌人被蛊惑，强制凝视幻火，受到一定次数攻击后消失。\n<h1><font color='#63B8FF'>1.极光</font></h1>幻火闪亮时内部所有友军都会隐身。\n<h1><font color='#63B8FF'>2.光能</font></h1>冲击波可以对着幻火使用，立刻恢复满幻火的生命并且立刻点亮幻火。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
+		"DOTA_Tooltip_ability_imba_light_will_o_wisp_description"						"在目标区域召唤幻火。每秒交替闪亮和闪灭。闪亮时将使附近所有敌人被蛊惑，强制凝视幻火，受到一定次数攻击后消失。\n<h1><font color='#63B8FF'>1.极光</font></h1>幻火闪亮时内部友军获得%miss%% 闪避。\n<h1><font color='#63B8FF'>2.光能</font></h1>冲击波可以对着幻火使用，立刻恢复满幻火的生命并且立刻点亮幻火。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
 		"DOTA_Tooltip_ability_imba_light_will_o_wisp_Lore"								"「 最初的光，永远的光。 」"
 		"DOTA_Tooltip_ability_imba_light_will_o_wisp_on_count"							"总发光次数："
 		"DOTA_Tooltip_ability_imba_light_will_o_wisp_radius"							"蛊惑范围："
@@ -10348,7 +10335,7 @@
 
 
 
-		//////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////
 		//// 大树
 		//////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////
@@ -10381,7 +10368,7 @@
 
 
 		"DOTA_Tooltip_ability_imba_treant_leech_seed"									"寄生种子"
-		"DOTA_Tooltip_ability_imba_treant_leech_seed_description"							"在目标体内种下一个吸血种子造成持续伤害并且减速，种子会对附近%radius%的友方单位进行治疗。\n<h1><font color='#EE2C2C'>1.森林</font></h1>种子造成伤害时，目标单位%radius%范围内每个树木都会吸取目标%heal_tree%%的当前生命值。\n<h1><font color='#EE2C2C'>2.结果</font></h1>寄生期间如果目标死亡，则会在目标位置种下一颗树同时对%radius%内所有友军释放一次活体护甲。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
+		"DOTA_Tooltip_ability_imba_treant_leech_seed_description"							"在目标体内种下一个吸血种子造成持续伤害并且减速，种子会对附近%radius%的友方单位进行治疗。\n<h1><font color='#EE2C2C'>1.森林通讯</font></h1>种子造成伤害时，目标单位%radius_v%范围内如果有树木，将会获得目标点%radius_vision%的高空视野。\n<h1><font color='#EE2C2C'>2.结果</font></h1>寄生期间如果目标死亡，则会在目标位置种下一颗树同时对%radius%内所有友军释放一次活体护甲。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
 		"DOTA_Tooltip_ability_imba_treant_leech_seed_Note0"								"词条只对英雄生效"
 		"DOTA_Tooltip_ability_imba_treant_leech_seed_Lore"								"正在成长"
 		"DOTA_Tooltip_ability_imba_treant_leech_seed_leech_damage"							"伤害"
@@ -10404,7 +10391,7 @@
 
 
 		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest"									"丛林之眼"
-		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest_Description"							"树精卫士对目标树木灌注魔力。注魔后树木将拥有周围的顺畅视野。如果树精卫士施放了疯狂生长，这些树木附近的单位也将会被困住，并受到伤害。被动使所有树木重生地更快。\n<h1><font color='#EE2C2C'>1.树精守卫</font></h1>对着这些树木使用活体护甲，持续施法结束后树精卫士会传送至该树木旁。\n<h1><font color='#EE2C2C'>2.自然报复</font></h1>丛林之眼倍摧毁时会将附近%radius_root%范围内的敌人缠绕%duration_root%秒，并且暴露他们的视野。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
+		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest_Description"							"树精卫士对目标树木灌注魔力。注魔后树木将拥有周围的顺畅视野。如果树精卫士施放了疯狂生长，这些树木附近的单位也将会被困住，并受到伤害。被动使所有树木重生地更快。\n<h1><font color='#EE2C2C'>1.树精守卫</font></h1>对着这些树木使用活体护甲，持续施法结束后树精卫士会传送至该树木旁。\n<h1><font color='#EE2C2C'>2.自然报复</font></h1>丛林之眼倍摧毁时会将附近%radius_root%范围内的敌人缠绕%duration_root%秒，并且暴露他们的视野。\n<h1><font color='#EE2C2C'>3.树根</font></h1>树木可以被敌人攻击，攻击%count%次之后会被摧毁。\n<font color='#FFFF00'>●技能设计者:小太阳</font>"
 		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest_Note0"								"会封野，别直接插野怪刷新区里"
 		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest_Lore"								"我点亮了地图"
 		"DOTA_Tooltip_ability_imba_treant_eyes_in_the_forest_vision_aoe_imba"							"树木视野："
@@ -10440,7 +10427,6 @@
 		"DOTA_Tooltip_ability_imba_treant_natures_guise_shard_description"	"新的技能：可以在丛林里藏匿"
 
 		"DOTA_Tooltip_ability_imba_treant_natures_grasp_scepter_description" "当大树在藤曼上时，敌人会受到疯狂生长的缠绕。"
-
 	//////////////////////////////////////////////////////////////////////////////////////
 		////WITCH_DOCTOR
 		///////////////////////////////////////////////////////////////////////////////////////
@@ -10932,7 +10918,35 @@
 
 
 
+	     //=================================================================================================================
+		// ting random ability
+		//=================================================================================================================
+		"DOTA_Tooltip_ability_ra_branches"												"会成长的树枝"
+		"DOTA_Tooltip_ability_ra_branches_Description"								"被动的增加持有者的全属性。\n<h1><font color='#00FF00'>铁树开花</font></h1>当你的<font color='#00FF00'>可用物品栏有铁树枝干</font>时，每过60秒，就会额外增加你%stat_stack%点全属性，当树枝不在物品栏时，你会失去额外的属性。"
+		"DOTA_Tooltip_ability_ra_branches_Lore"										"老古董了"
+		"DOTA_Tooltip_ability_ra_branches_stat"													"增加全属性："
+		"DOTA_Tooltip_modifier_ra_branches_pa"										"增加的全属性"
 
+		"DOTA_Tooltip_ability_ra_mango_tree"												"一颗比较特别的芒果"
+		"DOTA_Tooltip_ability_ra_mango_tree_Description"								"<h1><font color='#00FF00'>主动：种植芒果树</font></h1>在目标点种下一颗不会掉芒果的芒果树,芒果树拥有%vision%码高空视野。\n<h1><font color='#00FF00'>被动：孕育超级芒果</font></h1>当你使用了主动效果之后，%greater_mango_cd%秒后你会获得一颗超级芒果！\n<font color='#DC143C'>超级芒果扔进中立物品商店会直接消失！！\n该技能无法刷新！！</font>"
+		"DOTA_Tooltip_ability_ra_mango_tree_Lore"										"真好吃"
+		"DOTA_Tooltip_modifier_ra_greate_mango"										"超级芒果孕育中"
+
+		"DOTA_Tooltip_ability_ra_flask"												"看起来很绿的大药"
+		"DOTA_Tooltip_ability_ra_flask_Description"								"<h1><font color='#00FF00'>主动：恢复</font></h1>给目标套一个大药，每秒恢复目标%re%生命，且不会被打断。\n<h1><font color='#00FF00'>主动：套大药</font></h1>如果使用主动时你物品栏/背包里有治疗药膏，则会额外每秒恢复目标%re_ex%%生命值，这个效果对自身不会被打断，对其他友军会被普通攻击打断。\n<font color='#DC143C'>第一次使用该技能可以获得%stack%个大药！</font>"
+		"DOTA_Tooltip_ability_ra_flask_Lore"										"大朗吃药"
+		"DOTA_Tooltip_modifier_ra_flask_buff1"										"嗑药"
+		"DOTA_Tooltip_modifier_ra_flask_buff2"										"嗑大药"
+
+		"DOTA_Tooltip_ability_ra_clarity"												"纯天然的精华药水"
+		"DOTA_Tooltip_ability_ra_clarity_Description"								"<h1><font color='#00FF00'>被动：回蓝</font></h1>每秒恢复自身%mana_re%%的蓝。\n<h1><font color='#00FF00'>主动：销售</font></h1>如果使用主动时你物品栏/背包里有精华药水，对目标使用会消耗一瓶，如果是敌人，则以一定的价格卖给他，如果是友军则其暂时获得被动的回蓝效果。\n<font color='#DC143C'>背包里没净化药水的时候主动无效！！</font>"
+		"DOTA_Tooltip_ability_ra_clarity_Lore"										"我们不生产水，我们只是大自然的搬运工"
+		"DOTA_Tooltip_ability_ra_clarity_gold"										"销售价格："
+		"DOTA_Tooltip_ability_ra_clarity_duration"									"持续时间："
+
+		"DOTA_Tooltip_ability_ra_cheese"											"纯手工奶酪"
+		"DOTA_Tooltip_ability_ra_cheese_Description"								"<h1><font color='#00FF00'>主动：制作奶酪</font></h1>花费一点金币来制作一个奶酪。\n<font color='#DC143C'>奶酪现在全部回满！！</font>"
+		"DOTA_Tooltip_ability_ra_cheese_Lore"										"纯手工制作，亏本买卖"
 
 
 
@@ -11034,6 +11048,109 @@
 		"DOTA_Tooltip_ability_special_bonus_imba_leshrac_5"  "+{s:value}脉冲新星伤害"
 		"DOTA_Tooltip_ability_special_bonus_imba_leshrac_6"  "+{s:value}s恶魔敕令持续时间"
 		"DOTA_Tooltip_ability_special_bonus_imba_leshrac_7"  "+{s:value}恶魔敕令爆炸次数"
+
+
+//=================================================================================================================
+		// 自定义天赋
+		//=================================================================================================================
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att50" "+{s:value}攻击力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att80" "+{s:value}攻击力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att100" "+{s:value}攻击力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att150" "+{s:value}攻击力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att200" "+{s:value}攻击力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_att250" "+{s:value}攻击力"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp30" "+{s:value}移动速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp60" "+{s:value}移动速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp90" "+{s:value}移动速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp120" "+{s:value}移动速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp150" "+{s:value}移动速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_msp550" "+{s:value}移动速度"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp30" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp50" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp75" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp100" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp125" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp150" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp200" "+{s:value}攻击速度"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_asp250" "+{s:value}攻击速度"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str15" "+{s:value}力量"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str20" "+{s:value}力量"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str25" "+{s:value}力量"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str30" "+{s:value}力量"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str40" "+{s:value}力量"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_str50" "+{s:value}力量"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi15" "+{s:value}敏捷"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi20" "+{s:value}敏捷"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi25" "+{s:value}敏捷"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi30" "+{s:value}敏捷"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi40" "+{s:value}敏捷"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_agi50" "+{s:value}敏捷"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int15" "+{s:value}智力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int20" "+{s:value}智力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int25" "+{s:value}智力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int30" "+{s:value}智力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int40" "+{s:value}智力"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_int50" "+{s:value}智力"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all15" "+{s:value}全属性"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all20" "+{s:value}全属性"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all25" "+{s:value}全属性"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all30" "+{s:value}全属性"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all40" "+{s:value}全属性"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_all50" "+{s:value}全属性"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap15" "+{s:value}法强"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap20" "+{s:value}法强"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap25" "+{s:value}法强"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap30" "+{s:value}法强"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap40" "+{s:value}法强"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_ap50" "+{s:value}法强"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd10" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd15" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd20" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd25" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd30" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd40" "降低{s:value}%冷却时间"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_cd50" "降低{s:value}%冷却时间"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor10" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor15" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor20" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor25" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor30" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor40" "+{s:value}护甲"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_armor50" "+{s:value}护甲"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr10" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr15" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr20" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr25" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr30" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr40" "+{s:value}魔抗"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_mgr50" "+{s:value}魔抗"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange100" "+{s:value}攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange125" "+{s:value}攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange150" "+{s:value}攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange200" "+{s:value}攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange250" "+{s:value}攻击距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_attackrange300" "+{s:value}攻击距离"
+
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange100" "+{s:value}施法距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange125" "+{s:value}施法距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange150" "+{s:value}施法距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange200" "+{s:value}施法距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange250" "+{s:value}施法距离"
+		"DOTA_Tooltip_ability_special_bonus_custom_value_castrange300" "+{s:value}施法距离"
+
+
 
         		//=================================================================================================================
 		// 其它

@@ -11,8 +11,6 @@
 		"AbilityTextureName"	"silencer_marci"
 		"ScriptFile"	"linken/hero_marci/hero_marci"	
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_NONE"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_NONE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"1"

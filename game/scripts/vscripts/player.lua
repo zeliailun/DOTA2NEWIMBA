@@ -1,7 +1,4 @@
 
-
-
-
 player = class({})
 
 
@@ -16,11 +13,10 @@ function  player:First_Player_Spawned(npc)
 	if npc:IS_TrueHero_TG() and npc.IS_FirstSpawned == nil   then
 		npc.IS_FirstSpawned = true
 		local num=id+1
-		if CDOTA_PlayerResource.TG_HERO[num] == nil then
-			CDOTA_PlayerResource.TG_HERO[num] = npc
-			if CDOTA_PlayerResource.TG_HERO[num].HERO_TALENT==nil then CDOTA_PlayerResource.TG_HERO[num].HERO_TALENT={}end
-			if CDOTA_PlayerResource.TG_HERO[num].PID==nil then CDOTA_PlayerResource.TG_HERO[num].PID={}end
-		end
+		CDOTA_PlayerResource.TG_HERO[num] = npc
+		CDOTA_PlayerResource.TG_HERO[num].HERO_TALENT={}
+		CDOTA_PlayerResource.TG_HERO[num].PID={}
+		CDOTA_PlayerResource.TG_HERO[num].TALENT_NAME=nil
 		network:IsBan(id)
 		network:LoadData(id)
 		custom_events:OpenUI(id)
@@ -90,6 +86,9 @@ function  player:Player_Spawned(npc)
 							if string.find(AB_NAME, "special_bonus") and AB_LV>0 then
 								local modifier_name="modifier_"..AB_NAME
 								local name=npc:GetName()
+								if  string.find(AB_NAME, "special_bonus_custom_value") then
+									name="custom_value_talent"
+								end
 								if TableContainsKey(HeroTalent,name) then
 									local T=HeroTalent[name]
 									if T~=nil then

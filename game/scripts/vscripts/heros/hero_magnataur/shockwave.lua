@@ -26,9 +26,6 @@ function shockwave:OnSpellStart()
       self.shock_distance=self:GetSpecialValueFor( "shock_distance" )
       self.shock_damage=self:GetSpecialValueFor( "shock_damage" )
       self.damageperc=self:GetSpecialValueFor( "damageperc" )*0.01
-      if  cpos==curpos then
-            dir=self.caster:GetForwardVector()
-      end
       if self.caster:TG_HasTalent("special_bonus_magnataur_1") then
             self.shock_speed=self.shock_speed+500
             self.shock_distance=self.shock_distance+500

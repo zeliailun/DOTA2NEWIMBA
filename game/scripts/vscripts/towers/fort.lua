@@ -1,29 +1,29 @@
+
+
 fort_ab=class({})
 
 LinkLuaModifier("modifier_fort_ab", "towers/fort.lua", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_fort_ab", "towers/fort.lua", LUA_MODIFIER_MOTION_NONE)
 
-
-function fort_ab:GetIntrinsicModifierName() 
-    return "modifier_fort_ab" 
+function fort_ab:GetIntrinsicModifierName()
+    return "modifier_fort_ab"
 end
 
 modifier_fort_ab = class({})
 
-function modifier_fort_ab:IsBuff()	 		
-    return true 
+function modifier_fort_ab:IsBuff()
+    return true
 end
 
-function modifier_fort_ab:IsHidden() 			
-    return false 
+function modifier_fort_ab:IsHidden()
+    return false
 end
 
-function modifier_fort_ab:IsPurgable() 			
-    return false 
+function modifier_fort_ab:IsPurgable()
+    return false
 end
 
-function modifier_fort_ab:IsPurgeException() 	
-    return false 
+function modifier_fort_ab:IsPurgeException()
+    return false
 end
 
 function modifier_fort_ab:OnCreated()
@@ -38,24 +38,24 @@ end
 
 
 function modifier_fort_ab:OnIntervalThink()
-    if not self:GetParent():IsAlive() then   
-        return  
-    end 
+    if not self:GetParent():IsAlive() then
+        return
+    end
     if self:GetParent():GetHealthPercent()<=80 and self:GetParent():HasModifier("modifier_disarmed")  then
         self:GetParent():RemoveModifierByName("modifier_disarmed")
     end
-    
+
     if self:GetParent():GetHealthPercent()<=50 and self.ab2  then
-        self.ab2=false	
+        self.ab2=false
         local heros = FindUnitsInRadius(
-            self:GetParent():GetTeamNumber(), 
-            self:GetParent():GetAbsOrigin(), 
-            nil, 
-            2000, 
-            DOTA_UNIT_TARGET_TEAM_ENEMY, 
-            DOTA_UNIT_TARGET_HERO, 
-            DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 
-            FIND_ANY_ORDER, 
+            self:GetParent():GetTeamNumber(),
+            self:GetParent():GetAbsOrigin(),
+            nil,
+            2000,
+            DOTA_UNIT_TARGET_TEAM_ENEMY,
+            DOTA_UNIT_TARGET_HERO,
+            DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
+            FIND_ANY_ORDER,
             false)
 
             if heros~=nil then
@@ -72,11 +72,11 @@ function modifier_fort_ab:OnIntervalThink()
                             damage_type = DAMAGE_TYPE_PURE,
                             ability = self:GetAbility()
                         }
-                        ApplyDamage(damageTable) 
+                        ApplyDamage(damageTable)
                end
             end
     end
-    
+
 
     if self:GetParent():GetHealthPercent()<=20  then
         local particle = ParticleManager:CreateParticle("particles/econ/events/ti6/mekanism_ti6.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
@@ -84,4 +84,4 @@ function modifier_fort_ab:OnIntervalThink()
         self:GetParent():Heal( self:GetParent():GetMaxHealth()*0.3, self:GetParent() )
         self:GetParent():RemoveAbility( "fort_ab" )
 	end
- end 
+ end

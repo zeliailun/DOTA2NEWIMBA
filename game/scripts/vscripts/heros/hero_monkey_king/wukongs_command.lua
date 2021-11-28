@@ -537,7 +537,7 @@ function modifier_wukongs_command_th:OnCreated()
                 ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
                 ParticleManager:SetParticleControl(particle, 1, Vector(800,1,1))
                 self:AddParticle(particle, true, false, 4, false, false)
-                self:StartIntervalThink(1.25)
+                self:StartIntervalThink(1)
         end
 end
 function modifier_wukongs_command_th:OnIntervalThink()

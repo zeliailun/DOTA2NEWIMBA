@@ -1,4 +1,5 @@
 
+
 function Awake()
     AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
     HEROSKV = LoadKeyValues("scripts/npc/herolist.txt")
@@ -44,4 +45,19 @@ function Awake()
     LinkLuaModifier("modifier_veteran_sp", "modifier/veteran/modifier_veteran_sp.lua", LUA_MODIFIER_MOTION_NONE )
 
     LinkLuaModifier("modifier_gold", "modifier/other/modifier_gold.lua", LUA_MODIFIER_MOTION_NONE )
+
+
+     LinkLuaModifier("modifier_talent_agi", "customtalent/modifier_talent_agi.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_all", "customtalent/modifier_talent_all.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_ap", "customtalent/modifier_talent_ap.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_armor", "customtalent/modifier_talent_armor.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_asp", "customtalent/modifier_talent_asp.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_att", "customtalent/modifier_talent_att.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_attackrange", "customtalent/modifier_talent_attackrange.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_castrange", "customtalent/modifier_talent_castrange.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_cd", "customtalent/modifier_talent_cd.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_int", "customtalent/modifier_talent_int.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_mgr", "customtalent/modifier_talent_mgr.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_msp", "customtalent/modifier_talent_msp.lua", LUA_MODIFIER_MOTION_NONE )
+    LinkLuaModifier("modifier_talent_str", "customtalent/modifier_talent_str.lua", LUA_MODIFIER_MOTION_NONE )
 end

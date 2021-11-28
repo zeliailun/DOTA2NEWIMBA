@@ -89,5 +89,5 @@ function modifier_tower1_def_arua:GetModifierPhysicalArmorBonus()
 end
 
 function modifier_tower1_def_arua:GetModifierHealthBonus()
-    return 500-self:GetParent():GetLevel()*10
+    return 500
 end

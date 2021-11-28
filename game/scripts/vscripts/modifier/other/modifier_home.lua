@@ -35,6 +35,12 @@ end
 function modifier_home:GetAuraSearchType()
     return DOTA_UNIT_TARGET_HERO
 end
+function modifier_home:GetEffectName()
+    return "particles/units/heroes/hero_pangolier/pangolier_defense_stance_shield.vpcf"
+end
+function modifier_home:GetEffectAttachType()
+    return PATTACH_OVERHEAD_FOLLOW
+end
 function modifier_home:OnCreated()
       if IsServer() then
             local particle = ParticleManager:CreateParticle("particles/basic_ambient/generic_range_display.vpcf", PATTACH_WORLDORIGIN,nil)

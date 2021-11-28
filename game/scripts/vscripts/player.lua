@@ -42,6 +42,8 @@ function  player:First_Player_Spawned(npc)
 				npc:AddExperience(GetXPNeededToReachNextLevel(4), DOTA_ModifyXP_Unspecified, false, false)
 				npc:AddNewModifier(npc, nil, "modifier_player",{})
 				npc:AddItemByName("item_magic_wand")
+				npc:AddItemByName("item_rd_book")
+
 		end})
 		Timers:CreateTimer({
 			useGameTime = false,

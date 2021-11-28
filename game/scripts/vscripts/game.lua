@@ -356,7 +356,6 @@ RandomAbility2=
     "antimage_mana_break",
     "axe_counter_helix",
     "abaddon_frostmourne",
-    "pangolier_lucky_shot",
     "jakiro_liquid_fire",
     "luna_lunar_blessing",
     "viper_poison_attack",

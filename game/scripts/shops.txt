@@ -104,6 +104,7 @@
 		"item"		"item_aghanims_shard"		
 		"item"		"item_spell_amp_potion"
 		"item"		"item_purification_potion"
+		
 		//"item"		"item_headdress"
 		//"item"		"item_buckler"
 		//"item"		"item_ring_of_basilius"
@@ -131,7 +132,7 @@
 		"item"		"item_moon_shard"
 		"item"		"item_repair_kit"
 		"item"		"item_imba_crown"
-
+		"item"		"item_rd_book"
 		//"item"		"item_guardian_greaves"
 		//"item"		"item_orb_of_corrosion"
 	}

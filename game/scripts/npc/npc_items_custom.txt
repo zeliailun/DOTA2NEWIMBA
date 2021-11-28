@@ -1732,7 +1732,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"dam"				"50"
+				"dam"				"80"
 			}
 			"05"
 			{
@@ -4359,6 +4359,48 @@
 	}
 
 
+
+	//=================================================================================================================
+	// 随机技能书
+	//=================================================================================================================
+	"item_rd_book"
+	{
+		"BaseClass"		"item_lua"
+		"AbilityTextureName"	"item_rd_book"
+		"ScriptFile"		"items/item_rd_book.lua"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityCastRange"	"1000"
+		"ID"		"1068"
+				"ItemQuality"	"consumable"
+		"Model"		"models/props_gameplay/red_box.vmdl"
+		"Effect"		"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemCost"	"10000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+		"ItemPurchasable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH"
+		"ItemKillable"	"1"
+		"ItemAlertable"	"1"
+		"ItemPermanent"	"0"
+		"ItemRequiresCharges"	"1"
+		"ItemInitialCharges"	"1"
+		"ItemStackable"	"0"
+		"ItemShopTags"	"consumable"
+		"ItemAliases"	"consumable"
+		//"ItemStockMax"	"1"
+		//"ItemStockTime"	"10"
+		//"ItemStockInitial"	"3"
+		"MaxUpgradeLevel"	"1"
+		"ItemBaseLevel"	"1"
+		"ItemRecipe"	"0"
+		"ItemRequirements"	{}
+		"ItemDisassembleRule"	"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"IsTempestDoubleClonable"	"0"
+	}
 	// =================================================================================================================
 	// =================================================================================================================
 	// =================================================================================================================

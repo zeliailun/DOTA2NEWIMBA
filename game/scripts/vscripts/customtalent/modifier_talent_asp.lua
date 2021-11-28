@@ -1,32 +1,30 @@
 
 modifier_talent_asp=class({})
-
-function modifier_talent_asp:IsHidden() 			
-	return true 
+function modifier_talent_asp:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+function modifier_talent_asp:IsHidden()
+	return true
 end
 
-function modifier_talent_asp:IsPurgable() 		
-	return false 
+function modifier_talent_asp:IsPurgable()
+	return false
 end
 
-function modifier_talent_asp:IsPurgeException() 	
-	return false 
+function modifier_talent_asp:IsPurgeException()
+	return false
 end
 
-function modifier_talent_asp:RemoveOnDeath() 	
-	return false 
+function modifier_talent_asp:RemoveOnDeath()
+	return false
 end
 
-function modifier_talent_asp:GetAttributes() 
-	return MODIFIER_ATTRIBUTE_MULTIPLE 
-end
-
-function modifier_talent_asp:IsPermanent() 	
-	return true 
+function modifier_talent_asp:IsPermanent()
+	return true
 end
 
 function modifier_talent_asp:DeclareFunctions()
-    return 
+    return
     {
         MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
     }
@@ -37,8 +35,5 @@ function modifier_talent_asp:GetModifierAttackSpeedBonus_Constant()
 end
 
 function modifier_talent_asp:OnCreated(tg)
-    self.value = self:GetParent():TG_GetTalentValue(self:GetAbility():GetName())  
+    self.value = self:GetParent():TG_GetTalentValue(self:GetAbility():GetName())
 end
-
-
-

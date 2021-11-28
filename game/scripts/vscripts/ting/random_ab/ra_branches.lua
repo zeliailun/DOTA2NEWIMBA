@@ -51,7 +51,7 @@ function modifier_ra_branches_pa:OnIntervalThink()
 			self.count = self.count+1
 			if self.count > 12 then
 			--print(self.count)
-				self.count = 0 
+				self.count = self.count - 12
 				self.lv = self.lv + stat_ex
 			end
 			self:SetStackCount(self.lv + stat)

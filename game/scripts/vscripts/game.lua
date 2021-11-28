@@ -318,7 +318,7 @@ RandomAbility=
   "pangolier_swashbuckle","tidehunter_anchor_smash","rattletrap_hookshot", "earthshaker_aftershock","warlock_rain_of_chaos","pudge_meat_hook","queenofpain_blink",
   "shadow_shaman_voodoo",  "faceless_void_time_walk","dark_troll_warlord_ensnare","polar_furbolg_ursa_warrior_thunder_clap","centaur_khan_war_stomp","roshan_spell_block",
   "roshan_slam","hoodwink_scurry","filler_ability","necronomicon_archer_aoe","satyr_hellcaller_shockwave","victory","fiery_soul","laguna_blade","supernova",
-  "ra_mango_tree","ra_flask","ra_clarity","ra_cheese",
+  "ra_mango_tree","ra_flask","ra_clarity","ra_cheese","ra_greater_crit","ra_hand_of_midas",
   --"droiyan","traitor","truce","flak_cannon","seer_vacuum"
 }
 

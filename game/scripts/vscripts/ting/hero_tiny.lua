@@ -1259,8 +1259,9 @@ function modifier_imba_tiny_grow:OnAttackLanded(keys)
 end
 
 function modifier_imba_tiny_grow:GetModifierModelChange()
-
-	return "models/items/tiny/tiny_prestige/tiny_prestige_lvl_0"..tostring(self:GetAbility():GetLevel() + 1)..".vmdl"
+	local num=self:GetAbility():GetLevel() + 1
+	num=num>3 and 3 or num
+	return "models/items/tiny/tiny_prestige/tiny_prestige_lvl_0"..tostring(num)..".vmdl"
 end
 function modifier_imba_tiny_grow:GetModifierModelScale()
 	return self:GetAbility():GetSpecialValueFor("scale")

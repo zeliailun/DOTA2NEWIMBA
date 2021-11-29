@@ -177,6 +177,7 @@ function modifier_burrowstrike:OnHorizontalMotionInterrupted()
 end
 
 function modifier_burrowstrike:OnDestroy()
+    if not self:GetAbility() then return end
     if not IsServer() then
         return
     end

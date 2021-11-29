@@ -69,10 +69,10 @@ function sleight_of_fist:OnSpellStart()
                     ParticleManager:SetParticleControl(trail, 0,caster:GetAbsOrigin())
                     ParticleManager:SetParticleControl(trail, 1,tpos)
                     ParticleManager:ReleaseParticleIndex(trail)
-                    if  not caster:HasModifier("modifier_activate_fire_remnant") then
-                        caster:SetAbsOrigin(tpos)
-                    end
-                    caster:PerformAttack(heroes[stack], false, true, true, false, false, false, false)
+                 --   if  not caster:HasModifier("modifier_activate_fire_remnant") then
+                     --   caster:SetAbsOrigin(tpos)
+                    --end
+                    caster:PerformAttack(heroes[stack], false, true, true, false, false, false, true)
                     local pf = ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleightoffist_tgt.vpcf", PATTACH_ABSORIGIN_FOLLOW, heroes[stack])
                     ParticleManager:SetParticleControl(pf, 0,tpos)
                     ParticleManager:ReleaseParticleIndex(pf)

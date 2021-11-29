@@ -117,9 +117,11 @@ function modifier_venomous_gale_debuff:DeclareFunctions()
 end
 
 function modifier_venomous_gale_debuff:GetModifierMoveSpeedBonus_Percentage()
+    if not self:GetAbility() then return 0 end
 	return self:GetAbility():GetSpecialValueFor("movement_slow")
 end
 
 function modifier_venomous_gale_debuff:GetModifierIncomingSpellDamageConstant()
+     if not self:GetAbility() then return 0 end
 	return self:GetCaster():GetLevel()*self:GetAbility():GetSpecialValueFor("dam2")
 end

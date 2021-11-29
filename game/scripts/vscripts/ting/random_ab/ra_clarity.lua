@@ -9,8 +9,8 @@ function ra_clarity:OnSpellStart()
 	local gold = self:GetSpecialValueFor("gold")
 	local dur = self:GetSpecialValueFor("duration")
 	local item = caster:FindItemInInventory("item_clarity")
-		caster:EmitSound("Hero_Treant.Eyes.Cast")
 	if item then
+		caster:EmitSound("DOTA_Item.ClarityPotion.Activate")
 		item:SetCurrentCharges(item:GetCurrentCharges()-1)	
 		if item:GetCurrentCharges() == 0 then
 			caster:RemoveItem(item)
@@ -21,6 +21,11 @@ function ra_clarity:OnSpellStart()
 			else
 			caster:EmitSound( "DOTA_Item.Hand_Of_Midas" )
 			tar:AddItemByName("item_clarity")
+			
+			local pfx = ParticleManager:CreateParticle("particles/econ/items/bounty_hunter/bounty_hunter_ti9_immortal/bh_ti9_immortal_jinada.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, tar)
+			ParticleManager:SetParticleControl(pfx,0,Vector(100,0,0))
+			ParticleManager:SetParticleControlEnt(pfx, 1, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
+			ParticleManager:ReleaseParticleIndex(pfx)
 		
 		
 			PlayerResource:ModifyGold(caster:GetPlayerOwnerID(),gold,false,DOTA_ModifyGold_Unspecified)
@@ -50,8 +55,10 @@ function modifier_ra_clarity_pa:OnCreated()
 	self.ab = self:GetAbility()
 	self.parent = self:GetParent()
     if IsServer() then 
+		local pfx = ParticleManager:CreateParticle("particles/items_fx/healing_clarity.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.parent)
+		self:AddParticle(pfx, false, false, 15, false, false)
         self:StartIntervalThink(1)
-   end
+	end
 end
 
 function modifier_ra_clarity_pa:OnIntervalThink()

@@ -466,4 +466,9 @@ function modifier_imba_sonic_wave_daze:IsHidden() 			return false end
 function modifier_imba_sonic_wave_daze:IsPurgable() 		return true end
 function modifier_imba_sonic_wave_daze:IsPurgeException() 	return true end
 function modifier_imba_sonic_wave_daze:DeclareFunctions() return {MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE} end
-function modifier_imba_sonic_wave_daze:GetModifierIncomingDamage_Percentage() return self:GetAbility():GetSpecialValueFor("damage_increase") end
+function modifier_imba_sonic_wave_daze:GetModifierIncomingDamage_Percentage()
+	 if not self:GetAbility() then
+		return 0
+	end
+	return  self:GetAbility():GetSpecialValueFor("damage_increase")
+end

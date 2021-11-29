@@ -55,6 +55,7 @@ function modifier_nethertoxin_th:GetAuraSearchType()
 end
 
 function modifier_nethertoxin_th:OnCreated()
+     if not self:GetAbility() then  return end
     self.parent=self:GetParent()
     self.ability=self:GetAbility()
     self.damage=self.ability:GetSpecialValueFor("damage")
@@ -70,6 +71,7 @@ function modifier_nethertoxin_th:OnCreated()
 end
 
 function modifier_nethertoxin_th:OnIntervalThink()
+     if not self:GetAbility() then  return end
     local heros = FindUnitsInRadius(self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
     if #heros>0 then
         for _, target in pairs(heros) do
@@ -108,6 +110,7 @@ function modifier_nethertoxin_debuff:IsHidden()
 end
 
 function modifier_nethertoxin_debuff:OnCreated()
+    if not self:GetAbility() then  return end
     self.parent=self:GetParent()
     self.ability=self:GetAbility()
     self.mr=self.ability:GetSpecialValueFor("mr")
@@ -115,7 +118,8 @@ function modifier_nethertoxin_debuff:OnCreated()
 end
 
 function modifier_nethertoxin_debuff:CheckState()
-    if self.parent:IsMagicImmune() then
+     if not self or not self.parent then  return end
+    if  self.parent:IsMagicImmune() then
         return {}
     else
     return

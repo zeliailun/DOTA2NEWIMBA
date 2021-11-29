@@ -8,9 +8,12 @@ function modifier_oldsky_aseal_debuff:IsPurgeException() 	return true end
 
 function modifier_oldsky_aseal_debuff:CheckState() return {[MODIFIER_STATE_SILENCED] = true} end
 function modifier_oldsky_aseal_debuff:DeclareFunctions() return {MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS, MODIFIER_EVENT_ON_TAKEDAMAGE} end          --天赋加减魔抗 ↓
-function modifier_oldsky_aseal_debuff:GetModifierMagicalResistanceBonus() return (0 - self:GetAbility():GetSpecialValueFor("aseal_magicred") - self:GetCaster():TG_GetTalentValue("special_bonus_oldsky_15l") ) end
+function modifier_oldsky_aseal_debuff:GetModifierMagicalResistanceBonus()
+     if not self:GetAbility() then return 0 end
+    return (0 - self:GetAbility():GetSpecialValueFor("aseal_magicred") - self:GetCaster():TG_GetTalentValue("special_bonus_oldsky_15l") ) end
 
 function modifier_oldsky_aseal_debuff:OnCreated()
+    if not self:GetAbility() then return end
     if not IsServer() then return end
 
     local particle1 = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_ancient_seal_debuff.vpcf"

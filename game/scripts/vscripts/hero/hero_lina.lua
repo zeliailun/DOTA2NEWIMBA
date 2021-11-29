@@ -114,6 +114,7 @@ end
 modifier_imba_lina_dragon_slave_thinker = class({})
 
 function modifier_imba_lina_dragon_slave_thinker:OnCreated(keys)
+	if not self:GetAbility() then return end
 	if IsServer() then
 		self.super = keys.super
 		if self.super == 1 then
@@ -128,6 +129,7 @@ function modifier_imba_lina_dragon_slave_thinker:OnCreated(keys)
 end
 
 function modifier_imba_lina_dragon_slave_thinker:OnIntervalThink()
+	if not self:GetAbility() then return end
 	if self.super == 1 then
 		if self.pr == 1 then -- Super PRI
 			local length = self:GetAbility():GetCastRange(Vector(0,0,0), self:GetCaster())

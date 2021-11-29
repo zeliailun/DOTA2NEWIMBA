@@ -128,6 +128,7 @@ function modifier_hoof_stomp_buff:IsPurgeException()
 end
 
 function modifier_hoof_stomp_buff:OnCreated()
+    if not self:GetAbility() then return end
     self.damageoutgoing=self:GetAbility():GetSpecialValueFor( "damageoutgoing" )+self:GetCaster():TG_GetTalentValue("special_bonus_centaur_1")
 end
 

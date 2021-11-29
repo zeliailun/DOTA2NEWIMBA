@@ -10,6 +10,11 @@ function ra_hand_of_midas:OnSpellStart()
 	local tar = self:GetCursorTarget()
 	local gold_sale = self:GetSpecialValueFor("sale_gold")*0.01
 	local gold_gain = self:GetSpecialValueFor("gain_gold")*0.01
+	local id = tar:GetPlayerOwnerID()
+	if   tar:TG_TriggerSpellAbsorb(self) then
+		Notifications:Bottom(id, {text="你似乎躲过了一场抢劫", duration=3, style={color="#F0FFFF",["font-size"]="40px"}})
+		return 
+	end
 	local item_tab = {}
 	for i = 0,8 do 
 		if tar:GetItemInSlot(i) ~= nil then
@@ -18,6 +23,8 @@ function ra_hand_of_midas:OnSpellStart()
 	end
 	
 	if #item_tab > 0 then
+		 caster:EmitSound( "DOTA_Item.Hand_Of_Midas" )
+		 tar:EmitSound( "DOTA_Item.Hand_Of_Midas" )
 		local item = item_tab[math.random(1,#item_tab)] 
 		--print(tostring(item:GetName()))
 		local gold = GetItemCost(item:GetName())
@@ -28,6 +35,11 @@ function ra_hand_of_midas:OnSpellStart()
 		PlayerResource:ModifyGold(tar:GetPlayerOwnerID(),gold*gold_sale,false,DOTA_ModifyGold_Unspecified)
 		SendOverheadEventMessage(tar, OVERHEAD_ALERT_GOLD, tar, gold*gold_sale, nil)
 		
+		local pfx= ParticleManager:CreateParticle("particles/items2_fx/hand_of_midas.vpcf", PATTACH_ABSORIGIN,tar)
+        ParticleManager:SetParticleControl(pfx, 0, tar:GetAbsOrigin())
+        ParticleManager:SetParticleControl(pfx, 1, tar:GetAbsOrigin())
+        ParticleManager:ReleaseParticleIndex( pfx )
+		Notifications:Bottom(id, {text="快看看你是不是少了什么装备！", duration=3, style={color="#F0FFFF",["font-size"]="40px"}})
 		--print(gold)
 	end
 	

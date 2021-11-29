@@ -502,6 +502,7 @@ end
 modifier_death_voodoo_handling = class({})
 LinkLuaModifier("modifier_death_voodoo_handling_slow", "ting/hero_witch_doctor", LUA_MODIFIER_MOTION_NONE)
 function modifier_death_voodoo_handling:OnCreated()
+	if not self:GetAbility() then return end
 	if not IsServer() then return end
 	self.damage = self:GetAbility():GetSpecialValueFor("damage")
 
@@ -516,6 +517,7 @@ function modifier_death_voodoo_handling:OnCreated()
 end
 
 function modifier_death_voodoo_handling:OnIntervalThink()
+	if not self:GetAbility() then return end
 	if IsServer() then
 		local units = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self:GetAbility():GetSpecialValueFor("radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE + DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS, 1, false)
 		local bounces = 0

@@ -76,6 +76,7 @@ function modifier_degen_aura_pa:OnRefresh()
 end
 
 function modifier_degen_aura_pa:OnIntervalThink()
+    if not self:GetAbility() then return end
     if self:GetParent():IsAlive() then
         local enemies = FindUnitsInRadius(self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, 375, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
         if  #enemies>0 then

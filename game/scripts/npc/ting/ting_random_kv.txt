@@ -19,7 +19,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"stat_stack"				"4"
+				"stat_stack"				"5"
 			}
 
 
@@ -33,7 +33,7 @@
 		"ScriptFile"					"ting/random_ab/ra_mango_tree.lua"	
 		"AbilityTextureName"			"ting_ra/ra_mango_tree"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
-		"AbilityCooldown"				"320"
+		"AbilityCooldown"				"240"
 		"AbilityManaCost"				"500"
 		"AbilityCastRange"				"500"
 		"MaxLevel"						"1"	
@@ -50,7 +50,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"greater_mango_cd"				"1000" //产生高级芒果的cd
+				"greater_mango_cd"				"666" //产生高级芒果的cd
 			}
 
 
@@ -69,6 +69,10 @@
 		"AbilityCooldown"				"5"
 		"AbilityManaCost"				"50"
 		"AbilityCastRange"				"500"
+		"precache"
+		{
+			"particle"	"particles/items_fx/healing_flask.vpcf"
+		}
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -91,7 +95,7 @@
 			"04"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"stack"						"20" //第一次用给的大药
+				"stack"						"50" //第一次用给的大药
 			}
 
 
@@ -112,6 +116,11 @@
 		"AbilityCooldown"				"7"
 		"AbilityManaCost"				"1"
 		"AbilityCastRange"				"350"
+		"precache"
+		{
+			"particle"	"particles/econ/items/bounty_hunter/bounty_hunter_ti9_immortal/bh_ti9_immortal_jinada.vpcf"
+			"particle"	"particles/items_fx/healing_clarity.vpcf"
+		}
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -141,7 +150,7 @@
 		"ScriptFile"					"ting/random_ab/ra_cheese.lua"	
 		"AbilityTextureName"			"ting_ra/ra_cheese"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"40"
+		"AbilityCooldown"				"30"
 		"AbilityGoldCost"				"500"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -163,6 +172,10 @@
 		"AbilityCooldown"				"60"
 		"AbilityManaCost"				"300"
 		"AbilityCastRange"				"500"
+		"precache"
+		{
+			"particle"	""particles/items2_fx/hand_of_midas.vpcf""
+		}
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -199,6 +212,10 @@
 
 		"AbilityCooldown"				"7"
 		"AbilityManaCost"				"100"
+		"precache"
+		{
+			"particle"	"particles/item/xin_black_king_bar.vpcf"
+		}
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

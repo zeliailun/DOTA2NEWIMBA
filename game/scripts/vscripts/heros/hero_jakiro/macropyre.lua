@@ -82,6 +82,7 @@ function modifier_macropyre_debuff:IsHidden()
 end
 
 function modifier_macropyre_debuff:OnCreated()
+     if not self:GetAbility() then return 0 end
     self.parent=self:GetParent()
     self.caster=self:GetCaster()
     self.ability=self:GetAbility()
@@ -113,6 +114,7 @@ function modifier_macropyre_debuff:OnCreated()
 end
 
 function modifier_macropyre_debuff:OnIntervalThink()
+     if not self:GetAbility() then return 0 end
     local heros = FindUnitsInLine(
         self.team,
         self.stpos,

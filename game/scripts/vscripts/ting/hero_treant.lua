@@ -8,16 +8,16 @@ LinkLuaModifier("modifier_imba_treant_overgrowth_pa", "ting/hero_treant", LUA_MO
 LinkLuaModifier("modifier_imba_treant_overgrowth_root", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 
 
-function imba_treant_natures_grasp:IsHiddenWhenStolen() 
-    return false 
+function imba_treant_natures_grasp:IsHiddenWhenStolen()
+    return false
 end
 
-function imba_treant_natures_grasp:IsStealable() 
-    return true 
+function imba_treant_natures_grasp:IsStealable()
+    return true
 end
 
-function imba_treant_natures_grasp:IsRefreshable() 			
-    return true 
+function imba_treant_natures_grasp:IsRefreshable()
+    return true
 end
 
 function imba_treant_natures_grasp:OnSpellStart()
@@ -40,37 +40,38 @@ modifier_imba_treant_natures_grasp_debuff=class({})
 LinkLuaModifier("modifier_imba_treant_natures_grasp_debuff", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_treant_natures_grasp_flag", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_treant_natures_grasp_slow", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
-function modifier_imba_treant_natures_grasp_debuff:IsPurgable() 			
+function modifier_imba_treant_natures_grasp_debuff:IsPurgable()
     return false
 end
 
-function modifier_imba_treant_natures_grasp_debuff:IsPurgeException() 		
-    return false 
+function modifier_imba_treant_natures_grasp_debuff:IsPurgeException()
+    return false
 end
 
-function modifier_imba_treant_natures_grasp_debuff:IsHidden()				
-    return true 
+function modifier_imba_treant_natures_grasp_debuff:IsHidden()
+    return true
 end
 
-function modifier_imba_treant_natures_grasp_debuff:OnCreated(keys)	
-    self.parent=self:GetParent()	
-    self.caster=self:GetCaster()	
+function modifier_imba_treant_natures_grasp_debuff:OnCreated(keys)
+	    if not self:GetAbility() then return  end
+    self.parent=self:GetParent()
+    self.caster=self:GetCaster()
     self.ability=self:GetAbility()
-    self.team=self.parent:GetTeamNumber()	
-    self.stpos=self.parent:GetAbsOrigin()	
+    self.team=self.parent:GetTeamNumber()
+    self.stpos=self.parent:GetAbsOrigin()
     self.damage= self:GetAbility():GetSpecialValueFor("damage")*0.5
 	self.dir = Vector(keys.dir_x,keys.dir_y,keys.dir_z)
 	self.count_max = math.floor((self.ability:GetSpecialValueFor("range")+self:GetCaster():GetCastRangeBonus()) /250)
-	self.tree = keys.tree 
+	self.tree = keys.tree
 	self.dur = self:GetAbility():GetSpecialValueFor("vines_duration")
 	self.isovergrowth  = keys.overgrowth
-	self.ab = self.caster:FindAbilityByName("imba_treant_overgrowth") 
+	self.ab = self.caster:FindAbilityByName("imba_treant_overgrowth")
 	if IsServer() then
        	self.bramble_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_treant/treant_bramble_root.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		ParticleManager:SetParticleControl(self.bramble_particle, 0, Vector(0, 0, 0))
 		self:AddParticle(self.bramble_particle, false, false, -1, false, false)
         EmitSoundOn("hero_jakiro.imba_treant_natures_grasp", self.parent)
-		if self.isovergrowth~=nil and self.isovergrowth == 1  then 			
+		if self.isovergrowth~=nil and self.isovergrowth == 1  then
 			return
 		end
 		local next_pos =  GetGroundPosition(self:GetParent():GetAbsOrigin() + self.dir  * 250, self:GetParent())
@@ -86,8 +87,8 @@ function modifier_imba_treant_natures_grasp_debuff:OnCreated(keys)
             ability = self.ability,
         }
         self.root=true
-	
-	
+
+
 		if count < self.count_max then
 				Timers:CreateTimer(0.02, function()
 		local thinker = CreateModifierThinker(self.caster, self:GetAbility(), "modifier_imba_treant_natures_grasp_debuff", {duration=self.dur+(self.count_max-count)*0.02,dir_x = dir.x,dir_y = dir.y,dir_z = dir.z,count = count , tree = self.tree}, next_pos, self.caster:GetTeamNumber(), false)
@@ -96,13 +97,14 @@ function modifier_imba_treant_natures_grasp_debuff:OnCreated(keys)
 		end
 		if count == self.count_max then
 			self.max = true
-			self:OnIntervalThink()	
-			self:StartIntervalThink(0.5)		
+			self:OnIntervalThink()
+			self:StartIntervalThink(0.5)
 		end
     end
 end
 
-function modifier_imba_treant_natures_grasp_debuff:OnIntervalThink()	
+function modifier_imba_treant_natures_grasp_debuff:OnIntervalThink()
+	    if not self:GetAbility() then return  end
 	if not IsServer() then return end
 	if self.tree == 1 then
 		self.damageTable.damage = self.damage*self:GetAbility():GetSpecialValueFor("damage_ex")
@@ -115,26 +117,26 @@ function modifier_imba_treant_natures_grasp_debuff:OnIntervalThink()
 			local cas = FindUnitsInLine(
 			self.team,
 			pos_start,
-			pos_end, 
+			pos_end,
 			self.parent,
-			225, 
-			DOTA_UNIT_TARGET_TEAM_FRIENDLY, 
-			DOTA_UNIT_TARGET_HERO, 
+			225,
+			DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+			DOTA_UNIT_TARGET_HERO,
 			DOTA_UNIT_TARGET_FLAG_NONE)
 		for _,unit in pairs(cas) do
-				unit:AddNewModifier(self.caster,self:GetAbility(),"modifier_imba_treant_natures_grasp_flag",{duration = 0.5})		
+				unit:AddNewModifier(self.caster,self:GetAbility(),"modifier_imba_treant_natures_grasp_flag",{duration = 0.5})
 		end
 		end
 	end
-	
+
     local heros = FindUnitsInLine(
         self.team,
         pos_start,
-		pos_end, 
+		pos_end,
         self.parent,
-        225, 
-        DOTA_UNIT_TARGET_TEAM_ENEMY, 
-        DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, 
+        225,
+        DOTA_UNIT_TARGET_TEAM_ENEMY,
+        DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC,
         DOTA_UNIT_TARGET_FLAG_NONE)
         if heros and #heros>0 then
             for _,target in pairs(heros) do
@@ -168,7 +170,7 @@ function modifier_imba_treant_natures_grasp_slow:CheckState()
         [MODIFIER_STATE_TETHERED] = true,
 	}
 end
-function modifier_imba_treant_natures_grasp_slow:DeclareFunctions() 
+function modifier_imba_treant_natures_grasp_slow:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		}
@@ -197,7 +199,7 @@ function imba_treant_leech_seed:OnSpellStart()
 end
 function imba_treant_leech_seed:OnProjectileHit_ExtraData(target, location, ExtraData)
 	target:Heal(self:GetSpecialValueFor("heal"), self:GetCaster())
-	
+
 	SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, target,self:GetSpecialValueFor("heal"), nil)
 end
 modifier_imba_treant_leech_seed_debuff = class({})
@@ -224,10 +226,10 @@ function modifier_imba_treant_leech_seed_debuff:OnIntervalThink()
 		if  GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),self:GetAbility():GetSpecialValueFor("radius_v"), true) then
 			AddFOWViewer(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self:GetAbility():GetSpecialValueFor("radius_vision") , 1.5, false)
 		end
-		
-		
-	end	
-	
+
+
+	end
+
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_treant/treant_leech_seed_damage_pulse.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 	ParticleManager:ReleaseParticleIndex(particle)
 	particle = nil
@@ -244,9 +246,9 @@ function modifier_imba_treant_leech_seed_debuff:OnIntervalThink()
 
 
 	self.friend = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
-	 for _,fri in pairs(self.friend) do      
+	 for _,fri in pairs(self.friend) do
 
-			
+
 			local projectile = {
 			EffectName			= "particles/units/heroes/hero_treant/treant_leech_seed_projectile.vpcf",
 			Ability				= self:GetAbility(),
@@ -273,7 +275,7 @@ function modifier_imba_treant_leech_seed_debuff:OnIntervalThink()
 	end
 end
 
-function modifier_imba_treant_leech_seed_debuff:OnDeath(keys)	
+function modifier_imba_treant_leech_seed_debuff:OnDeath(keys)
 	if not IsServer() then return end
 	if not keys.unit:IsHero() then return end
 	if keys.unit == self:GetParent() and self:GetParent():HasModifier("modifier_imba_treant_leech_seed_debuff") then
@@ -294,7 +296,7 @@ LinkLuaModifier("modifier_imba_treant_living_armor_buff", "ting/hero_treant", LU
 LinkLuaModifier("modifier_imba_treant_living_armor_tran", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 
 function imba_treant_living_armor:OnChannelFinish(b)
-	if IsServer() then	
+	if IsServer() then
 		if self.pos~=nil and not b then
 		FindClearSpaceForUnit(self:GetCaster(), self.pos, true)
 		local pfx = ParticleManager:CreateParticle("particles/econ/items/treant_protector/treant_ti10_immortal_head/treant_ti10_immortal_overgrowth_cast_beam.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
@@ -323,39 +325,39 @@ function imba_treant_living_armor:OnSpellStart()
 			if #target0 >= 1 then
 				self:addarmor(target0[1])
 				caster:Stop()
-				return 
+				return
 			end
 			local target1 = FindUnitsInRadius(caster:GetTeamNumber(), pos, nil, 1250, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BUILDING, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
 			if #target1 >= 1 then
 				self:addarmor(target1[1])
 				caster:Stop()
-				return 
+				return
 			end
 			local target2 = FindUnitsInRadius(caster:GetTeamNumber(), pos, nil, 1250, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
 			if #target2 >= 1 then
 				self:addarmor(target2[1])
 				caster:Stop()
-				return 
+				return
 			end
 			self:addarmor(caster)
 			caster:Stop()
-		end	
+		end
 end
 function imba_treant_living_armor:addarmor(target)
 	if not IsServer() then return end
 	local tar = target
-	if self:GetCaster():TG_HasTalent("special_bonus_imba_treant_4") then		
+	if self:GetCaster():TG_HasTalent("special_bonus_imba_treant_4") then
 		local radius = self:GetCaster():TG_GetTalentValue("special_bonus_imba_treant_4")
 		if target~=nil then
 			local fr = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), target:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BUILDING+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 			for _,f in pairs(fr) do
 				f:AddNewModifier(self:GetCaster(),self,"modifier_imba_treant_living_armor_buff",{duration = self:GetSpecialValueFor("duration")})
-			end	
+			end
 		end
 		else
 		tar:AddNewModifier(self:GetCaster(),self,"modifier_imba_treant_living_armor_buff",{duration = self:GetSpecialValueFor("duration")})
 	end
-	
+
 end
 modifier_imba_treant_living_armor_buff = class({})
 function modifier_imba_treant_living_armor_buff:IsDebuff()			return not Is_Chinese_TG(self:GetParent(),self:GetCaster()) end
@@ -363,10 +365,10 @@ function modifier_imba_treant_living_armor_buff:IsHidden() 			return false end
 function modifier_imba_treant_living_armor_buff:IsPurgable() 			return true end
 function modifier_imba_treant_living_armor_buff:DeclareFunctions() return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS} end
 function modifier_imba_treant_living_armor_buff:GetModifierPhysicalArmorBonus()
-	return self:GetStackCount() + self.armor 
+	return self:GetStackCount() + self.armor
 end
 
-function modifier_imba_treant_living_armor_buff:OnCreated() 
+function modifier_imba_treant_living_armor_buff:OnCreated()
 	self.armor = self:GetAbility():GetSpecialValueFor("bonus_armor")
 	self.heal = self:GetAbility():GetSpecialValueFor("total_heal")/self:GetAbility():GetSpecialValueFor("duration")/2
 	if self:GetParent():IsHero() then
@@ -379,23 +381,23 @@ function modifier_imba_treant_living_armor_buff:OnCreated()
 	self:AddParticle(self.armor_particle, false, false, -1, false, false)
 	self:StartIntervalThink(0.5)
 	self:OnRefresh()
-	end	
+	end
 end
 function modifier_imba_treant_living_armor_buff:OnRefresh()
 	if not IsServer() then return end
 	if not self:GetParent():IsBuilding() then
 	local trees = GridNav:GetAllTreesAroundPoint( self:GetParent():GetOrigin(), self:GetAbility():GetSpecialValueFor("radius"), false )
 	local heal = self:GetParent():GetMaxHealth()*0.01*#trees
-	self:GetParent():Heal(heal, self:GetCaster())	
+	self:GetParent():Heal(heal, self:GetCaster())
 	SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(),heal, nil)
-		if self:GetCaster():TG_HasTalent("special_bonus_imba_treant_2") then 
+		if self:GetCaster():TG_HasTalent("special_bonus_imba_treant_2") then
 		self:SetStackCount(#trees)
 	end
 	end
 end
 function modifier_imba_treant_living_armor_buff:OnIntervalThink()
 	if not IsServer() then return end
-		self:GetParent():Heal(self.heal, self:GetCaster())	
+		self:GetParent():Heal(self.heal, self:GetCaster())
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(),self.heal, nil)
 end
 --疯狂生长
@@ -416,25 +418,25 @@ function imba_treant_overgrowth:OnSpellStart()
 	local duration_overgrowth = self:GetSpecialValueFor("duration")
 	local cast_particle = ParticleManager:CreateParticle("particles/econ/items/treant_protector/treant_ti10_immortal_head/treant_ti10_immortal_overgrowth_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
 	ParticleManager:ReleaseParticleIndex(cast_particle)
-	
+
 	local enemy_hero = FindUnitsInRadius(caster:GetTeamNumber(),
-	caster:GetAbsOrigin(), nil, self:GetSpecialValueFor("radius"), 
-	DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)	
-	
-		for _,enemy in pairs(enemy_hero) do	
+	caster:GetAbsOrigin(), nil, self:GetSpecialValueFor("radius"),
+	DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)
+
+		for _,enemy in pairs(enemy_hero) do
 			if not self:GetAutoCastState() then
 			enemy:Stop()
-			enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_root", {duration = duration_overgrowth})	
-			enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_damage", {duration = duration_overgrowth})	
-			
+			enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_root", {duration = duration_overgrowth})
+			enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_damage", {duration = duration_overgrowth})
+
 			end
 
 		end
-	--自动大	
+	--自动大
 	if self:GetAutoCastState() then
 			CreateModifierThinker(caster, self, "modifier_imba_treant_overgrowth", {duration = duration_overgrowth}, caster:GetAbsOrigin(), caster:GetTeamNumber(), false)
 			AddFOWViewer(caster:GetTeamNumber(), caster:GetAbsOrigin(), 1250, duration_overgrowth+1, false)	--1250高空视野
-	
+
 	--召树
 	local tab = {
 				"maps/jungle_assets/trees/kapok/export/kapok_001.vmdl",
@@ -442,37 +444,37 @@ function imba_treant_overgrowth:OnSpellStart()
 				"maps/jungle_assets/trees/kapok/export/kapok_003.vmdl",
 				"maps/jungle_assets/trees/kapok/export/kapok_004.vmdl",
 				}
-				
-	for tr = 0,5,1 do 
+
+	for tr = 0,5,1 do
 	local newpos =RotatePosition(caster:GetAbsOrigin(), QAngle(0, tr*72, 0), caster:GetAbsOrigin() + caster:GetForwardVector():Normalized() * 600)
 		for i = 1,5,1 do
-			local pos_end = GetRandomPosition2D(newpos,600)			
+			local pos_end = GetRandomPosition2D(newpos,600)
 			CreateTempTreeWithModel(pos_end, duration_overgrowth,tab[math.random(1,#tab)])
 		end
-	end	
+	end
 	end
 	--树眼大
 	local gr = Entities:FindAllByName("npc_dota_treant_eyes")
 	local ab_eye = caster:FindAbilityByName("imba_treant_eyes_in_the_forest")
 	if ab_eye and ab_eye:GetLevel() > 0 then
-	for _,g in pairs(gr) do	
+	for _,g in pairs(gr) do
 		if g:IsAlive() and g:GetOwner() == self:GetCaster() then
 			local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_treant/treant_overgrowth_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, g)
 			ParticleManager:ReleaseParticleIndex(particle)
 			local enemy_tree = FindUnitsInRadius(caster:GetTeamNumber(),
-			g:GetAbsOrigin(), nil, ab_eye:GetSpecialValueFor("overgrowth_aoe_imba")+caster:TG_GetTalentValue("special_bonus_imba_treant_7"), 
-			DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)	
-	
-			for _,enemy in pairs(enemy_tree) do	
+			g:GetAbsOrigin(), nil, ab_eye:GetSpecialValueFor("overgrowth_aoe_imba")+caster:TG_GetTalentValue("special_bonus_imba_treant_7"),
+			DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)
+
+			for _,enemy in pairs(enemy_tree) do
 				enemy:Stop()
-				enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_root", {duration = duration_overgrowth})	
-				enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_damage", {duration = duration_overgrowth})	
+				enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_root", {duration = duration_overgrowth})
+				enemy:AddNewModifier_RS(caster, self, "modifier_imba_treant_overgrowth_damage", {duration = duration_overgrowth})
 			end
 		end
 	end
 	end
 	caster:AddNewModifier(caster,self,"modifier_imba_treant_overgrowth_pa",{duration = duration_overgrowth})
-	
+
 end
 --大招召树thinker
 
@@ -483,7 +485,7 @@ LinkLuaModifier("modifier_imba_treant_natures_grasp_flag", "ting/hero_treant", L
 function modifier_imba_treant_overgrowth:IsHidden() 			return true end
 function modifier_imba_treant_overgrowth:IsDebuff() 			return false end
 function modifier_imba_treant_overgrowth:IsPurgable() 			return false end
-function modifier_imba_treant_overgrowth:OnCreated(parms) 
+function modifier_imba_treant_overgrowth:OnCreated(parms)
 	if not IsServer() then return end
 
 
@@ -496,7 +498,7 @@ function modifier_imba_treant_overgrowth:OnCreated(parms)
 	self.caster = self:GetCaster()
 	self.root = false
 	local hero = FindUnitsInRadius(self.caster:GetTeamNumber(),
-	self.caster:GetAbsOrigin(), nil, 1250, 
+	self.caster:GetAbsOrigin(), nil, 1250,
 	DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE,FIND_ANY_ORDER, false)
 	for _,h in pairs(hero) do
 		h:AddNewModifier(self.caster,self:GetAbility(),"modifier_imba_treant_overgrowth_g",{duration = 1})
@@ -516,7 +518,7 @@ function modifier_imba_treant_overgrowth:OnCreated(parms)
         ParticleManager:SetParticleControl(particle2, 3, Vector(100, 0, 0))
         ParticleManager:SetParticleControl(particle2, 15, Vector(220, 20, 60))
 
-	end	
+	end
 
 	self:StartIntervalThink(1.0)
 end
@@ -527,7 +529,7 @@ function modifier_imba_treant_overgrowth:OnIntervalThink()
 		self.root = true
 	end
 	local hero = FindUnitsInRadius(self.caster:GetTeamNumber(),
-	self:GetParent():GetAbsOrigin(), nil, 1200, 
+	self:GetParent():GetAbsOrigin(), nil, 1200,
 	DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE,FIND_ANY_ORDER, false)
 	for _,h in pairs(hero) do
 		if Is_Chinese_TG(h,self.caster) then
@@ -545,7 +547,7 @@ function modifier_imba_treant_overgrowth:OnIntervalThink()
 				h:AddNewModifier(self.caster,self:GetAbility(),"modifier_rooted",{duration = 1.1})
 			end
 		end
-	end		
+	end
 
 	self.root = false
 
@@ -566,7 +568,7 @@ function modifier_imba_treant_overgrowth_root:IsDebuff() 			return true end
 function modifier_imba_treant_overgrowth_root:IsPurgable() 			return true end
 function modifier_imba_treant_overgrowth_root:DeclareFunctions() return {MODIFIER_PROPERTY_PROVIDES_FOW_POSITION} end
 function modifier_imba_treant_overgrowth_root:GetModifierProvidesFOWVision() return 1 end
-function modifier_imba_treant_overgrowth_root:CheckState() 			
+function modifier_imba_treant_overgrowth_root:CheckState()
 	return {
 		[MODIFIER_STATE_CANNOT_BE_MOTION_CONTROLLED ] = true,
         [MODIFIER_STATE_TETHERED] = true,
@@ -574,8 +576,8 @@ function modifier_imba_treant_overgrowth_root:CheckState()
 		[MODIFIER_STATE_ROOTED] = true,
 		[MODIFIER_STATE_PROVIDES_VISION] = true,
 		[MODIFIER_STATE_DISARMED] = true,
-		} 
-	end 	
+		}
+	end
 function modifier_imba_treant_overgrowth_root:GetEffectName()
 	return "particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"
 end
@@ -587,7 +589,7 @@ function modifier_imba_treant_overgrowth_damage:IsDebuff() 			return true end
 function modifier_imba_treant_overgrowth_damage:IsPurgable() 			return true end
 function modifier_imba_treant_overgrowth_damage:OnCreated()
 	self.damage = self:GetAbility():GetSpecialValueFor("damage")
-	if IsServer() then 
+	if IsServer() then
 		self:StartIntervalThink(1.0)
 	end
 end
@@ -613,7 +615,7 @@ function imba_treant_eyes_in_the_forest:GetIntrinsicModifierName() return "modif
 function imba_treant_eyes_in_the_forest:IsStealable() return false end
 function imba_treant_eyes_in_the_forest:OnInventoryContentsChanged()
 	if not IsServer() then return end
-    if self:GetCaster():HasScepter() then 
+    if self:GetCaster():HasScepter() then
        self:SetHidden(false)
 	   self:SetStolen(true)
        self:SetLevel(1)
@@ -630,20 +632,20 @@ end
 
 function imba_treant_eyes_in_the_forest:OnSpellStart()
 	local tar = self:GetCursorTarget()
-	local pos = tar:GetAbsOrigin()	
+	local pos = tar:GetAbsOrigin()
 	local caster = self:GetCaster()
 	local hp = self:GetSpecialValueFor("count")
 	local tree = CreateUnitByName("npc_dota_treant_eyes", pos, false, self:GetCaster(), self:GetCaster(),caster:GetTeamNumber())
-	
+
 	tree:AddNewModifier(self:GetCaster(),self,"modifier_treant_eyes_in_the_forest",{duration = -1 })
 	tree:AddNewModifier(self:GetCaster(),self,"modifier_imba_treant_eyes_in_the_forest",{duration = -1 ,pos_x = pos.x,pos_y = pos.y,po_z = pos.z})
-	
+
 	local trees_2 = CreateUnitByName("npc_dota_lich_ice_spire", pos, true, caster, caster, caster:GetTeamNumber())
 		trees_2:SetOwner(caster)
 		trees_2:SetBaseMaxHealth(hp)
 		trees_2:SetMaxHealth(hp)
 		trees_2:SetHealth(hp)
-		
+
 	trees_2:AddNewModifier(self:GetCaster(),self,"imba_treant_eyes_in_the_forest_unit_buff",{duration = -1,pos_x = pos.x,pos_y = pos.y,po_z = pos.z})
 	local mod = self:GetCaster():FindModifierByName("modifier_imba_treant_eyes_in_the_forest_passive")
 	if mod then
@@ -656,13 +658,13 @@ function imba_treant_eyes_in_the_forest:OnSpellStart()
 		end
 	end
 	mod.tree = tre
-	if mod:GetStackCount() > self:GetSpecialValueFor("max")  then 
+	if mod:GetStackCount() > self:GetSpecialValueFor("max")  then
 		mod.tree[1]:RemoveModifierByName("modifier_treant_eyes_in_the_forest")
 		mod.tree[1]:RemoveModifierByName("modifier_imba_treant_eyes_in_the_forest")
 		UTIL_Remove(mod.tree[1])
 		mod:SetStackCount(mod:GetStackCount() - 1)
 	end
-	
+
 	end
 end
 
@@ -671,12 +673,12 @@ imba_treant_eyes_in_the_forest_unit_buff = class({})
 function imba_treant_eyes_in_the_forest_unit_buff:RemoveOnDeath() return true end
 
 function imba_treant_eyes_in_the_forest_unit_buff:CheckState()
-    return 
+    return
     {
 			[MODIFIER_STATE_MAGIC_IMMUNE] = true,
 			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true,
 			[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true,
-			[MODIFIER_STATE_INVISIBLE] = true, 
+			[MODIFIER_STATE_INVISIBLE] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			[MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES] = true,
 			--[MODIFIER_STATE_NO_HEALTH_BAR] = true,
@@ -686,10 +688,10 @@ end
 function imba_treant_eyes_in_the_forest_unit_buff:OnAttackLanded(keys)
     if not IsServer() then
         return
-	end  
+	end
     if  keys.target == self:GetParent() then
         if self:GetParent():GetHealth()>0 then
-        self:GetParent():SetHealth(self:GetParent():GetHealth() - 1) 
+        self:GetParent():SetHealth(self:GetParent():GetHealth() - 1)
         elseif self:GetParent():GetHealth()<=0 then
         self:GetParent():Kill(self:GetAbility(), keys.attacker)
         end
@@ -709,37 +711,37 @@ function imba_treant_eyes_in_the_forest_unit_buff:OnDestroy()
 		UTIL_Remove(self:GetParent())
 	end
 end
-	
-function imba_treant_eyes_in_the_forest_unit_buff:DeclareFunctions() 
-    return 
+
+function imba_treant_eyes_in_the_forest_unit_buff:DeclareFunctions()
+    return
     {
-        MODIFIER_PROPERTY_MODEL_CHANGE,        
+        MODIFIER_PROPERTY_MODEL_CHANGE,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, 
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, 
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, 
-        MODIFIER_PROPERTY_DISABLE_HEALING, 
-    } 
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+        MODIFIER_PROPERTY_DISABLE_HEALING,
+    }
 end
 
-function imba_treant_eyes_in_the_forest_unit_buff:GetModifierModelChange() 
+function imba_treant_eyes_in_the_forest_unit_buff:GetModifierModelChange()
     return "models/items/furion/treant/np_desert_traveller_treant/np_desert_traveller_treant.vmdl"
 end
 
-function imba_treant_eyes_in_the_forest_unit_buff:GetDisableHealing() 
-    return 1 
+function imba_treant_eyes_in_the_forest_unit_buff:GetDisableHealing()
+    return 1
 end
 
-function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamageMagical() 
-    return 1 
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamageMagical()
+    return 1
 end
 
-function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePhysical() 
-    return 1 
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePhysical()
+    return 1
 end
 
-function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePure() 
-    return 1 
+function imba_treant_eyes_in_the_forest_unit_buff:GetAbsoluteNoDamagePure()
+    return 1
 end
 function imba_treant_eyes_in_the_forest_unit_buff:IsHidden()
     return true
@@ -755,39 +757,39 @@ LinkLuaModifier("modifier_imba_treant_overgrowth_damage", "ting/hero_treant", LU
 function modifier_imba_treant_eyes_in_the_forest:IsHidden() 			return true end
 function modifier_imba_treant_eyes_in_the_forest:IsPurgable() 			return false end
 function modifier_imba_treant_eyes_in_the_forest:IsPurgeException() 			return false end
-function modifier_imba_treant_eyes_in_the_forest:DeclareFunctions() 	
+function modifier_imba_treant_eyes_in_the_forest:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_BONUS_DAY_VISION,
-		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL, 
+		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
 		MODIFIER_PROPERTY_BONUS_NIGHT_VISION,
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL, 
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE, 
-		MODIFIER_PROPERTY_INVISIBILITY_LEVEL} 
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+		MODIFIER_PROPERTY_INVISIBILITY_LEVEL}
 end
 function modifier_imba_treant_eyes_in_the_forest:GetBonusDayVision()
     return self:GetCaster():TG_GetTalentValue("special_bonus_imba_treant_7")
 end
-function modifier_imba_treant_eyes_in_the_forest:GetBonusNightVision() 
+function modifier_imba_treant_eyes_in_the_forest:GetBonusNightVision()
     return self:GetCaster():TG_GetTalentValue("special_bonus_imba_treant_7")
 end
 
-function modifier_imba_treant_eyes_in_the_forest:GetAbsoluteNoDamagePhysical() 
-    return 1 
+function modifier_imba_treant_eyes_in_the_forest:GetAbsoluteNoDamagePhysical()
+    return 1
 end
 
-function modifier_imba_treant_eyes_in_the_forest:GetAbsoluteNoDamagePure() 
-    return 1 
+function modifier_imba_treant_eyes_in_the_forest:GetAbsoluteNoDamagePure()
+    return 1
 end
 function modifier_imba_treant_eyes_in_the_forest:GetModifierInvisibilityLevel() return 1 end
 function modifier_imba_treant_eyes_in_the_forest:CheckState()
 	return {
 			[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true,
-			[MODIFIER_STATE_INVISIBLE] = true, 
+			[MODIFIER_STATE_INVISIBLE] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			[MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES] = true,
 			[MODIFIER_STATE_NO_HEALTH_BAR] = true,
 			[MODIFIER_STATE_INVULNERABLE] = true,
-			}	
+			}
 end
 
 function modifier_imba_treant_eyes_in_the_forest:OnCreated(parms)
@@ -805,25 +807,25 @@ function modifier_imba_treant_eyes_in_the_forest:OnCreated(parms)
 		ParticleManager:SetParticleControlEnt(self.pfx, 0, parent, PATTACH_ABSORIGIN, nil, parent:GetAbsOrigin(), true)
 		ParticleManager:SetParticleControl(self.pfx, 1, Vector(self:GetAbility():GetSpecialValueFor("vision_aoe_imba")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_treant_7"),0,0))
 		self:AddParticle(self.pfx, false, false, 15, false, false)
-	self:StartIntervalThink(0.5)	
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_imba_treant_eyes_in_the_forest:OnIntervalThink()
 	if not IsServer() then return end
-	local tr = GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),40, true) 
+	local tr = GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),40, true)
 	if not tr then
 	local enemy_tree = FindUnitsInRadius(self.caster:GetTeamNumber(),
-			self:GetParent():GetAbsOrigin(), nil,self.radius, 
-			DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)	
-		
+			self:GetParent():GetAbsOrigin(), nil,self.radius,
+			DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)
+
 		UTIL_Remove(self:GetParent())
 		self.mod:SetStackCount(self.mod:GetStackCount() - 1 )
 		local ab = self:GetCaster():FindAbilityByName("imba_treant_overgrowth")
 		if ab and ab:GetLevel() > 0 then
-			for _,enemy in pairs(enemy_tree) do	
+			for _,enemy in pairs(enemy_tree) do
 				enemy:Stop()
-				enemy:AddNewModifier(self:GetCaster(), ab, "modifier_imba_treant_overgrowth_root", {duration = self.duration})	
-				enemy:AddNewModifier(self:GetCaster(), ab, "modifier_imba_treant_overgrowth_damage", {duration = self.duration})	
+				enemy:AddNewModifier(self:GetCaster(), ab, "modifier_imba_treant_overgrowth_root", {duration = self.duration})
+				enemy:AddNewModifier(self:GetCaster(), ab, "modifier_imba_treant_overgrowth_damage", {duration = self.duration})
 			end
 		end
 		self.caster:AddNewModifier(self.caster,self:GetAbility(),"modifier_imba_treant_overgrowth_pa",{duration = self.duration})
@@ -832,9 +834,9 @@ end
 function modifier_imba_treant_eyes_in_the_forest:OnDestroy()
 	if not IsServer() then return end
 	local tre =  FindUnitsInRadius(self:GetCaster():GetTeamNumber(),
-			self.pos, nil,10, 
-			DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)	
-		for _,t in pairs(tre) do		
+			self.pos, nil,10,
+			DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE+DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,FIND_ANY_ORDER, false)
+		for _,t in pairs(tre) do
 			if t:GetUnitName() == "npc_dota_lich_ice_spire" then
 				 t:Kill(self:GetAbility(), self:GetCaster())
 			end
@@ -856,34 +858,34 @@ LinkLuaModifier("modifier_imba_treant_natures_guise_passive_inv", "ting/hero_tre
 LinkLuaModifier("modifier_imba_treant_natures_guise_passive", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_treant_natures_guise_flag", "ting/hero_treant", LUA_MODIFIER_MOTION_NONE)
 function imba_treant_natures_guise:GetBehavior()
-	if self:GetCaster():HasModifier("modifier_imba_treant_natures_guise_passive_inv") then 
-		return DOTA_ABILITY_BEHAVIOR_NO_TARGET+DOTA_ABILITY_BEHAVIOR_IMMEDIATE+DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE  
+	if self:GetCaster():HasModifier("modifier_imba_treant_natures_guise_passive_inv") then
+		return DOTA_ABILITY_BEHAVIOR_NO_TARGET+DOTA_ABILITY_BEHAVIOR_IMMEDIATE+DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE
 	end
 	return DOTA_ABILITY_BEHAVIOR_PASSIVE
 end
 
 function imba_treant_natures_guise:OnSpellStart()
-	for i=0,5 do 
+	for i=0,5 do
 		if self:GetCaster():GetItemInSlot(i) ~= nil then
 			if self:GetCaster():HasModifier("modifier_item_radiance_v2") and self:GetCaster():GetItemInSlot(i):GetName() == "item_radiance_v2" then
 				self:GetCaster():GetItemInSlot(i):OnToggle()
 			end
 		end
-	end 
-	
+	end
+
 	if self:GetCaster():HasModifier("modifier_imba_leshrac_pulse_nova") then
 		self:GetCaster():RemoveModifierByName("modifier_imba_leshrac_pulse_nova")
 	end
 
 	self:GetCaster():AddNewModifier(self:GetCaster(),self,"modifier_imba_treant_natures_guise_flag",{duration = self:GetCooldownTimeRemaining()})
-	self:GetCaster():EmitSound("Hero_Treant.NaturesGuise.On")	
+	self:GetCaster():EmitSound("Hero_Treant.NaturesGuise.On")
 end
 
 function imba_treant_natures_guise:GetIntrinsicModifierName() return "modifier_imba_treant_natures_guise_passive" end
 
 function imba_treant_natures_guise:OnInventoryContentsChanged()
 	if not IsServer() then return end
-    if self:GetCaster():Has_Aghanims_Shard() then 
+    if self:GetCaster():Has_Aghanims_Shard() then
        self:SetHidden(false)
 	   self:SetStolen(true)
 --	   self:SetHidden(false)
@@ -917,18 +919,18 @@ end
 function modifier_imba_treant_natures_guise_passive:OnIntervalThink()
 	if not IsServer() then return end
 	if self:GetAbility():IsHidden() then
-		return 
+		return
 	end
 	if not self:GetParent():IsAlive() then
-		return 
+		return
 	end
 	if GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),self:GetAbility():GetSpecialValueFor("radius"), true) and self:GetAbility():GetLevel() >0 then
 			self:SetStackCount(math.min(self:GetStackCount()+1,2))
 			else
 			self:SetStackCount(0)
-		
+
 	end
-	if self:GetStackCount()==2 then  
+	if self:GetStackCount()==2 then
 		self:GetParent():AddNewModifier(self:GetParent(),self:GetAbility(),"modifier_imba_treant_natures_guise_passive_inv",{duration = -1})
 		self:SetStackCount(0)
 		self:StartIntervalThink(-1)
@@ -937,8 +939,8 @@ end
 function modifier_imba_treant_natures_guise_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.attacker == self:GetParent() then
-		if self:GetStackCount()~= 2 then 
-			self:SetStackCount(0)		
+		if self:GetStackCount()~= 2 then
+			self:SetStackCount(0)
 			self:StartIntervalThink(1)
 		end
 	end
@@ -952,13 +954,13 @@ end
 function modifier_imba_treant_natures_guise_passive:OnTakeDamage(keys)
     if not IsServer() then
         return
-	end  
-	
+	end
+
     if keys.unit == self:GetParent() and self:GetStackCount()~=2 then
 		self:SetStackCount(0)
 		self:StartIntervalThink(1)
-	end 
-end  
+	end
+end
 
 modifier_imba_treant_natures_guise_passive_inv = class({})
 function modifier_imba_treant_natures_guise_passive_inv:IsHidden() 			return false end
@@ -967,7 +969,7 @@ function modifier_imba_treant_natures_guise_passive_inv:IsPurgeException() 			re
 
 function modifier_imba_treant_natures_guise_passive_inv:CheckState()
 	local tab_a = {[MODIFIER_STATE_NO_UNIT_COLLISION] = true,[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true,}
-	
+
 	local tab_b = {
 		[MODIFIER_STATE_INVISIBLE] = true,
 		[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
@@ -979,10 +981,10 @@ function modifier_imba_treant_natures_guise_passive_inv:CheckState()
         [MODIFIER_STATE_INVISIBLE] = true,
         [MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES] = true,
 		[MODIFIER_STATE_NO_UNIT_COLLISION] = true
-	
+
 		}
 	if self:GetParent():HasModifier("modifier_imba_treant_natures_guise_flag") then
-			return tab_c 
+			return tab_c
 	end
 	if self:GetCaster():TG_HasTalent("special_bonus_imba_treant_1") then
 			return tab_b
@@ -991,19 +993,19 @@ function modifier_imba_treant_natures_guise_passive_inv:CheckState()
 
 end
 
-function modifier_imba_treant_natures_guise_passive_inv:DeclareFunctions() 
+function modifier_imba_treant_natures_guise_passive_inv:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
 		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
-		MODIFIER_PROPERTY_INVISIBILITY_LEVEL,} 
+		MODIFIER_PROPERTY_INVISIBILITY_LEVEL,}
 end
-function modifier_imba_treant_natures_guise_passive_inv:GetDisableAutoAttack() return true end	
+function modifier_imba_treant_natures_guise_passive_inv:GetDisableAutoAttack() return true end
 function modifier_imba_treant_natures_guise_passive_inv:GetEffectName() return "particles/generic_hero_status/status_invisibility_start.vpcf" end
 function modifier_imba_treant_natures_guise_passive_inv:GetEffectAttachType() return PATTACH_ABSORIGIN end
-function modifier_imba_treant_natures_guise_passive_inv:GetModifierInvisibilityLevel() 
-	return (self:GetParent():HasModifier("modifier_imba_treant_natures_guise_flag") or self:GetCaster():TG_HasTalent("special_bonus_imba_treant_1")) and 1 or 0 
+function modifier_imba_treant_natures_guise_passive_inv:GetModifierInvisibilityLevel()
+	return (self:GetParent():HasModifier("modifier_imba_treant_natures_guise_flag") or self:GetCaster():TG_HasTalent("special_bonus_imba_treant_1")) and 1 or 0
 end
 function modifier_imba_treant_natures_guise_passive_inv:GetModifierMoveSpeedBonus_Percentage()
 	return self.movement_bonus
@@ -1037,13 +1039,13 @@ function modifier_imba_treant_natures_guise_passive_inv:OnIntervalThink()
 	if not IsServer() then return end
 	if not GridNav:IsNearbyTree(self:GetParent():GetAbsOrigin(),self:GetAbility():GetSpecialValueFor("radius"), true) then
 		if self.near_tree then
-			self:SetDuration(1, true) 
+			self:SetDuration(1, true)
 			self.near_tree = false
-		end		
+		end
 	else
-		self:SetDuration(-1, true) 
+		self:SetDuration(-1, true)
 		self.near_tree = true
-	end	
+	end
 	--天赋视野
 	if self.caster:TG_HasTalent("special_bonus_imba_treant_8") then
 		local vision = self:GetCaster():TG_GetTalentValue("special_bonus_imba_treant_8")
@@ -1065,12 +1067,12 @@ function modifier_imba_treant_natures_guise_passive_inv:OnAttackLanded(keys)
 			ability 		= self:GetAbility()
 		})
 		if keys.attacker:TG_HasTalent("special_bonus_imba_treant_3") then
-			keys.target:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_rooted",{duration = keys.attacker:TG_GetTalentValue("special_bonus_imba_treant_3")})		
+			keys.target:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_rooted",{duration = keys.attacker:TG_GetTalentValue("special_bonus_imba_treant_3")})
 		end
 		keys.attacker:RemoveModifierByName("modifier_imba_treant_natures_guise_passive_inv")
 	end
 	if keys.target == self:GetParent() then
-		self:GetAbility():StartCooldown(self:GetAbility():GetSpecialValueFor("invcd")) 
+		self:GetAbility():StartCooldown(self:GetAbility():GetSpecialValueFor("invcd"))
 	end
 end
 function modifier_imba_treant_natures_guise_passive_inv:OnDestroy()
@@ -1124,8 +1126,8 @@ end
 
 
 function modifier_imba_treant_overgrowth_pa:OnOrder( keys )
-	if not IsServer() then return end	
-	if keys.unit == self:GetParent() and keys.order_type == 4 then 
+	if not IsServer() then return end
+	if keys.unit == self:GetParent() and keys.order_type == 4 then
 		if  keys.target:HasModifier("modifier_imba_treant_overgrowth_root") then
 		self.ar = 999999
 		end

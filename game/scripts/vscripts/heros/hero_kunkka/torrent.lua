@@ -109,6 +109,7 @@ function modifier_torrent:GetPriority()
 end
 
 function modifier_torrent:OnCreated()
+    if not self:GetAbility() then return end
     if not IsServer() then
         return
     end
@@ -121,6 +122,7 @@ end
 
 
 function modifier_torrent:OnDestroy()
+    if not self:GetAbility() then return end
     if not IsServer() then
         return
     end

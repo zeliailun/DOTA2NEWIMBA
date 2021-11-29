@@ -59,10 +59,10 @@ function modifier_ra_greater_crit_pa:OnAttackLanded(keys)
 					}
 				ApplyDamage( damageInfo )
 				SendOverheadEventMessage(nil, OVERHEAD_ALERT_CRITICAL, keys.target, damage*att, nil)
+				self:GetParent():RemoveModifierByName("modifier_ra_greater_crit_ex")
 				if ex and keys.target:IsAlive() then 
 					keys.target:Heal(keys.target:GetMaxHealth()*hp_re*0.01, keys.attacker)	
 					SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, keys.target, health, nil)
-					key.attacker:RemoveModifierByName("modifier_ra_greater_crit_ex")
 				end
 			end			
 		end

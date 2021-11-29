@@ -326,9 +326,9 @@ RandomAbility=
 --随机技能被动表
 RandomAbility2=
   {
-    "ra_branches",
+   "ra_branches",
     "filler_ability",
-    "roshan_spell_block",
+   "roshan_spell_block",
     "necronomicon_archer_aoe",
     "shredder_reactive_armor",
     "dragon_knight_dragon_blood",
@@ -358,7 +358,6 @@ RandomAbility2=
     "abaddon_frostmourne",
     "jakiro_liquid_fire",
     "luna_lunar_blessing",
-    "viper_poison_attack",
     "beastmaster_boar_poison",
     "nevermore_dark_lord",
     "storm_spirit_overload",
@@ -367,7 +366,6 @@ RandomAbility2=
       "tower1_watchtower",
       "blade_dance",
       "chilling_touch",
-      "c_return",
       "untouchable",
       "rip_tide",
      -- "psi_blades",

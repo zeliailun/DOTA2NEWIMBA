@@ -138,12 +138,7 @@ function L_TG:GAME_IN_PROGRESS()
 				CustomGameEventManager:Send_ServerToAllClients("ExitButton",{})
 			return nil
 		end)
-
-		Timers:CreateTimer(0, function()
-				GameRules:SetRiverPaint(RandomInt(1, 7),60)
-			return 60
-		end)
-
+		GameRules:SetRiverPaint(2,99999)
 end
 
 

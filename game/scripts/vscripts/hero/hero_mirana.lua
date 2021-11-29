@@ -106,6 +106,9 @@ function imba_mirana_arrow:OnSpellStart()
 end
 
 function imba_mirana_arrow:OnProjectileThink_ExtraData(location, keys)
+	if not self then
+		EntIndexToHScript(keys.thinker):ForceKill(false)
+	end
 	AddFOWViewer(self:GetCaster():GetTeam(), location, self:GetSpecialValueFor("arrow_vision"), 0.03, false)
 	local pos = GetGroundPosition(location, nil)
 	EntIndexToHScript(keys.thinker):SetOrigin(Vector(pos.x,pos.y,pos.z+200))

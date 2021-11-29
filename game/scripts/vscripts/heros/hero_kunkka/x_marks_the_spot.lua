@@ -51,6 +51,10 @@ function modifier_x_marks_the_spot_buff:IsPurgeException()
     return false
 end
 
+function modifier_x_marks_the_spot_buff:RemoveOnDeath()
+    return true
+end
+
 function modifier_x_marks_the_spot_buff:OnCreated()
     if not IsServer() then
         return
@@ -159,21 +163,25 @@ end
 
 function x_return:OnSpellStart()
     local caster=self:GetCaster()
+    local ab= caster:FindAbilityByName("x_marks_the_spot")
+     if ab then
+        ab:SetActivated(true)
+    end
     if caster.x_marks_the_spot and #caster.x_marks_the_spot>0 then
         for _, tar in pairs(caster.x_marks_the_spot) do
             if tar~=nil then
                 if Is_Chinese_TG(caster,tar) then
-                    TG_Remove_Modifier(tar,"modifier_x_marks_the_spot_buff",0)
+                        if tar:HasModifier("modifier_x_marks_the_spot_buff") then
+                            tar:RemoveModifierByName("modifier_x_marks_the_spot_buff")
+                        end
                 else
-                    TG_Remove_Modifier(tar,"modifier_x_marks_the_spot_debuff",0)
+                        if tar:HasModifier("modifier_x_marks_the_spot_debuff") then
+                            tar:RemoveModifierByName("modifier_x_marks_the_spot_debuff")
+                        end
                 end
             end
         end
         caster.x_marks_the_spot=nil
-        local ab= caster:FindAbilityByName("x_marks_the_spot")
-        if ab then
-            ab:SetActivated(true)
-        end
     end
  end
 

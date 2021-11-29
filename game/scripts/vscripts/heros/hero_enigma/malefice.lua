@@ -63,6 +63,7 @@ function modifier_malefice_debuff:HeroEffectPriority()
 end
 
 function modifier_malefice_debuff:OnCreated()
+    if not self:GetAbility() then return end
     self.parent=self:GetParent()
     self.caster=self:GetCaster()
     self.ability=self:GetAbility()
@@ -94,6 +95,7 @@ function modifier_malefice_debuff:OnCreated()
 end
 
 function modifier_malefice_debuff:OnIntervalThink()
+    if not self:GetAbility() then return end
     if not self.parent:IsMagicImmune() then
         self.pos=self.parent:GetAbsOrigin()
         self.parent:EmitSound("Hero_Enigma.MaleficeTick")
@@ -151,6 +153,7 @@ function modifier_malefice_debuff1:GetMotionPriority()
 end
 
 function modifier_malefice_debuff1:OnCreated(tg)
+    if not self:GetAbility() then return end
     self.parent=self:GetParent()
     self.caster=self:GetCaster()
     self.ability=self:GetAbility()

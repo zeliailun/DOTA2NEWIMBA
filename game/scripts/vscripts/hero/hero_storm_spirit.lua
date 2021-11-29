@@ -199,6 +199,7 @@ function modifier_imba_electric_vortex_motion:IsMotionController() return true e
 function modifier_imba_electric_vortex_motion:GetMotionControllerPriority() return DOTA_MOTION_CONTROLLER_PRIORITY_HIGH end
 
 function modifier_imba_electric_vortex_motion:OnCreated()
+	if not self:GetAbility() then return end
 	if IsServer() then
 		self.pos = self:GetCaster():GetAbsOrigin()
 		local pfx = ParticleManager:CreateParticle("particles/units/heroes/hero_stormspirit/stormspirit_electric_vortex.vpcf", PATTACH_CUSTOMORIGIN, self:GetParent())
@@ -214,6 +215,7 @@ function modifier_imba_electric_vortex_motion:OnCreated()
 end
 
 function modifier_imba_electric_vortex_motion:OnIntervalThink()
+	if not self:GetAbility() then return end
 	local distance = self:GetAbility():GetSpecialValueFor("electric_vortex_pull_units_per_second") / (1.0 / FrameTime())
 	local direction = (self.pos - self:GetParent():GetAbsOrigin()):Normalized()
 	local pos = GetGroundPosition(self:GetParent():GetAbsOrigin() + direction * distance, nil)

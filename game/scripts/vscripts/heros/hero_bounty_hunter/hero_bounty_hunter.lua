@@ -13,11 +13,11 @@ function imba_bounty_hunter_shuriken_toss:OnSpellStart()
 	local target = self:GetCursorTarget()
 	local sp =self:GetSpecialValueFor("speed")
 	EmitSoundOnLocationWithCaster(caster:GetAbsOrigin(), "Hero_BountyHunter.Shuriken", caster)
-	local info = 
+	local info =
 	{
 		Target = target,
 		Source = caster,
-		Ability = self,	
+		Ability = self,
 		EffectName = "particles/units/heroes/hero_bounty_hunter/bounty_hunter_suriken_toss.vpcf",
 		iMoveSpeed = sp,
 		vSourceLoc= caster:GetAbsOrigin(),
@@ -26,18 +26,18 @@ function imba_bounty_hunter_shuriken_toss:OnSpellStart()
 		bIsAttack = false,
 		bVisibleToEnemies = true,
 		bReplaceExisting = false,
-		bProvidesVision = false,	
+		bProvidesVision = false,
 	}
 	ProjectileManager:CreateTrackingProjectile(info)
 	local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), Vector(0,0,0), nil, 250000, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_UNITS_EVERYWHERE, false)
 	for _, enemy in pairs(enemies) do
 		if enemy:HasModifier("modifier_imba_track") and enemy ~= target then
 			EmitSoundOnLocationWithCaster(caster:GetAbsOrigin(), "Hero_BountyHunter.Shuriken", caster)
-			local info = 
+			local info =
 			{
 				Target = enemy,
 				Source = caster,
-				Ability = self,	
+				Ability = self,
 				EffectName = "particles/units/heroes/hero_bounty_hunter/bounty_hunter_suriken_toss.vpcf",
 				iMoveSpeed = sp,
 				vSourceLoc= caster:GetAbsOrigin(),
@@ -47,7 +47,7 @@ function imba_bounty_hunter_shuriken_toss:OnSpellStart()
 				bVisibleToEnemies = true,
 				bReplaceExisting = false,
 				flExpireTime = GameRules:GetGameTime() + 30,
-				bProvidesVision = false,	
+				bProvidesVision = false,
 			}
 			ProjectileManager:CreateTrackingProjectile(info)
 		end
@@ -102,6 +102,7 @@ function modifier_imba_shuriken_toss_chain:OnCreated()
 end
 
 function modifier_imba_shuriken_toss_chain:OnIntervalThink()
+	if not self:GetAbility() then return end
 	local caster = self:GetCaster()
 	local target = self:GetParent()
 	local ability = self:GetAbility()
@@ -448,10 +449,10 @@ function modifier_imba_track:OnHeroKilled(keys)
 	local ally_gold = self:GetAbility():GetSpecialValueFor("bonus_gold") + keys.target:GetLevel() * self:GetAbility():GetSpecialValueFor("bonus_gold_per_lvl")
 	local self_gold = self:GetAbility():GetSpecialValueFor("bonus_gold_self") + keys.target:GetLevel() * self:GetAbility():GetSpecialValueFor("bonus_gold_self_per_lvl")
 	local total_ally = 0
-	if caster:Has_Aghanims_Shard() then 
+	if caster:Has_Aghanims_Shard() then
 		local g=(0 - (target:GetLevel()*50))
 		PlayerResource:ModifyGold(target:GetPlayerOwnerID(),g , false, DOTA_ModifyGold_Unspecified)
-	end 
+	end
 	local allies = FindUnitsInRadius(caster:GetTeamNumber(),
 									self:GetParent():GetAbsOrigin(),
 									nil,

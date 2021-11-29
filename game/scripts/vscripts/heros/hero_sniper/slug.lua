@@ -145,10 +145,12 @@ end
 
 
 function modifier_slug_debuff:GetModifierPhysicalArmorBonus()
+    if not self:GetAbility() then return 0 end
     return 0-self:GetAbility():GetSpecialValueFor( "ar" )
 end
 
 function modifier_slug_debuff:GetModifierMagicalResistanceBonus()
+     if not self:GetAbility() then return 0 end
     if self:GetCaster():TG_HasTalent("special_bonus_sniper_10l") then
         return -25
     else

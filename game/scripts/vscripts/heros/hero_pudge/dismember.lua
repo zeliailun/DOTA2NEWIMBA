@@ -142,6 +142,9 @@ function modifier_dismember_debuff:OnCreated( tg )
 	end
 end
 function modifier_dismember_debuff:OnIntervalThink()
+      if not self:GetAbility() then
+            return
+      end
       if not self.ability or not self.ability:IsChanneling() then
             self:StartIntervalThink(-1)
 		self:Destroy()

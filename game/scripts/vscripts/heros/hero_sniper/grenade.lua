@@ -1,20 +1,20 @@
 grenade=class({})
 LinkLuaModifier("modifier_grenade", "heros/hero_sniper/grenade.lua", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_grenade_inv", "heros/hero_sniper/grenade.lua", LUA_MODIFIER_MOTION_NONE)
-function grenade:IsHiddenWhenStolen() 
-    return false 
+function grenade:IsHiddenWhenStolen()
+    return false
 end
 
-function grenade:IsStealable() 
-    return true 
+function grenade:IsStealable()
+    return true
 end
 
-function grenade:IsRefreshable() 			
-    return true 
+function grenade:IsRefreshable()
+    return true
 end
 
-function grenade:ProcsMagicStick() 			
-    return true 
+function grenade:ProcsMagicStick()
+    return true
 end
 
 
@@ -58,52 +58,54 @@ end
 modifier_grenade=class({})
 
 
-function modifier_grenade:IsHidden() 			
-	return false 
+function modifier_grenade:IsHidden()
+	return false
 end
 
-function modifier_grenade:IsPurgable() 		
-	return false 
+function modifier_grenade:IsPurgable()
+	return false
 end
 
-function modifier_grenade:IsPurgeException() 	
-	return false 
+function modifier_grenade:IsPurgeException()
+	return false
 end
 
 function modifier_grenade:RemoveOnDeath()
-	return true 
+	return true
 end
 
-function modifier_grenade:IsAura() 
-    return true 
+function modifier_grenade:IsAura()
+    return true
 end
 
 
-function modifier_grenade:GetModifierAura() 
-    return "modifier_grenade_inv" 
+function modifier_grenade:GetModifierAura()
+    return "modifier_grenade_inv"
 
 end
 
-function modifier_grenade:GetAuraRadius() 
+function modifier_grenade:GetAuraRadius()
+        if not self:GetAbility() then return 0 end
         return self:GetAbility():GetSpecialValueFor( "rd" )
 end
 
-function modifier_grenade:GetAuraSearchFlags() 
-    return DOTA_UNIT_TARGET_FLAG_NONE 
+function modifier_grenade:GetAuraSearchFlags()
+    return DOTA_UNIT_TARGET_FLAG_NONE
 end
 
-function modifier_grenade:GetAuraSearchTeam() 
+function modifier_grenade:GetAuraSearchTeam()
     return DOTA_UNIT_TARGET_TEAM_FRIENDLY
 end
 
-function modifier_grenade:GetAuraSearchType() 
+function modifier_grenade:GetAuraSearchType()
     return DOTA_UNIT_TARGET_HERO
 end
 
-function modifier_grenade:OnCreated() 	
+function modifier_grenade:OnCreated()
+    if not self:GetAbility() then return end
     self.rd=self:GetAbility():GetSpecialValueFor("rd")
     if not IsServer() then
-        return 
+        return
     end
     local particle= ParticleManager:CreateParticle("particles/basic_ambient/generic_range_display.vpcf", PATTACH_ABSORIGIN_FOLLOW,self:GetParent())
     ParticleManager:SetParticleControl(particle, 1, Vector(self.rd, 0, 0))
@@ -118,29 +120,29 @@ function modifier_grenade:OnCreated()
     self:StartIntervalThink(1)
 end
 
-function modifier_grenade:OnIntervalThink() 	
-    if not self:GetParent():IsAlive() then 
-        return 
-    end 
+function modifier_grenade:OnIntervalThink()
+    if not self:GetParent():IsAlive() then
+        return
+    end
     local heros = FindUnitsInRadius(
             self:GetParent():GetTeamNumber(),
             self:GetParent():GetAbsOrigin(),
             nil,
             self.rd,
-            DOTA_UNIT_TARGET_TEAM_ENEMY, 
+            DOTA_UNIT_TARGET_TEAM_ENEMY,
             DOTA_UNIT_TARGET_HERO,
-            DOTA_UNIT_TARGET_FLAG_NONE, 
+            DOTA_UNIT_TARGET_FLAG_NONE,
             FIND_CLOSEST,
             false)
 
             for _, hero in pairs(heros) do
                 if not hero:IsMagicImmune() and not hero:IsInvisible() then
                     EmitSoundOn("soundboard.new_year_firecrackers2", self:GetParent())
-                local P= 
+                local P=
                 {
                     Target = hero,
                     Source = self:GetParent(),
-                    Ability = self:GetAbility(),	
+                    Ability = self:GetAbility(),
                     vSourceLoc = self:GetParent():GetAbsOrigin(),
                     EffectName = "particles/heros/sniper/grenade1.vpcf",
                     iMoveSpeed = 1000,
@@ -158,14 +160,14 @@ function modifier_grenade:OnIntervalThink()
 end
 
 
-function modifier_grenade:DeclareFunctions() 
-    return 
+function modifier_grenade:DeclareFunctions()
+    return
     {
         MODIFIER_PROPERTY_VISUAL_Z_DELTA,
-    } 
+    }
 end
 
-function modifier_grenade:GetVisualZDelta() 
+function modifier_grenade:GetVisualZDelta()
         return 300
 end
 
@@ -182,41 +184,41 @@ end
 modifier_grenade_inv=class({})
 
 
-function modifier_grenade_inv:IsHidden() 			
-	return true 
+function modifier_grenade_inv:IsHidden()
+	return true
 end
 
-function modifier_grenade_inv:IsPurgable() 		
-	return false 
+function modifier_grenade_inv:IsPurgable()
+	return false
 end
 
-function modifier_grenade_inv:IsPurgeException() 	
-	return false 
+function modifier_grenade_inv:IsPurgeException()
+	return false
 end
 
 function modifier_grenade_inv:RemoveOnDeath()
-	return true 
+	return true
 end
 
-function modifier_grenade_inv:DeclareFunctions() 
-    return 
+function modifier_grenade_inv:DeclareFunctions()
+    return
     {
         MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-        MODIFIER_PROPERTY_HEALTH_BONUS 
-    } 
+        MODIFIER_PROPERTY_HEALTH_BONUS
+    }
 end
 
-function modifier_grenade_inv:GetModifierMoveSpeedBonus_Percentage() 
+function modifier_grenade_inv:GetModifierMoveSpeedBonus_Percentage()
     if self:GetCaster():TG_HasTalent("special_bonus_sniper_25l") then
         return 50
-    else 
+    else
         return 0
     end
 end
-function modifier_grenade_inv:GetModifierHealthBonus() 
+function modifier_grenade_inv:GetModifierHealthBonus()
     if self:GetCaster():TG_HasTalent("special_bonus_sniper_25r") then
         return 1500
-    else 
+    else
         return 0
     end
-end 
+end

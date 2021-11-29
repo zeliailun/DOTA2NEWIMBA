@@ -9,7 +9,8 @@ function ra_flask:OnSpellStart()
 	local tar = self:GetCursorTarget()
 	local item = caster:FindItemInInventory("item_flask")
 	
-	caster:EmitSound("Hero_Treant.Eyes.Cast")
+	tar:EmitSound("DOTA_Item.HealingSalve.Activate")
+	
 	tar:AddNewModifier(caster,self,"modifier_ra_flask_buff1",{duration = self:GetSpecialValueFor("duration")})	
 	if item then
 		tar:AddNewModifier(caster,self,"modifier_ra_flask_buff2",{duration = self:GetSpecialValueFor("duration")})	
@@ -18,6 +19,8 @@ function ra_flask:OnSpellStart()
 			caster:RemoveItem(item)
 		end
 	end
+
+	
 	if self.first == nil then
 		local f = caster:AddItemByName("item_flask")
 		f:SetCurrentCharges(f:GetCurrentCharges()+self:GetSpecialValueFor("stack")-1)		
@@ -46,12 +49,18 @@ function modifier_ra_flask_buff1:OnCreated(keys)
 
 	if IsServer() then
 		self:StartIntervalThink(1)
+		local pfx = ParticleManager:CreateParticle("particles/items_fx/healing_flask.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.parent)
+		self:AddParticle(pfx, false, false, 15, false, false)
 	end	
 end
+
 function modifier_ra_flask_buff1:OnIntervalThink()
 	if not IsServer() then return end
 	self.parent:Heal(self.heal, self.caster)	
 	SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self.parent,self.heal, nil)
+		
+
+	
 end
 --
 
@@ -89,6 +98,8 @@ function modifier_ra_flask_buff2:OnCreated(keys)
 
 	if IsServer() then
 		self:StartIntervalThink(1)
+		local pfx = ParticleManager:CreateParticle("particles/items_fx/healing_flask.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.parent)
+		self:AddParticle(pfx, false, false, 16, false, false)
 	end	
 end
 function modifier_ra_flask_buff2:OnIntervalThink()

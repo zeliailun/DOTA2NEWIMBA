@@ -168,7 +168,7 @@ end
 
 function modifier_fire_remnant_esr:OnDeath(tg)
     if IsServer() and tg.unit == self.parent   then
-        for i =1 ,#self.caster.fireRemnantTB, -1 do
+        for i =1 ,#self.caster.fireRemnantTB, 1 do
             if self.caster.fireRemnantTB[i] and self.caster.fireRemnantTB[i] == self.parent then
                 EmitSoundOn("Hero_EmberSpirit.FireRemnant.Explode", self.caster.fireRemnantTB[i])
                 table.remove(self.caster.fireRemnantTB, i)

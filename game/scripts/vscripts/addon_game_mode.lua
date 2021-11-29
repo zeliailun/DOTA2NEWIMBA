@@ -52,6 +52,11 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_zuus/zuus_thundergods_wrath.vpcf", context)
 	PrecacheResource("particle", "particles/econ/events/ti6/mekanism_ti6.vpcf", context)
 	PrecacheResource("particle", "particles/basic_ambient/generic_paralyzed.vpcf", context)
+	PrecacheResource( "model", "models/heroes/tiny/tiny_01/tiny_01.vmdl", context )
+	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_01.vmdl", context )
+	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_02.vmdl", context )
+	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_03.vmdl", context )
+
 	--[[
 			PrecacheResource( "model", "*.vmdl", context )
 			PrecacheResource( "soundfile", "*.vsndevts", context )

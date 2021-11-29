@@ -670,6 +670,24 @@ function TG_Ability_Get(hero)
   return nil
 end
 
+function TG_AbilityBook_Get(hero)
+    if not hero then
+      return nil
+    end
+    local name=hero:GetUnitName()
+    local rda=RandomAbility
+    if TableContainsValue(RandomAbilityHero,name) then
+        rda=RandomAbility2
+    end
+    if name=="npc_dota_hero_tinker" then
+        rda=TK_RD
+    end
+    if rda then
+        return rda[RandomInt(1,#rda)]
+    end
+    return nil
+end
+
 --[[
 ★查找防御塔
 --]]

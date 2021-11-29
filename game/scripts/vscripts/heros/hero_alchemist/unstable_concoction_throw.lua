@@ -129,6 +129,7 @@ function modifier_unstable_concoction_throw_stun:ShouldUseOverheadOffset()
     return true
 end
 function modifier_unstable_concoction_throw_stun:OnDestroy()
+    if not self:GetAbility() then  return end
         self.parent=self:GetParent()
         self.ability=self:GetAbility()
         self.caster=self:GetCaster()

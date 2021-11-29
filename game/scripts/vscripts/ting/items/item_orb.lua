@@ -80,12 +80,18 @@ function modifier_item_imba_orb_buff2:IsPurgable() 				return false end
 function modifier_item_imba_orb_buff2:IsPurgeException() 			return false end
 function modifier_item_imba_orb_buff2:DeclareFunctions() return {MODIFIER_PROPERTY_ABSORB_SPELL} end
 function modifier_item_imba_orb_buff2:GetTexture() return "item_imba_orb" end
+function modifier_item_imba_orb_buff2:OnCreated()
+	if self:GetAbility() ~= nil then
+		self.heal = self:GetAbility():GetSpecialValueFor("heal")
+	end
+end
+
 function modifier_item_imba_orb_buff2:GetAbsorbSpell(keys)
 	if not IsServer() then
 		return
 	end
 	if not Is_Chinese_TG(keys.ability:GetCaster(), self:GetParent())then
-		local hp = self:GetParent():GetMaxHealth()*self:GetAbility():GetSpecialValueFor("heal")*0.01
+		local hp = self:GetParent():GetMaxHealth()*self.heal*0.01
 		self:GetParent():Heal(hp,self:GetCaster())
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(), hp, nil)
 	end

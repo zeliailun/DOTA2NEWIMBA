@@ -292,14 +292,14 @@
 		"Ability4"		"jakiro_liquid_ice"
 		"Ability5"		"generic_hidden"
 		"Ability6"		"macropyre"
-		"Ability10"		"special_bonus_hp_150"
-		"Ability11"		"special_bonus_spell_amplify_6"
-		"Ability12"		"special_bonus_cast_range_100"
-		"Ability13"		"special_bonus_movement_speed_30"
-		"Ability14"		"special_bonus_cooldown_reduction_10"
-		"Ability15"		"special_bonus_attack_speed_60"
-		"Ability16"		"special_bonus_attack_range_100"
-		"Ability17"		"special_bonus_attack_damage_70"
+		"Ability10"		"special_bonus_custom_value_msp30"
+		"Ability11"		"special_bonus_custom_value_asp30"
+		"Ability12"		"special_bonus_custom_value_castrange100"
+		"Ability13"		"special_bonus_custom_value_attackrange100"
+		"Ability14"		"special_bonus_custom_value_cd10"
+		"Ability15"		"special_bonus_custom_value_ap15"
+		"Ability16"		"special_bonus_custom_value_armor10"
+		"Ability17"		"special_bonus_custom_value_mgr30"
 	}
 
 
@@ -368,12 +368,12 @@
 		"Ability6"		"viper_strike"
 		"Ability10"		"special_bonus_viper_1"
 		"Ability11"		"special_bonus_viper_2"
-		"Ability12"		"special_bonus_attack_range_100"
+		"Ability12"		"special_bonus_custom_value_asp50"
 		"Ability13"		"special_bonus_viper_3"
 		"Ability14"		"special_bonus_viper_4"
-		"Ability15"		"special_bonus_attack_damage_70"
-		"Ability16"		"special_bonus_cast_range_100"
-		"Ability17"		"special_bonus_cooldown_reduction_20"
+		"Ability15"		"special_bonus_custom_value_att100"
+		"Ability16"		"special_bonus_custom_value_attackrange200"
+		"Ability17"		"special_bonus_custom_value_castrange200"
 	}
 
 
@@ -485,8 +485,8 @@
 		"Ability13"		"special_bonus_ember_spirit_4"
 		"Ability14"		"special_bonus_ember_spirit_3"
 		"Ability15"		"special_bonus_ember_spirit_6"
-		"Ability16"		"special_bonus_attack_damage_60"
-		"Ability17"		"special_bonus_attack_speed_60"
+		"Ability16"		"special_bonus_custom_value_armor15"
+		"Ability17"		"special_bonus_custom_value_mgr30"
 	}
 
 
@@ -825,10 +825,10 @@
 		"Ability11"		"special_bonus_enigma_2"
 		"Ability12"		"special_bonus_enigma_3"
 		"Ability13"		"special_bonus_enigma_4"
-		"Ability14"		"special_bonus_hp_300"
-		"Ability15"		"special_bonus_hp_regen_50"
-		"Ability16"		"special_bonus_armor_10"
-		"Ability17"		"special_bonus_cast_range_125"
+		"Ability14"		"special_bonus_custom_value_cd10"
+		"Ability15"		"special_bonus_custom_value_ap15"
+		"Ability16"		"special_bonus_custom_value_armor10"
+		"Ability17"		"special_bonus_custom_value_castrange150"
 	}
 
 		"npc_dota_hero_shadow_shaman"
@@ -845,8 +845,8 @@
 		"Ability13"		"special_bonus_shadow_shaman_4"
 		"Ability14"		"special_bonus_shadow_shaman_5"
 		"Ability15"		"special_bonus_shadow_shaman_6"
-		"Ability16"		"special_bonus_armor_10"
-		"Ability17"		"special_bonus_cast_range_125"
+		"Ability16"		"special_bonus_custom_value_ap25"
+		"Ability17"		"special_bonus_custom_value_castrange150"
 	}
 
 		"npc_dota_hero_phantom_assassin"
@@ -895,14 +895,14 @@
 		"Ability5"		"generic_hidden"
 		"Ability6"		"mirror_image"//"naga_siren_song_of_the_siren"
 		//"Ability7"		//"naga_siren_song_of_the_siren_cancel"
-		"Ability10"		"special_bonus_hp_regen_10"
-		"Ability11"		"special_bonus_mp_regen_150"
-		"Ability12"		"special_bonus_armor_8"
-		"Ability13"		"special_bonus_hp_300"
-		"Ability14"		"special_bonus_cast_range_125"
-		"Ability15"		"special_bonus_attack_range_100"
-		"Ability16"		"special_bonus_attack_speed_60"
-		"Ability17"		"special_bonus_attack_damage_60"
+		"Ability10"		"special_bonus_custom_value_all15"
+		"Ability11"		"special_bonus_custom_value_msp30"
+		"Ability12"		"special_bonus_custom_value_castrange100"
+		"Ability13"		"special_bonus_custom_value_attackrange100"
+		"Ability14"		"special_bonus_custom_value_ap15"
+		"Ability15"		"special_bonus_custom_value_cd10"
+		"Ability16"		"special_bonus_custom_value_asp200"
+		"Ability17"		"special_bonus_custom_value_att150"
 	}
 
 
@@ -1394,12 +1394,12 @@
 		"Ability4"	"generic_hidden"
 		"Ability5"	"generic_hidden"
 		"Ability6"	"oldsky_mflare"
-		"Ability10"	"special_bonus_intelligence_15"                    //10r
-		"Ability11"	"special_bonus_movement_speed_30"            //10l
+		"Ability10""special_bonus_custom_value_all15"                    //10r
+		"Ability11"	"special_bonus_custom_value_msp30"            //10l
 		"Ability12"	"special_bonus_oldsky_15r"          //15r减上古封印cd
 		"Ability13"	"special_bonus_oldsky_15l"           //15l加上古封印减魔抗
-		"Ability14"	"special_bonus_cast_range_100"               //20r
-		"Ability15"	"special_bonus_spell_lifesteal_20"       //20l
+		"Ability14"	"special_bonus_custom_value_ap20"               //20r
+		"Ability15"	"special_bonus_custom_value_castrange150"       //20l
 		"Ability16"	"special_bonus_oldsky_25r"          //25r加1个C
 		"Ability17"	"special_bonus_oldsky_25l"        //25l范围震荡光蛋
 		"Ability7"	""
@@ -1481,11 +1481,11 @@
 		"Ability6"	"imba_abyssal_underlord_dark_rift"
 		"Ability7"	"imba_abyssal_underlord_cancel_dark_rift"
 		"Ability10"	"special_bonus_imba_abyssal_underlord_1"
-		"Ability11"	"special_bonus_movement_speed_30"
-		"Ability12"	"special_bonus_cast_range_100"
+		"Ability11"	"special_bonus_custom_value_msp30"
+		"Ability12""special_bonus_custom_value_asp50"
 		"Ability13"	"special_bonus_imba_abyssal_underlord_4"
-		"Ability14"	"special_bonus_attack_speed_40"
-		"Ability15"	"special_bonus_hp_regen_14"
+		"Ability14"	"special_bonus_custom_value_ap20"
+		"Ability15"	"special_bonus_custom_value_attackrange100"
 		"Ability16"	"special_bonus_imba_abyssal_underlord_2"
 		"Ability17"	"special_bonus_imba_abyssal_underlord_3"
 		"Ability8"	""
@@ -1564,12 +1564,12 @@
 		"Ability4"	"imba_queenofpain_delightful_torment"
 		"Ability5"	"generic_hidden"
 		"Ability6"	"imba_queenofpain_sonic_wave"
-		"Ability10"	"special_bonus_attack_damage_20"
-		"Ability11"	"special_bonus_strength_8"
-		"Ability12"	"special_bonus_cooldown_reduction_10"
-		"Ability13"	"special_bonus_spell_amplify_6"
-		"Ability14"	"special_bonus_spell_lifesteal_30"
-		"Ability15"	"special_bonus_hp_275"
+		"Ability10""special_bonus_custom_value_asp30"
+		"Ability11"	"special_bonus_custom_value_msp30"
+		"Ability12"	"special_bonus_custom_value_cd10"
+		"Ability13"	"special_bonus_custom_value_ap15"
+		"Ability14"	"special_bonus_custom_value_mgr20"
+		"Ability15""special_bonus_custom_value_armor10"
 		"Ability16"	"special_bonus_imba_queenofpain_1"
 		"Ability17"	"special_bonus_imba_queenofpain_2"
 	}

@@ -47,6 +47,7 @@ end
 function modifier_prot_toggle:GetAuraSearchFlags() return DOTA_UNIT_TARGET_FLAG_NONE
 end
 function modifier_prot_toggle:OnCreated()
+      if not self:GetAbility() then  return end
       self.ability=self:GetAbility()
 	self.parent=self:GetParent()
       if not self.ability then
@@ -89,6 +90,7 @@ end
 function modifier_prot_debuff:IsHidden()return false
 end
 function modifier_prot_debuff:OnCreated()
+      if not self:GetAbility() then  return end
       self.ability=self:GetAbility()
 	self.parent=self:GetParent()
       self.caster=self:GetCaster()
@@ -112,6 +114,7 @@ function modifier_prot_debuff:OnCreated()
       end
 end
 function modifier_prot_debuff:OnIntervalThink()
+      if not self:GetAbility() then  return end
       self.damageTable.damage=self.rot_damage
 	ApplyDamage(self.damageTable)
       if self.parent:IsHero() then

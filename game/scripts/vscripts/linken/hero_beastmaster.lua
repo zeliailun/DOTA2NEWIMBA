@@ -6,7 +6,11 @@ imba_beastmaster_wild_axes = class({})
 LinkLuaModifier("modifier_imba_beastmaster_wild_axes_pfx", "linken/hero_beastmaster", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_beastmaster_wild_axes_debuff", "linken/hero_beastmaster", LUA_MODIFIER_MOTION_NONE)
 
-
+--[[function imba_beastmaster_wild_axes:OnUpgrade()
+	if self:GetLevel() == 1 then
+		AbilityChargeController:AbilityChargeInitialize(self, self:GetCooldown(4 - 1), 2, 1, true, true)
+	end
+end]]
 function imba_beastmaster_wild_axes:OnSpellStart(int,tar)
 	self.caster = self:GetCaster()
 	if int then
@@ -69,7 +73,6 @@ function imba_beastmaster_wild_axes:OnSpellStart(int,tar)
 		ExtraData = {dummy_pfx = dummy_pfx:entindex(),dummy_end = dummy_end:entindex(),go_come = 0 }
 	}
 	TG_CreateProjectile({id = 1, team = self.caster:GetTeamNumber(), owner = self.caster,	p = info})
-
 end
 function imba_beastmaster_wild_axes:OnProjectileThink_ExtraData(pos, keys)
 	local caster = self:GetCaster()
@@ -113,8 +116,6 @@ function imba_beastmaster_wild_axes:OnProjectileHit_ExtraData(target, pos, keys)
 	elseif go_come == 1 then
 		dummy_pfx:Destroy()
 		dummy_end:Destroy()
-		--dummy_pfx:ForceKill(false)
-		--dummy_end:ForceKill(false)
 	end
 
 end
@@ -294,7 +295,7 @@ end
 function imba_beastmaster_call_of_the_wild:OnSpellStart()
 	self.caster = self:GetCaster()
 	EmitSoundOn("Hero_Beastmaster.Call.Boar", self.caster)
-	if self.boar and #self.boar > 0 and not self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
+	--[[if self.boar and #self.boar > 0 and not self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
 		if #self.boar > 0 then
 			for i=1, #self.boar do
 				if self.boar[i] and EntIndexToHScript(self.boar[i]) and not EntIndexToHScript(self.boar[i]):IsNull() and EntIndexToHScript(self.boar[i]):IsAlive() then
@@ -303,8 +304,8 @@ function imba_beastmaster_call_of_the_wild:OnSpellStart()
 				end
 			end
 		end
-	end
-	self.boar = {}
+	end]]
+	--self.boar = {}
 	local beastmaster_boar = CreateUnitByName(
 		"npc_imba_beastmaster_greater_boar",
 		self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * 200,
@@ -313,7 +314,7 @@ function imba_beastmaster_call_of_the_wild:OnSpellStart()
 		self.caster,
 		self.caster:GetTeamNumber()
 		)
-	table.insert(self.boar, beastmaster_boar:entindex())
+	--table.insert(self.boar, beastmaster_boar:entindex())
 	local duration = self:GetSpecialValueFor("duration")
 	beastmaster_boar:AddNewModifier(self.caster, self, "modifier_imba_call_of_the_wild_passive", {duration = duration})
 	beastmaster_boar:AddNewModifier(self.caster, self, "modifier_kill", {duration = duration})
@@ -331,25 +332,30 @@ function modifier_imba_call_of_the_wild_passive:IsPurgeException() 	return false
 function modifier_imba_call_of_the_wild_passive:DeclareFunctions()
 	return {
 			MODIFIER_EVENT_ON_ATTACK_LANDED,
+			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 			}
 end
+function modifier_imba_call_of_the_wild_passive:GetModifierAttackSpeedBonus_Constant()
+	return self.as_bonus
+end
 function modifier_imba_call_of_the_wild_passive:OnCreated(keys)
+	self.parent 	= 	self:GetParent()
+	self.caster 	= 	self:GetCaster()
+	self.ability 	= 	self:GetAbility()
+	self.as_bonus = 0
+	self.boar_poison_duration = self.ability:GetSpecialValueFor("boar_poison_duration")
+	self.sce_c = self.ability:GetSpecialValueFor("sce_c")
+	self.boar_hp = 		self.ability:GetSpecialValueFor("boar_hp") * 0.01
+	self.boar_damage = 	self.ability:GetSpecialValueFor("boar_damage") * 0.01
 	if IsServer() then
-		self.parent 	= 	self:GetParent()
-		self.caster 	= 	self:GetCaster()
-		self.ability 	= 	self:GetAbility()
-		self.boar_poison_duration = self.ability:GetSpecialValueFor("boar_poison_duration")
-		self.sce_c = self.ability:GetSpecialValueFor("sce_c")
-		self.boar_hp = 		self.ability:GetSpecialValueFor("boar_hp") * 0.01
-		self.boar_damage = 	self.ability:GetSpecialValueFor("boar_damage") * 0.01
 		if not self.parent:IsHero() then
    			self.parent:Set_HP(self.caster:GetMaxHealth() * self.boar_hp,true)
     		self.parent:SetBaseDamageMax(self.caster:GetAttackDamage()*self.boar_damage)
     		self.parent:SetBaseDamageMin(self.caster:GetAttackDamage()*self.boar_damage)
+			self.parent:SetPhysicalArmorBaseValue(self.caster:GetPhysicalArmorValue(false))
 			if self.caster:TG_HasTalent("special_bonus_imba_beastmaster_4") then
-				self.parent:SetPhysicalArmorBaseValue(self.caster:GetPhysicalArmorValue(false))
+				self.as_bonus = self.caster:GetDisplayAttackSpeed() * self.caster:TG_GetTalentValue("special_bonus_imba_beastmaster_4") * 0.01
 			end
-			--self:StartIntervalThink(0.1)
 		end
 		self.int = 1
 	end
@@ -419,6 +425,16 @@ LinkLuaModifier("modifier_imba_beastmaster_call_of_the_wild_hawk_passive", "link
 LinkLuaModifier("modifier_imba_call_of_the_wild_hawk_kill_move", "linken/hero_beastmaster", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_call_of_the_wild_hawk_wild_hawk_move", "linken/hero_beastmaster", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_call_of_the_wild_hawk_thinker", "linken/hero_beastmaster", LUA_MODIFIER_MOTION_NONE)
+function imba_beastmaster_call_of_the_wild_hawk:CastFilterResultTarget( hTarget )
+	if self:GetCaster() == hTarget then
+		return UF_FAIL_CUSTOM
+	end
+end
+function imba_beastmaster_call_of_the_wild_hawk:GetCustomCastErrorTarget( hTarget )
+	if self:GetCaster() == hTarget then
+		return "#dota_hud_error_cant_cast_on_self"
+	end
+end
 function  imba_beastmaster_call_of_the_wild_hawk:GetAOERadius()
 	local caster = self:GetCaster()
 	local radius = self:GetSpecialValueFor("hawk_vision_tooltip") + caster:TG_GetTalentValue("special_bonus_imba_beastmaster_2")
@@ -429,18 +445,18 @@ function imba_beastmaster_call_of_the_wild_hawk:OnSpellStart()
 	EmitSoundOn("Hero_Beastmaster.Hawk.Reveal", self.caster)
 	local pos = self.caster:GetCursorPosition()
 	local target = self:GetCursorTarget()
-	if target == self.caster then
+	--[[if target == self.caster then
 		self:ToggleAutoCast()
 		self:EndCooldown()
 		return
-	end
+	end]]
 	local target_ent = nil
 	if target and target:IsAlive() then
 		target_ent = target:entindex()
 	end
 
 
-	if self.hawk and #self.hawk > 0 and not self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
+	--[[if self.hawk and #self.hawk > 0 and not self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
 		if #self.hawk > 0 then
 			for i=1, #self.hawk do
 				if self.hawk[i] and EntIndexToHScript(self.hawk[i]) and not EntIndexToHScript(self.hawk[i]):IsNull() and EntIndexToHScript(self.hawk[i]):IsAlive() then
@@ -449,8 +465,8 @@ function imba_beastmaster_call_of_the_wild_hawk:OnSpellStart()
 				end
 			end
 		end
-	end
-	self.hawk = {}
+	end]]
+	--self.hawk = {}
 	local beastmaster_boar_hawk = CreateUnitByName(
 		"npc_imba_beastmaster_hawk",
 		self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * 200,
@@ -459,7 +475,7 @@ function imba_beastmaster_call_of_the_wild_hawk:OnSpellStart()
 		self.caster,
 		self.caster:GetTeamNumber()
 		)
-	table.insert(self.hawk,beastmaster_boar_hawk:entindex())
+	--table.insert(self.hawk,beastmaster_boar_hawk:entindex())
 
 	local duration = self:GetSpecialValueFor("duration")
 	beastmaster_boar_hawk:AddNewModifier(
@@ -518,7 +534,7 @@ return {
         [MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true,
         [MODIFIER_STATE_COMMAND_RESTRICTED]	= self.mc,
 		[MODIFIER_STATE_MAGIC_IMMUNE]	= true,
-		[MODIFIER_STATE_OUT_OF_GAME]	= true,
+		--[MODIFIER_STATE_OUT_OF_GAME]	= true,
         }
 end
 function modifier_imba_beastmaster_call_of_the_wild_hawk_passive:GetModifierInvisibilityLevel()
@@ -688,7 +704,7 @@ function modifier_imba_beastmaster_call_of_the_wild_hawk_passive:OnAttackLanded(
 end
 function modifier_imba_beastmaster_call_of_the_wild_hawk_passive:OnRemoved()
 	if IsServer() then
-		if self.dummy and self.dummy:IsAlive() then
+		if self.dummy and not self.dummy:IsNull() and self.dummy:IsAlive() then
 			self.dummy:Destroy()
 		end
 	end
@@ -1161,6 +1177,9 @@ function modifier_imba_beastmaster_inner_beast_buff:GetModifierIncomingDamage_Pe
 			return -100
 		elseif not IsEnemy(self:GetParent(),self:GetCaster()) and (keys.attacker:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not keys.attacker:IsBoss()) and not self:GetAbility():Hasmodif() then
 			return nil
+		elseif IsEnemy(keys.attacker,self:GetCaster()) and  (self:GetParent():GetTeamNumber() == DOTA_TEAM_NEUTRALS and not self:GetParent():IsBoss())then
+			--print(self.parent:GetName())
+			return -50
 		end
 	end
 end
@@ -1189,22 +1208,54 @@ function modifier_imba_beastmaster_inner_beast_tooltip:IsDebuff()			return false
 function modifier_imba_beastmaster_inner_beast_tooltip:IsHidden() 			return false end
 function modifier_imba_beastmaster_inner_beast_tooltip:IsPurgable() 		return false end
 function modifier_imba_beastmaster_inner_beast_tooltip:IsPurgeException() 	return false end
---[[function modifier_imba_beastmaster_inner_beast_tooltip:OnCreated(keys)
+function modifier_imba_beastmaster_inner_beast_tooltip:OnCreated(keys)
 		self.parent 	= 	self:GetParent()
 		self.caster 	= 	self:GetCaster()
 		self.ability 	= 	self:GetAbility()
-	if IsServer() then
-		self.armor = self.caster:GetPhysicalArmorValue(false)
-		self:SetStackCount(self.armor)
-		if self.parent == self.caster then
-			self:StartIntervalThink(1)
+	if IsServer() and self.parent == self.caster then
+		local ability = self.caster:FindAbilityByName("imba_beastmaster_wild_axes")
+		if ability and ability:IsTrained() and self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
+			ability:SetCurrentAbilityCharges(999)
+		end
+		local neu_nu 			= self.caster:TG_GetTalentValue("special_bonus_imba_beastmaster_1")
+		local neu				= {
+								"npc_dota_neutral_wildkin",
+								"npc_dota_neutral_enraged_wildkin",
+								"npc_dota_neutral_satyr_soulstealer",
+								"npc_dota_neutral_satyr_hellcaller",
+								"npc_dota_neutral_jungle_stalker",
+								"npc_dota_neutral_elder_jungle_stalker",
+								"npc_dota_neutral_prowler_shaman",
+								"npc_dota_neutral_rock_golem",
+
+									}
+		local target = self.caster
+		if self.caster:TG_HasTalent("special_bonus_imba_beastmaster_1") then
+			for i=1, neu_nu do
+				CreateUnitByName(
+					neu[RandomInt(1, #neu)],
+					RotatePosition(target:GetAbsOrigin(), QAngle(0,30*i,0), target:GetAbsOrigin() + target:GetForwardVector() * 600),
+					true,
+					nil,
+					nil,
+					DOTA_TEAM_NEUTRALS
+					)
+			end
 		end
 	end
 end
-function modifier_imba_beastmaster_inner_beast_tooltip:OnIntervalThink(keys)
-	self.armor = self.caster:GetPhysicalArmorValue(false)
-	self:SetStackCount(self.armor)
-end]]
+function modifier_imba_beastmaster_inner_beast_tooltip:OnRefresh(keys)
+	self:OnCreated()
+end
+function modifier_imba_beastmaster_inner_beast_tooltip:OnRemoved(keys)
+	if IsServer() then
+		local ability = self.caster:FindAbilityByName("imba_beastmaster_wild_axes")
+		if ability and ability:IsTrained() and self.caster:TG_HasTalent("special_bonus_imba_beastmaster_8") then
+			ability:SetCurrentAbilityCharges(0)
+			ability:StartCooldown((ability:GetCooldown(ability:GetLevel() -1 ) * self.caster:GetCooldownReduction()))
+		end
+	end
+end
 --原始咆哮
 imba_beastmaster_primal_roar = class({})
 
@@ -1236,32 +1287,8 @@ function imba_beastmaster_primal_roar:OnSpellStart()
 	local stun_duration 	= self:GetSpecialValueFor("duration")
 	local search_range 		= self:GetSpecialValueFor("search_range")
 	local search_angle 		= self:GetSpecialValueFor("search_angle")
-	local neu_nu 			= caster:TG_GetTalentValue("special_bonus_imba_beastmaster_1")
 	local hawk			 	= nil
-	local neu				= {
-							"npc_dota_neutral_wildkin",
-							"npc_dota_neutral_enraged_wildkin",
-							"npc_dota_neutral_satyr_soulstealer",
-							"npc_dota_neutral_satyr_hellcaller",
-							"npc_dota_neutral_jungle_stalker",
-							"npc_dota_neutral_elder_jungle_stalker",
-							"npc_dota_neutral_prowler_shaman",
-							"npc_dota_neutral_rock_golem",
-
-								}
 	self.beastmaster_boar = nil
-	if caster:TG_HasTalent("special_bonus_imba_beastmaster_1") then
-		for i=1, neu_nu do
-			CreateUnitByName(
-				neu[RandomInt(1, #neu)],
-				RotatePosition(target:GetAbsOrigin(), QAngle(0,120*i,0), target:GetAbsOrigin() + target:GetForwardVector() * 600),
-				true,
-				nil,
-				nil,
-				DOTA_TEAM_NEUTRALS
-				)
-		end
-	end
 	local ability 	=	caster:FindAbilityByName("imba_beastmaster_inner_beast")
 	if ability and caster:TG_HasTalent("special_bonus_imba_beastmaster_3") then
 		local duration 	=	caster:TG_GetTalentValue("special_bonus_imba_beastmaster_3")

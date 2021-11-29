@@ -12,6 +12,9 @@
 		"ScriptFile"	"linken/hero_marci/hero_marci"	
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YSE"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"1"
 		"HotKeyOverride"				"F"
@@ -39,11 +42,6 @@
 			{
 				"var_type"			"FIELD_INTEGER"
 				"distance"			"400"
-			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"silence_distance"			"600"
 			}
 		}
 	}
@@ -87,12 +85,12 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"cap_radius"		"100" //抓取范围
+				"cap_radius"		"150" //抓取范围
 			}
 			"02"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"air_duration"		"0.5" //不要低于0.2
+				"air_duration"		"0.4" //不要低于0.2
 			}
 			"03"
 			{
@@ -107,7 +105,7 @@
 			"05"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"move_distance"		"350"
+				"move_distance"		"650"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_1"
 			}
 			"06"
@@ -132,7 +130,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"150.0"
+				"value"	"250.0"
 			}
 		}
 		"LinkedAbility"
@@ -187,7 +185,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1"
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"1000"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 
 		// Time
@@ -205,7 +203,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"move_speed"			"2000"
+				"move_speed"			"3000"
 			}
 			"02"
 			{
@@ -225,12 +223,12 @@
 			"05"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"debuff_duration"		"3.0"
+				"debuff_duration"		"5.0"
 			}
 			"06"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"cast_range"			"800"
+				"cast_range"			"1000"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_2"
 			}
 			"07"
@@ -241,7 +239,7 @@
 			"07"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"ally_movespeed_pct"	"35.0"
+				"ally_movespeed_pct"	"55.0"
 			}
 			"08"
 			{
@@ -265,7 +263,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"200.0"
+				"value"	"300.0"
 			}
 		}
 		"LinkedAbility"
@@ -344,7 +342,7 @@
 			"07"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"cd"						"2.5"
+				"cd"						"1.25"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_3"
 			}
 			"08"
@@ -355,7 +353,7 @@
 			"09"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"aoe_range"					"300 350 400 450"
+				"aoe_range"					"550"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_4"
 			}
 			"10"
@@ -418,7 +416,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"200.0"
+				"value"	"400.0"
 			}
 		}
 		"LinkedAbility"
@@ -467,13 +465,13 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bj"					"150 200 250"
+				"bj"					"250 450 650"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_6"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"distance"				"1000 1200 1400"
+				"distance"				"1000"
 			}
 			"04"
 			{
@@ -551,7 +549,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"130.0"
+				"value"	"350.0"
 			}
 		}
 		"LinkedAbility"

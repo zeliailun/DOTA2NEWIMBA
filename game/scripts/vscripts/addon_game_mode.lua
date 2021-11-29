@@ -52,11 +52,6 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_zuus/zuus_thundergods_wrath.vpcf", context)
 	PrecacheResource("particle", "particles/econ/events/ti6/mekanism_ti6.vpcf", context)
 	PrecacheResource("particle", "particles/basic_ambient/generic_paralyzed.vpcf", context)
-	PrecacheResource( "model", "models/heroes/tiny/tiny_01/tiny_01.vmdl", context )
-	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_01.vmdl", context )
-	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_02.vmdl", context )
-	PrecacheResource( "model", "models/items/tiny/tiny_prestige/tiny_prestige_lvl_03.vmdl", context )
-
 	--[[
 			PrecacheResource( "model", "*.vmdl", context )
 			PrecacheResource( "soundfile", "*.vsndevts", context )
@@ -97,7 +92,11 @@ function L_TG:InitGameMode()
 	GameRules:SetCustomGameEndDelay(99999)
 
 	--设置等待自动启动的时间。
-	GameRules:SetCustomGameSetupAutoLaunchDelay(15)
+	if IsInToolsMode() then
+		GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	else
+		GameRules:SetCustomGameSetupAutoLaunchDelay(15)
+	end
 
 	--设置是否已触发“第一滴血”。
 	GameRules:SetFirstBloodActive(true)
@@ -244,7 +243,11 @@ function L_TG:InitGameMode()
 
 	else
 		GameRules:SetHeroSelectionTime(60)
-		mode:SetDraftingBanningTimeOverride(20)
+		if IsInToolsMode() then
+			mode:SetDraftingBanningTimeOverride(0)
+		else
+			mode:SetDraftingBanningTimeOverride(20)
+		end
 		mode:SetDraftingHeroPickSelectTimeOverride(60)
 		GameRules:SetStartingGold(2000)
 		GameRules:SetCreepSpawningEnabled(true)
@@ -593,6 +596,19 @@ function L_TG:OrderFilter(keys)
 			ability.range = 50000
 		else
 			ability.range = 0
+		end
+	end
+	------------------------------------------------------------------------------------
+	-- 原始咆哮施法距离判断
+	------------------------------------------------------------------------------------
+
+	if keys.order_type == DOTA_UNIT_ORDER_CAST_TARGET and EntIndexToHScript(keys.entindex_ability):GetName() == "imba_beastmaster_primal_roar" then
+		local ability = EntIndexToHScript(keys.entindex_ability)
+		local target = EntIndexToHScript(keys.entindex_target)
+		if target:HasModifier("modifier_imba_call_of_the_wild_debuff") and target:FindModifierByName("modifier_imba_call_of_the_wild_debuff"):GetStackCount() >= 3 then
+			ability.range_porcupine = 50000
+		else
+			ability.range_porcupine = 0
 		end
 	end
 

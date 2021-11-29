@@ -55,7 +55,7 @@
 			"04"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"axe_damage"				"50 60 70 80"
+				"axe_damage"				"80 90 100 110"
 			}
 			"05"
 			{
@@ -65,7 +65,7 @@
 			"06"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"damage_amp"				"5 6 7 8"
+				"damage_amp"				"10"
 			}
 			"07"
 			{
@@ -116,7 +116,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"boar_hp"					"30"
+				"boar_hp"					"40"
 			}
 			"03"
 			{
@@ -161,7 +161,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"0.0"
+				"value"	"50.0"
 			}
 		}
 		"LinkedAbility"
@@ -329,7 +329,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"inner_beast"				"5"
+				"inner_beast"				"9"
 			}
 			"05"
 			{
@@ -353,7 +353,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"30.0"
+				"value"	"60.0"
 			}
 		}
 		"LinkedAbility"

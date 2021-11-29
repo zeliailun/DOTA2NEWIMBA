@@ -61,16 +61,16 @@ function shackles:OnSpellStart()
             if caster:TG_HasTalent("special_bonus_shadow_shaman_5") then
                 caster:AddNewModifier( caster, self, "modifier_invisible", {duration=hchannel_t+caster:TG_GetTalentValue("special_bonus_shadow_shaman_4")})
             end
-            if curtar.fire_remnantTB and #curtar.fire_remnantTB>0 then
-                for a=0,#curtar.fire_remnantTB do
-                    if curtar.fire_remnantTB[a] and IsValidEntity(curtar.fire_remnantTB[a]) then
-                        local mod=curtar.fire_remnantTB[a]:FindModifierByName("modifier_kill")
+            if curtar.fireRemnantTB and #curtar.fireRemnantTB>0 then
+                for a=0,#curtar.fireRemnantTB do
+                    if curtar.fireRemnantTB[a] and IsValidEntity(curtar.fireRemnantTB[a]) then
+                        local mod=curtar.fireRemnantTB[a]:FindModifierByName("modifier_kill")
                         if mod then
                              mod:SetDuration(0, true)
                         end
                     end
                 end
-                curtar.fire_remnantTB={}
+                curtar.fireRemnantTB={}
                 local modifier = curtar:FindModifierByName("modifier_fire_remnant_num")
                 if modifier  then
                     modifier:SetStackCount(0)
@@ -183,16 +183,16 @@ function modifier_shackles_ctrl:OnDestroy()
     if self:GetAbility() then
     self:GetAbility():EndChannel(true)
     end
-    if self.PL.fire_remnantTB and #self.PL.fire_remnantTB>0 then
-        for a=0,#self.PL.fire_remnantTB do
-            if self.PL.fire_remnantTB[a] and IsValidEntity(self.PL.fire_remnantTB[a]) then
-                local mod=self.PL.fire_remnantTB[a]:FindModifierByName("modifier_kill")
+    if self.PL.fireRemnantTB and #self.PL.fireRemnantTB>0 then
+        for a=0,#self.PL.fireRemnantTB do
+            if self.PL.fireRemnantTB[a] and IsValidEntity(self.PL.fireRemnantTB[a]) then
+                local mod=self.PL.fireRemnantTB[a]:FindModifierByName("modifier_kill")
                 if mod then
                      mod:SetDuration(0, true)
                 end
             end
         end
-        self.PL.fire_remnantTB={}
+        self.PL.fireRemnantTB={}
         local modifier = self.PL:FindModifierByName("modifier_fire_remnant_num")
         if modifier  then
             modifier:SetStackCount(0)

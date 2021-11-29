@@ -5,6 +5,7 @@ LinkLuaModifier("modifier_relic_rad", "ting/items/item_relic_chip", LUA_MODIFIER
 LinkLuaModifier("modifier_relic_dir", "ting/items/item_relic_chip", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_relic_effect", "ting/items/item_relic_chip", LUA_MODIFIER_MOTION_HORIZONTAL)
 function item_imba_relic_chip:GetIntrinsicModifierName() return "modifier_imba_relic_chip_passive" end
+function item_imba_relic_chip:IsRefreshable() return false end
 function item_imba_relic_chip:OnSpellStart()
 	local caster = self:GetCaster()
 	local pos = self:GetCursorPosition()
@@ -133,6 +134,22 @@ function modifier_relic:GetAuraSearchType() return DOTA_UNIT_TARGET_BASIC end
 function modifier_relic:CheckState()
 	return {[MODIFIER_STATE_DOMINATED] = true}
 end
+function modifier_relic:OnCreated()
+	
+	if IsServer() and self:GetAbility() then 
+		self.parent = self:GetParent()
+		self.caster = self:GetCaster()
+		self:StartIntervalThink(3)
+	end
+end	
+function modifier_relic:OnIntervalThink()
+	if IsServer() then
+		if not self.caster:HasModifier("modifier_imba_relic_chip_passive") then
+			self.parent:ForceKill(false)
+		end
+	end
+	
+end
 
 modifier_relic_effect = class({})
 function modifier_relic_effect:IsDebuff()			return false end
@@ -196,6 +213,8 @@ function modifier_relic_buff:OnCreated()
 	self.damage_ex = self.ab:GetSpecialValueFor("damage_ex")
 	self.att_sp = self.ab:GetSpecialValueFor("att_sp")
 end
+
+
 
 function modifier_relic_buff:GetModifierExtraHealthBonus()
 	return self.hp

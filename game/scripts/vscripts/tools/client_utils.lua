@@ -4,7 +4,7 @@
 --]]
 function C_DOTA_BaseNPC:TG_HasTalent(name)
 	if self:HasModifier("modifier_"..name) then
-		  	return true 
+		  	return true
 	end
 	  		return false
 end
@@ -22,7 +22,7 @@ function C_DOTA_BaseNPC:TG_GetTalentValue(name, kv)
 					return v[value_name]
 				end
 		end
-	end    
+	end
 			return 0
 end
 
@@ -32,14 +32,14 @@ end
 ★创建天赋
 ]]
 function CreateTalents(table,addres)
-	if TableContainsKey(HeroTalent,table) then 
+	if TableContainsKey(HeroTalent,table) then
 		local T=HeroTalent[table]
 			for k, v in pairs(T) do
-			  LinkLuaModifier("modifier_"..k,addres, LUA_MODIFIER_MOTION_NONE) 
+			  LinkLuaModifier("modifier_"..k,addres, LUA_MODIFIER_MOTION_NONE)
 			  loadstring( "modifier_"..k.." = class({IsHidden = function(self) return true end, RemoveOnDeath = function(self) return self:GetParent():IsIllusion() end, AllowIllusionDuplicate = function(self) return true end})")()
-				if  v~=nil then  
+				if  v~=nil then
 					for k2, v2 in pairs(v) do
-						if v2~=nil then 
+						if v2~=nil and not string.find(k, "special_bonus_custom_value_") then
 						LinkLuaModifier(v2["modifier_name"],v2["link_address"], tonumber(v2["modifier_motion"] or 0))
 						end
 					end
@@ -179,21 +179,21 @@ function C_DOTA_Ability_Lua:SetAbilityIcon(iIcon_Num)
 	self.GetAbilityTextureName = function() return self.imba_ability_icon end
 end
 
-function SplitString(szFullString, szSeparator)  
-	local nFindStartIndex = 1  
-	local nSplitIndex = 1  
-	local nSplitArray = {}  
-	while true do  
-		local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)  
-		if not nFindLastIndex then  
-			nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))  
-			break  
-		end  
-		nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)  
-		nFindStartIndex = nFindLastIndex + string.len(szSeparator)  
-		nSplitIndex = nSplitIndex + 1  
-	end  
-	return nSplitArray  
+function SplitString(szFullString, szSeparator)
+	local nFindStartIndex = 1
+	local nSplitIndex = 1
+	local nSplitArray = {}
+	while true do
+		local nFindLastIndex = string.find(szFullString, szSeparator, nFindStartIndex)
+		if not nFindLastIndex then
+			nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, string.len(szFullString))
+			break
+		end
+		nSplitArray[nSplitIndex] = string.sub(szFullString, nFindStartIndex, nFindLastIndex - 1)
+		nFindStartIndex = nFindLastIndex + string.len(szSeparator)
+		nSplitIndex = nSplitIndex + 1
+	end
+	return nSplitArray
 end
 
 function HEXConvertToRGB(hex)
@@ -224,16 +224,16 @@ function RGBConvertToHSV(colorRGB)
 		if b == max1 then
 			h = 60 * (r-g)/(max1-min1) + 240;
 		end
-	end    
-	
+	end
+
 	if max1 == 0 then
 		s = 0
 	else
 		s = (1- min1 / max1) * 255
 	end
-	
+
 	v = max1
-	
+
 	return {h, s, v}
 end
 
@@ -260,14 +260,14 @@ end
 
 function C_DOTA_BaseNPC:HasTalent(sTalentName)
 	if self:HasModifier("modifier_"..sTalentName) then
-		return true 
+		return true
 	end
 
 	return false
 end
 
 function C_DOTA_BaseNPC:GetTalentValue(sTalentName, key)
-	if self:HasModifier("modifier_"..sTalentName) then  
+	if self:HasModifier("modifier_"..sTalentName) then
 		local value_name = key or "value"
 		local specialVal = AbilityKV[sTalentName]["AbilitySpecial"]
 		for k,v in pairs(specialVal) do
@@ -275,7 +275,7 @@ function C_DOTA_BaseNPC:GetTalentValue(sTalentName, key)
 				return v[value_name]
 			end
 		end
-	end    
+	end
 	return 0
 end
 
@@ -302,7 +302,7 @@ function C_DOTA_BaseNPC:Has_Aghanims_Shard()
             -- Swap i's (duration/counter) value to j's position
             if (i ~= j) then
                 t[j] = t[i];
-                t[i] = nil; 
+                t[i] = nil;
             end
             j = j + 1; -- Increment position of j.
         else

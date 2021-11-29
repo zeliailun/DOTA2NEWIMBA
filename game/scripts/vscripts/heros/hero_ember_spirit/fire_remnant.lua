@@ -34,47 +34,48 @@ function fire_remnant:OnUpgrade()
 end
 
 function fire_remnant:OnSpellStart()
-    local caster = self:GetCaster()
-    local pos = caster:GetAbsOrigin()
-    local duration = self:GetSpecialValueFor("duration")
-	local cur_pos = self:GetCursorPosition()
-	local dis = TG_Distance(pos,cur_pos)
-    local dir = TG_Direction(cur_pos,pos)
-    if caster.fire_remnantTB==nil  then
-        caster.fire_remnantTB={}
-        caster:AddNewModifier(caster, self, "modifier_fire_remnant_num", {})
-    end
-    EmitSoundOn("Hero_EmberSpirit.FireRemnant.Cast", caster)
-    local ESR=CreateUnitByName("npc_dota_ember_spirit_remnant", pos+dir*100, true, nil, nil,caster:GetTeamNumber())
-    ESR:AddNewModifier(caster, self, "modifier_kill", {duration = duration})
-    ESR:AddNewModifier(caster, self, "modifier_fire_remnant_hb", {})
-    table.insert (caster.fire_remnantTB,#caster.fire_remnantTB+1, ESR)
-    local mod = caster:FindModifierByName("modifier_fire_remnant_num")
-    if mod  then
-        mod:IncrementStackCount()
-    end
-	local pp =
-	{
-		Ability = self,
-		EffectName = "particles/units/heroes/hero_ember_spirit/ember_spirit_fire_remnant_trail.vpcf",
-		vSpawnOrigin = caster:GetAbsOrigin(),
-		fDistance = dis,
-		fStartRadius = 0,
-		fEndRadius = 0,
-		Source = caster,
-		bHasFrontalCone = false,
-		bReplaceExisting = false,
-		vVelocity = dir * 3000,
-        bProvidesVision = false,
-        ExtraData = {ESR=ESR:entindex()}
-	}
-    ProjectileManager:CreateLinearProjectile(pp)
+        local caster = self:GetCaster()
+        local pos = caster:GetAbsOrigin()
+        local duration = self:GetSpecialValueFor("duration")
+        local cur_pos = self:GetCursorPosition()
+        local dis = TG_Distance(pos,cur_pos)
+        local dir = TG_Direction(cur_pos,pos)
+        if dis<=0 then
+                dir=caster:GetForwardVector()
+        end
+        if caster.fireRemnantTB==nil  then
+            caster.fireRemnantTB={}
+            caster:AddNewModifier(caster, self, "modifier_fire_remnant_num", {})
+        end
+        EmitSoundOn("Hero_EmberSpirit.FireRemnant.Cast", caster)
+        local ESR=CreateUnitByName("npc_dota_ember_spirit_remnant", pos, true, nil, nil,caster:GetTeamNumber())
+        ESR:AddNewModifier(caster, self, "modifier_kill", {duration = duration})
+        ESR:AddNewModifier(caster, self, "modifier_fire_remnant_hb", {})
+        table.insert (caster.fireRemnantTB,#caster.fireRemnantTB+1, ESR)
+        local mod = caster:FindModifierByName("modifier_fire_remnant_num")
+        if mod  then
+            mod:IncrementStackCount()
+        end
+        local pp =
+        {
+            Ability = self,
+            EffectName = "particles/units/heroes/hero_ember_spirit/ember_spirit_fire_remnant_trail.vpcf",
+            vSpawnOrigin = caster:GetAbsOrigin(),
+            fDistance = dis,
+            fStartRadius = 0,
+            fEndRadius = 0,
+            Source = caster,
+            vVelocity = dir * 3000,
+            bProvidesVision = false,
+            ExtraData = {ESR=ESR:entindex()}
+        }
+        ProjectileManager:CreateLinearProjectile(pp)
 end
 
 function fire_remnant:OnProjectileThink_ExtraData(location, kv)
     local ESR=EntIndexToHScript(kv.ESR)
     if ESR~=nil then
-        ESR:SetAbsOrigin(GetGroundPosition(location, nil))
+            ESR:SetAbsOrigin(GetGroundPosition(location, nil))
     end
 end
 
@@ -158,12 +159,19 @@ function modifier_fire_remnant_esr:OnCreated()
     end
 end
 
-function modifier_fire_remnant_esr:OnDestroy()
-    if IsServer() then
-        for i =1 ,#self.caster.fire_remnantTB, -1 do
-            if self.caster.fire_remnantTB[i] and self.caster.fire_remnantTB[i] == self.parent then
-                EmitSoundOn("Hero_EmberSpirit.FireRemnant.Explode", self.caster.fire_remnantTB[i])
-                table.remove(self.caster.fire_remnantTB, i)
+function modifier_fire_remnant_esr:DeclareFunctions()
+    return
+    {
+        MODIFIER_EVENT_ON_DEATH,
+    }
+end
+
+function modifier_fire_remnant_esr:OnDeath(tg)
+    if IsServer() and tg.unit == self.parent   then
+        for i =1 ,#self.caster.fireRemnantTB, -1 do
+            if self.caster.fireRemnantTB[i] and self.caster.fireRemnantTB[i] == self.parent then
+                EmitSoundOn("Hero_EmberSpirit.FireRemnant.Explode", self.caster.fireRemnantTB[i])
+                table.remove(self.caster.fireRemnantTB, i)
                 local heroes = FindUnitsInRadius(self.caster:GetTeamNumber(), self.pos, nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
                 if #heroes>0 then
                     for a=1,#heroes do

@@ -55,12 +55,11 @@ end
 
 --英雄选择期间
 function L_TG:OnHERO_SELECTION()
-	--GameRules:BotPopulate()
 	if GameRules:IsCheatMode() then GameRules:SetSafeToLeave(true) end
 	if GetMapName() ~="6v6v6" then
-	unit:Init_Roshan()
+		unit:Init_Roshan()
 	end
-	building:Set_AB()
+		building:Set_AB()
 end
 
 
@@ -69,11 +68,11 @@ end
 
 --决策期间
 function L_TG:OnSTRATEGY_TIME()
-	for i=0, 19 do
-		if PlayerResource:IsValidPlayer(i) and not PlayerResource:HasSelectedHero(i) and PlayerResource:GetConnectionState(i) == DOTA_CONNECTION_STATE_CONNECTED then
-		PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
+		for i=0, 19 do
+			if PlayerResource:IsValidPlayer(i) and not PlayerResource:HasSelectedHero(i) and PlayerResource:GetConnectionState(i) == DOTA_CONNECTION_STATE_CONNECTED then
+			PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
+			end
 		end
-	end
 end
 
 
@@ -84,18 +83,67 @@ end
 function L_TG:GAME_IN_PROGRESS()
 	if GetMapName() =="6v6v6" then
 		Notifications:BottomToAll({text ="#kill1", duration = 3})
+		for i = 0 ,PlayerResource: GetPlayerCount () - 1  do
+			local player = PlayerResource:GetPlayer(i)
+			if player then
+				PlayerResource:ReplaceHeroWith (i, "npc_dota_hero_ogre_magi" , 0 , 0 )
+			end
+		end
 	else
 		unit:Create_Roshan()
 		Notifications:BottomToAll({text ="#kill", duration = 3})
+	end
+
 		Timers:CreateTimer(0, function()
 			GetAllHero(function(hero)
 				if hero then
 					PlayerResource:ModifyGold(hero:GetPlayerOwnerID(),ExtraGold,false,DOTA_ModifyGold_Unspecified)
+					local id=hero:GetPlayerOwnerID()
+					if PlayerResource:GetConnectionState(id)==DOTA_CONNECTION_STATE_ABANDONED  and not Is_DATA_TG(GameRules.QuitB,hero) and not Is_DATA_TG(GameRules.QuitG,hero)  then
+						local team = hero:GetTeamNumber()
+						if team==DOTA_TEAM_BADGUYS then
+							CDOTA_PlayerResource.ABANDONED_BAD=CDOTA_PlayerResource.ABANDONED_BAD+1
+							table.insert(GameRules.QuitB,hero)
+							if CDOTA_PlayerResource.ABANDONED_BAD>=7 then
+								Notifications:BottomToAll({text ="夜魇逃跑人数>=7,天辉3秒后获胜", duration = 3})
+								Timers:CreateTimer(3, function()
+									GAME_LOSE_TEAM = DOTA_TEAM_BADGUYS
+									GAME_WIN_TEAM = DOTA_TEAM_GOODGUYS
+									GameRules:MakeTeamLose(GAME_LOSE_TEAM)
+									GameRules:SetGameWinner(GAME_WIN_TEAM)
+								return nil
+								end)
+							end
+						elseif team==DOTA_TEAM_GOODGUYS   then
+							CDOTA_PlayerResource.ABANDONED_GOOD=CDOTA_PlayerResource.ABANDONED_GOOD+1
+							table.insert(GameRules.QuitG,hero)
+							if CDOTA_PlayerResource.ABANDONED_GOOD>=7 then
+								Notifications:BottomToAll({text ="天辉逃跑人数>=7,夜魇3秒后获胜", duration = 3})
+								Timers:CreateTimer(3, function()
+									GAME_LOSE_TEAM = DOTA_TEAM_GOODGUYS
+									GAME_WIN_TEAM = DOTA_TEAM_BADGUYS
+									GameRules:MakeTeamLose(GAME_LOSE_TEAM)
+									GameRules:SetGameWinner(GAME_WIN_TEAM)
+								return nil
+								end)
+							end
+						end
+					end
 				end
 			end)
 		return 1
 		end)
-	end
+
+		Timers:CreateTimer(300, function()
+				CustomGameEventManager:Send_ServerToAllClients("ExitButton",{})
+			return nil
+		end)
+
+		Timers:CreateTimer(0, function()
+				GameRules:SetRiverPaint(RandomInt(1, 7),60)
+			return 60
+		end)
+
 end
 
 
@@ -411,7 +459,10 @@ function L_TG:OnPlayerLearnedAbility(tg)
 		local hero=pl:GetAssignedHero()
 		local modifier_name="modifier_"..abilityname
 		local AB=hero:FindAbilityByName(abilityname)
-		local name= hero.TALENT_NAME==nil and  hero:GetName() or hero.TALENT_NAME
+		local name= CDOTA_PlayerResource.TG_HERO[playerid+1].TALENT_NAME==nil and  hero:GetName() or CDOTA_PlayerResource.TG_HERO[playerid+1].TALENT_NAME
+		if  string.find(abilityname, "special_bonus_custom_value_") then
+			name="custom_value_talent"
+		end
 		if TableContainsKey(HeroTalent,name) then
 				local T=HeroTalent[name]
 				for k, v in pairs(T) do
@@ -497,54 +548,6 @@ function L_TG:OnPlayerBuyback( tg )
 end
 
 
---------------------------------------------------------------------------
-
-
---当玩家断开时
-function L_TG:OnDisconnect(tg)
-	-- 0 - no connection
-	-- 1 - bot connected
-	-- 2 - player connected
-	-- 3 - bot/player disconnected.
-
-	-- PlayerID: 2
-	-- networkid: [U:1:95496383]
-	-- reason: 2
-	-- splitscreenplayer: -1
-	-- userid: 7
-	-- name
-	-- xuid
-	local playerHero = CDOTA_PlayerResource.TG_HERO[tg.PlayerID + 1]
-	if playerHero and  PlayerResource:GetConnectionState(tg.PlayerID)==DOTA_CONNECTION_STATE_ABANDONED  then
-		local team = playerHero:GetTeamNumber()
-		if team==DOTA_TEAM_BADGUYS then
-			CDOTA_PlayerResource.ABANDONED_BAD=CDOTA_PlayerResource.ABANDONED_BAD+1
-			if CDOTA_PlayerResource.ABANDONED_BAD>=7 then
-				Notifications:BottomToAll({text ="夜魇逃跑人数>=7,天辉3秒后获胜", duration = 3})
-				Timers:CreateTimer(3, function()
-					GAME_LOSE_TEAM = DOTA_TEAM_BADGUYS
-					GAME_WIN_TEAM = DOTA_TEAM_GOODGUYS
-					GameRules:MakeTeamLose(GAME_LOSE_TEAM)
-					GameRules:SetGameWinner(GAME_WIN_TEAM)
-				return nil
-				end)
-			end
-		elseif team==DOTA_TEAM_GOODGUYS then
-			CDOTA_PlayerResource.ABANDONED_GOOD=CDOTA_PlayerResource.ABANDONED_GOOD+1
-			if CDOTA_PlayerResource.ABANDONED_GOOD>=7 then
-				Notifications:BottomToAll({text ="天辉逃跑人数>=7,夜魇3秒后获胜", duration = 3})
-				Timers:CreateTimer(3, function()
-					GAME_LOSE_TEAM = DOTA_TEAM_GOODGUYS
-					GAME_WIN_TEAM = DOTA_TEAM_BADGUYS
-					GameRules:MakeTeamLose(GAME_LOSE_TEAM)
-					GameRules:SetGameWinner(GAME_WIN_TEAM)
-				return nil
-				end)
-
-			end
-		end
-	end
-end
 
 --------------------------------------------------------------------------
 

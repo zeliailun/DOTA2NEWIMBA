@@ -68,19 +68,27 @@ function imba_terrorblade_demonic_power:OnSpellStart()
 			--恐怖心潮秒杀判断
 			EmitSoundOnClient("Imba.terrorblade.heart", enemy[i]:GetPlayerOwner())		
 			enemy[i]:AddNewModifier(caster, self, "modifier_terrorblade_fear", {duration = 3})			
-			enemy[i]:AddNewModifier(caster, self, "modifier_terrorblade_demonic_power_truekill", {duration = 3})		
+			enemy[i]:AddNewModifier(caster, self, "modifier_terrorblade_demonic_power_truekill", {duration = 3})
+		elseif not self:GetAutoCastState() and caster:HasScepter() then
+			local name = "imba_terrorblade_reflection"
+			local ability = caster:FindAbilityByName(name) 
+			if ability and ability:IsTrained() then
+				enemy[i]:EmitSound("Hero_Terrorblade.Reflection")
+				local enemy_buff = TG_AddNewModifier_RS(enemy[i], caster, ability, "modifier_imba_reflection_slow", {duration = ability:GetSpecialValueFor("illusion_duration")})
+				local illusion = TG_AddNewModifier_RS(enemy[i], caster, ability, "modifier_imba_reflection_illusion", {duration = ability:GetSpecialValueFor("illusion_duration")})
+			end
 		end			
 	end
 	if self:GetAutoCastState() and GetDemonicPower(caster) >= self.truekill then
 		modifier:SetStackCount(modifier:GetStackCount() - self.truekill)
 	end
-	local ability = caster:FindAbilityByName("imba_terrorblade_metamorphosis")
+	--[[local ability = caster:FindAbilityByName("imba_terrorblade_metamorphosis")
 	local metamorphosis = caster:FindModifierByName("modifier_imba_cmetamorphosis_aura")
 	if metamorphosis and ability and self:GetCaster():HasScepter() then
 		metamorphosis:SetDuration(metamorphosis:GetRemainingTime()+self.metamorphosis_duration, true)
 	elseif not metamorphosis and ability and self:GetCaster():HasScepter() then
 		caster:AddNewModifier(caster, ability, "modifier_imba_cmetamorphosis_aura", {duration = self.metamorphosis_duration})
-	end	
+	end]]	
 	--caster:RemoveModifierByName("modifier_imba_terrorblade_demonic_power_passive")
 	--caster:AddNewModifier(caster, self, "modifier_imba_terrorblade_demonic_power_passive", {})
 end
@@ -327,9 +335,15 @@ end
 function imba_terrorblade_metamorphosis:OnSpellStart()
 	local caster = self:GetCaster()
 	self.duration = self:GetSpecialValueFor("duration")	
-	local modifier = caster:FindModifierByName("modifier_imba_cmetamorphosis_aura")
+	--[[local modifier = caster:FindModifierByName("modifier_imba_cmetamorphosis_aura")
 	if modifier then
 		modifier:SetDuration(modifier:GetRemainingTime()+self.duration, true)
+	end]]
+	if caster:HasScepter() then
+		local name = "terrorblade_conjure_image"
+		local ability = caster:FindAbilityByName(name) 
+		ability:OnSpellStart()
+		ability:OnSpellStart()
 	end
 	caster:AddNewModifier(caster, self, "modifier_imba_cmetamorphosis_aura", {duration = self.duration})	
 end

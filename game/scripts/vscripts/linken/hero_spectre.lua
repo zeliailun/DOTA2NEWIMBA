@@ -486,7 +486,7 @@ function imba_spectre_spectral_dagger:OnSpellStart()
 	self.slow_duration = self:GetSpecialValueFor("slow_duration")
 	
 	caster:AddNewModifier(caster, self, "modifier_imba_spectral_dagger_buff", {duration = self.slow_duration})
-	local sound = CreateModifierThinker(caster, self, "modifier_dummy_thinker", {duration = 50.0}, caster:GetAbsOrigin(), caster:GetTeamNumber(), false)
+	local sound = CreateModifierThinker(caster, self, "modifier_dummy_thinker", {duration = 20.0}, caster:GetAbsOrigin(), caster:GetTeamNumber(), false)
 	sound:AddNewModifier(self:GetCaster(), self, "modifier_imba_spectral_dagger_aura", {duration = self.slow_duration})
 	sound:EmitSound("Hero_Spectre.DaggerCast")
 	EmitSoundOn("Hero_Spectre.DaggerCast",self:GetCaster())		
@@ -522,9 +522,7 @@ end
 
 function imba_spectre_spectral_dagger:OnProjectileHit_ExtraData(target, location, keys)
 	if target and keys.sound then
-		local sound=EntIndexToHScript(keys.sound)
-		--sound:StopSound("Hero_Puck.Illusory_Orb")
-		sound:ForceKill(false)
+		local sound = EntIndexToHScript(keys.sound)
 		local ability = self:GetCaster():FindAbilityByName("imba_spectre_splitting_dagger")
 		if ability and self:GetCaster():Has_Aghanims_Shard() and target:IsHero() then
 			target:AddNewModifier_RS(self:GetCaster(), ability, "modifier_imba_splitting_dagger_debuff", {duration = ability:GetSpecialValueFor("duration")+self:GetCaster():TG_GetTalentValue("special_bonus_imba_spectre_8")})
@@ -542,12 +540,13 @@ function imba_spectre_spectral_dagger:OnProjectileHit_ExtraData(target, location
 				return nil
 			end)
 		end	
-		EmitSoundOn("Hero_Spectre.DaggerImpact",target)								
+		EmitSoundOn("Hero_Spectre.DaggerImpact",target)
+		sound:RemoveSelf()									
 		return true
 	end
 end	
 modifier_imba_spectral_dagger_aura = class({})
-function modifier_imba_spectral_dagger_aura:IsDebuff()			return IsEnemy(self.caster,self.parent) end
+function modifier_imba_spectral_dagger_aura:IsDebuff()			return true end
 function modifier_imba_spectral_dagger_aura:IsHidden() 			return true end
 function modifier_imba_spectral_dagger_aura:IsPurgable() 			return false end
 function modifier_imba_spectral_dagger_aura:IsPurgeException() 	return false end
@@ -1023,7 +1022,10 @@ function imba_spectre_haunt:OnSpellStart()
 				return nil
 			end)		
 		end
-		self:EndCooldown()
+		Timers:CreateTimer(FrameTime()*2, function()
+			self:EndCooldown()
+			return nil
+		end)
 	else
 		local pos = self:GetCursorPosition()
 		local target = nil
@@ -1044,6 +1046,10 @@ function imba_spectre_haunt:OnSpellStart()
 			target = enemy[i]
 			if target then
 				FindClearSpaceForUnit(self:GetCaster(), target:GetAbsOrigin(), false)
+				Timers:CreateTimer(FrameTime()*2, function()
+					FindClearSpaceForUnit(target, target:GetAbsOrigin(), false)
+				return nil
+				end)
 				self:GetCaster():MoveToTargetToAttack(target)
 				EmitSoundOn("Hero_Spectre.Reality",target )
 				self:EndCooldown()

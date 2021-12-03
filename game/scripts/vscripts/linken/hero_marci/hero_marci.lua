@@ -5,8 +5,19 @@ imba_marci_swing = class({})
 --俯冲到目标地点
 LinkLuaModifier("modifier_imba_swing", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_swing_silence", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_imba_marci_armor", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
 function imba_marci_swing:Set_InitialUpgrade(tg)
     return {LV=1}
+end
+function imba_marci_swing:CastFilterResultLocation()
+	if self:GetCaster():IsHexed() then
+		return UF_FAIL_CUSTOM
+	end
+end
+function imba_marci_swing:GetCustomCastErrorLocation()
+	if self:GetCaster():IsHexed() then
+		return "#dota_hud_error_ability_inactive"
+	end
 end
 function imba_marci_swing:GetIntrinsicModifierName() return "modifier_imba_swing_silence" end
 --[[function imba_marci_swing:GetBehavior() 
@@ -23,23 +34,17 @@ function imba_marci_swing:OnSpellStart()
 	--local st_direction 	= VectorToAngles(caster:GetForwardVector()).y
 	--local end_direction = VectorToAngles(pos-caster:GetAbsOrigin()).y
 	--local suc 			= math.abs( AngleDiff(st_direction,end_direction)) < 90
-	local distance = self:GetSpecialValueFor("distance")
-	if CalculateDistance(pos, caster:GetAbsOrigin()) < 30 then
-		pos = caster:GetAbsOrigin() + caster:GetForwardVector() * distance
-	end
-	local next_pos = pos
-	if CalculateDistance(pos, caster:GetAbsOrigin()) > distance then
-		next_pos = caster:GetAbsOrigin() + GetDirection2D(pos, caster:GetAbsOrigin()) * distance
-	end
+	
 	caster:AddNewModifier(
 		caster, 
 		self, 
 		"modifier_imba_swing", 
 		{
 			duration = 1,
-			pos = next_pos,
+			pos = pos,
 			--suc = suc
-		})	
+		})
+	caster:EmitSound("marci_marci_move_2")
 end	
 modifier_imba_swing_silence = class({})
 function modifier_imba_swing_silence:IsDebuff()				return false end
@@ -85,7 +90,7 @@ function modifier_imba_swing:CheckState() return
     [MODIFIER_STATE_NO_UNIT_COLLISION] = true, 
 	--[MODIFIER_STATE_INVULNERABLE] = true,
 	[MODIFIER_STATE_NO_HEALTH_BAR] = true,
-	[MODIFIER_STATE_DISARMED] = true,
+	--[MODIFIER_STATE_DISARMED] = true,
     } 
 end
 function modifier_imba_swing:DeclareFunctions()
@@ -123,12 +128,13 @@ function modifier_imba_swing:OnCreated(keys)
 	self.parent 	= 	self:GetParent()
 	self.caster 	= 	self:GetCaster()
 	self.ability 	= 	self:GetAbility()
+	self.distance = self.ability:GetSpecialValueFor("distance")
 	if not IsServer() then
 		return
 	end
 	self.pfx_bool = true
-	self.int = false
-	self.unleash = 0
+	self.int = keys.int and true
+	self.unleash = 200
 	self.hitted = {}
 	self.pos = StringToVector(keys.pos)
 	self.parent:MoveToPositionAggressive(self.pos)
@@ -137,26 +143,20 @@ function modifier_imba_swing:OnCreated(keys)
 	self.fv = self.parent:GetForwardVector()
 	self.rv = self.parent:GetRightVector()
 	self.uv = self.parent:GetUpVector()
+	
+	if CalculateDistance(self.pos, self.caster:GetAbsOrigin()) < 30 then
+		self.pos = self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * self.distance
+	end
+	if CalculateDistance(self.pos, self.caster:GetAbsOrigin()) > self.distance then
+		self.pos = self.caster:GetAbsOrigin() + GetDirection2D(self.pos, self.caster:GetAbsOrigin()) * self.distance
+	end
 	local swap_pfx = ParticleManager:CreateParticle("particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControlEnt(swap_pfx, 0, self.parent, PATTACH_POINT, "attach_hitloc", self.parent:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControlEnt(swap_pfx, 1, nil, PATTACH_POINT, "attach_hitloc", self.pos, true)	
-	--self.parent:EmitSound("Hero_FacelessVoid.TimeDilation.Cast.ti7_layer")
-	--self.parent:EmitSound("Item.ForceField.Cast")
-	--self.parent:EmitSound("soundboard.ti9.crowd_groan")
-	self.parent:EmitSound("marci_marci_move_2")
 	
-	
-
-	--[[local particle_cast = "particles/units/heroes/hero_faceless_void/faceless_void_time_walk_preimage.vpcf"
-	local effect_cast = ParticleManager:CreateParticle( particle_cast, PATTACH_POINT, self.parent )
-	ParticleManager:SetParticleControl(effect_cast, 0, self.parent:GetAbsOrigin())
-	ParticleManager:SetParticleControl(effect_cast, 1, self.pos)
-	ParticleManager:SetParticleControlEnt(effect_cast, 2, self.parent, PATTACH_POINT, "attach_hitloc", self.parent:GetForwardVector(), true)
-	self:AddParticle(effect_cast,false, false, -1, false, false )]]
 	self:StartIntervalThink(FrameTime())
 end
 function modifier_imba_swing:OnIntervalThink()
-	
 		GridNav:DestroyTreesAroundPoint( self.parent:GetOrigin(), 80, true )
 		--self.parent:SetForwardVector(GetDirection2D(self.pos, self.parent:GetAbsOrigin()))
 		self.parent:FaceTowards( self.pos )
@@ -189,10 +189,13 @@ function modifier_imba_swing:OnIntervalThink()
 						attacker = self.caster,
 						damage = self.caster:GetAverageTrueAttackDamage(self.caster)*self.popup,
 						damage_type = DAMAGE_TYPE_PHYSICAL,
+						--damage_flags = DOTA_DAMAGE_FLAG_IGNORES_PHYSICAL_ARMOR,
 						ability = self.ability,
 						}
 					ability:PopupNumber_Marci(enemy, damageTable.damage)
+					enemy:AddNewModifier(self.caster, self.ability, "modifier_imba_marci_armor", {})
 					ApplyDamage(damageTable)
+					TG_Remove_Modifier(enemy,"modifier_imba_marci_armor",0)
 					self.hitted[#self.hitted+1] = enemy	
 				end
 			end	
@@ -202,6 +205,7 @@ function modifier_imba_swing:OnRemoved()
     if IsServer() then
 		self.popup = nil
 		self.pfx_bool = true
+		self.int = false
 		local pfx = ParticleManager:CreateParticle("particles/econ/items/windrunner/windranger_arcana/windranger_arcana_powershot_channel_v2_endcap_model.vpcf", PATTACH_CUSTOMORIGIN, nil)
 		ParticleManager:SetParticleControl(pfx, 0, GetGroundPosition(self.parent:GetAbsOrigin(), self.parent)) 
 		ParticleManager:SetParticleControl(pfx, 1, GetGroundPosition(self.pos, self.parent))
@@ -209,7 +213,21 @@ function modifier_imba_swing:OnRemoved()
 		ParticleManager:ReleaseParticleIndex(pfx)
     end
 end
-
+modifier_imba_marci_armor = class({})
+function modifier_imba_marci_armor:IsDebuff()				return true end
+function modifier_imba_marci_armor:IsHidden() 			return false end
+function modifier_imba_marci_armor:IsPurgable() 			return false end
+function modifier_imba_marci_armor:IsPurgeException() 	return false end
+function modifier_imba_marci_armor:DeclareFunctions() return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS} end
+function modifier_imba_marci_armor:OnCreated(keys)
+	if IsServer() then
+		self.armor_int = math.abs(self:GetParent():GetPhysicalArmorValue(false)*0.8)
+		self:SetStackCount(self.armor_int)
+	end 
+end
+function modifier_imba_marci_armor:GetModifierPhysicalArmorBonus(keys)
+	return 0 - self:GetStackCount()
+end
 imba_marci_grapple = class({})
 
 --抓取一圈敌人 背摔
@@ -224,6 +242,16 @@ function imba_marci_grapple:Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_marci/marci_dispose_debuff.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_marci/marci_dispose_land_aoe.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_marci/marci_grapple.vpcf", context )
+end
+function imba_marci_grapple:CastFilterResult()
+	if self:GetCaster():IsHexed() then
+		return UF_FAIL_CUSTOM
+	end
+end
+function imba_marci_grapple:GetCustomCastError()
+	if self:GetCaster():IsHexed() then
+		return "#dota_hud_error_ability_inactive"
+	end
 end
 function imba_marci_grapple:GetCastPoint() 
 	if self:GetCaster():HasModifier("modifier_imba_swing") then  
@@ -455,6 +483,9 @@ function modifier_imba_grapple_self:OnCreated(keys)
 	if not IsServer() then
 		return
 	end
+	if self.caster:Has_Aghanims_Shard() then
+		self.stun_duration = self.ability:GetSpecialValueFor("stun_duration") + self.ability:GetSpecialValueFor("agh_stun")
+	end
 end
 function modifier_imba_grapple_self:OnRemoved()
     if IsServer() then
@@ -476,7 +507,8 @@ function modifier_imba_grapple_self:OnRemoved()
 		for _, enemy in pairs(enemies) do
 			enemy:AddNewModifier(self.parent, self.ability, "modifier_phased", {duration = 0.2})
 			if IsEnemy(self.caster,enemy) then
-				enemy:AddNewModifier(self.parent, self.ability, "modifier_stunned", {duration = self.stun_duration})
+				--print(self.stun_duration)
+				enemy:AddNewModifier_RS(self.parent, self.ability, "modifier_stunned", {duration = self.stun_duration})
 				local damageTable = {
 						victim = enemy,
 						attacker = self.caster,
@@ -500,9 +532,24 @@ imba_marci_guardian = class({})
 LinkLuaModifier("modifier_imba_grapple_passive", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_grapple_buff1", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_imba_grapple_buff2", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
---LinkLuaModifier("modifier_imba_grapple_buff3", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_imba_grapple_cd", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_imba_grapple_debuff", "linken/hero_marci/hero_marci", LUA_MODIFIER_MOTION_NONE)
+function imba_marci_guardian:GetCooldown(level)
+	local cooldown = self.BaseClass.GetCooldown(self, level)
+	local caster = self:GetCaster()
+		if caster:TG_HasTalent("special_bonus_imba_marci_3") then 
+			return (cooldown - caster:TG_GetTalentValue("special_bonus_imba_marci_3"))
+		end
+	return cooldown
+end
+function imba_marci_guardian:CastFilterResult()
+	if self:GetCaster():IsHexed() then
+		return UF_FAIL_CUSTOM
+	end
+end
+function imba_marci_guardian:GetCustomCastError()
+	if self:GetCaster():IsHexed() then
+		return "#dota_hud_error_ability_inactive"
+	end
+end
 function imba_marci_guardian:GetIntrinsicModifierName() return "modifier_imba_grapple_passive" end
 function imba_marci_guardian:OnUpgrade()
 	local caster = self:GetCaster()		
@@ -529,88 +576,10 @@ function imba_marci_guardian:OnUpgrade()
 		end		
 	end
 end
-function imba_marci_guardian:OnSpellStart()
-	local caster = self:GetCaster()		
-	if caster:HasModifier("modifier_imba_unleash") then
-		local modifier = caster:FindModifierByName("modifier_imba_unleash")
-		modifier.punch = true
-	end
-	local target = self:GetCursorTarget()
-	local duration = self:GetSpecialValueFor("buff_duration")
-	local range = self:GetSpecialValueFor("nearest_ally_search_range")
-	--caster:RemoveModifierByName("modifier_imba_grapple_passive")
-	--[[caster:AddNewModifier(
-		caster, 
-		self, 
-		"modifier_imba_grapple_passive",
-		{
-			duration = -1 ,
-		}
-		)]]
-	if self.Mirana and self.Mirana:IsAlive() then
-		self.Mirana:AddNewModifier(
-			caster, 
-			self, 
-			"modifier_marci_guardian_buff", 
-			{
-				duration = duration,
-			})
-	end
-	if target == caster then
-		caster:AddNewModifier(
-			caster, 
-			self, 
-			"modifier_marci_guardian_buff", 
-			{
-				duration = duration,
-			})
-		local enemies = FindUnitsInRadius(
-			self:GetCaster():GetTeamNumber(),
-			self:GetCaster():GetAbsOrigin(),
-			nil,
-			range ,
-			DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-			DOTA_UNIT_TARGET_HERO,
-			DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
-			FIND_CLOSEST,
-			false)
-		for _,enemy in pairs(enemies) do
-			if enemy ~= caster then
-				enemy:AddNewModifier(
-				caster, 
-				self, 
-				"modifier_marci_guardian_buff", 
-				{
-					duration = duration,
-				})
-				break
-			end
-		end
-	elseif target ~= caster then
-		caster:AddNewModifier(
-			caster, 
-			self, 
-			"modifier_marci_guardian_buff", 
-			{
-				duration = duration,
-			})
-		target:AddNewModifier(
-			caster, 
-			self, 
-			"modifier_marci_guardian_buff", 
-			{
-				duration = duration,
-			})
-	end
-	caster:MoveToPositionAggressive(caster:GetAbsOrigin())
-	--[[local allmodif = caster:FindAllModifiers()
-	for i =1 , #allmodif do 
-		print(allmodif[i]:GetName())
-	end]]
-end	
+
 modifier_imba_grapple_passive = class({})
 function modifier_imba_grapple_passive:IsDebuff()			return false end
-function modifier_imba_grapple_passive:IsHidden() 			return false end
+function modifier_imba_grapple_passive:IsHidden() 			return true end
 function modifier_imba_grapple_passive:IsPurgable() 			return false end
 function modifier_imba_grapple_passive:IsPurgeException() 	return false end
 function modifier_imba_grapple_passive:DeclareFunctions()
@@ -620,22 +589,12 @@ function modifier_imba_grapple_passive:DeclareFunctions()
 	}
 	return funcs
 end
---[[function modifier_imba_grapple_passive:CheckState() 
-	return 
-		{
-			[MODIFIER_STATE_SILENCED] = false 
-		}
-end
-function modifier_imba_grapple_passive:GetPriority()
-	return 10 
-end]]
+
 function modifier_imba_grapple_passive:OnCreated(keys)
 	self.parent 	= 	self:GetParent()
 	self.caster 	= 	self:GetCaster()
 	self.ability 	= 	self:GetAbility()
 	self.duration	= 	-1
-	self.cd_duration=	self.ability:GetSpecialValueFor("cd") - self.caster:TG_GetTalentValue("special_bonus_imba_marci_3")
-	self.chance_pct = 	self.ability:GetSpecialValueFor("chance_pct")
 	if not IsServer() then return end
 	self.parent:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_buff2", {duration = -1})
 end
@@ -646,14 +605,17 @@ function modifier_imba_grapple_passive:OnAttackLanded(keys)
 	if keys.attacker ~= self.parent or self.parent:PassivesDisabled() or self.parent:IsIllusion() or not keys.target:IsAlive() or not keys.target:IsUnit() then
 		return
 	end
-	if self.parent:HasModifier("modifier_imba_grapple_cd") then
+	if not self.ability:IsCooldownReady() then
 		return
-	end 
-	if PseudoRandom:RollPseudoRandom(self.ability, self.chance_pct) then
+	end
+	if not self.ability:IsTrained() then
+		return
+	end
+	if PseudoRandom:RollPseudoRandom(self.ability, self.ability:GetSpecialValueFor("chance_pct")) then
 		self.parent:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_buff1", {duration = self.duration})
-		self.parent:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_cd", {duration = self.cd_duration})
+		self.ability:UseResources(true, true, true)
 		EmitSoundOn( "Hero_Marci.Unleash.Charged", self.parent )
-		EmitSoundOn( "Hero_Marci.Unleash.Charged.2D", self.parent )	
+		--EmitSoundOn( "Hero_Marci.Unleash.Charged.2D", self.parent )	
 	end
 end
 function modifier_imba_grapple_passive:OnAbilityFullyCast(keys)
@@ -662,15 +624,16 @@ function modifier_imba_grapple_passive:OnAbilityFullyCast(keys)
 		if keys.unit ~= self.parent or keys.ability:IsItem() then 
 			return 
 		end
-		if self.parent:HasModifier("modifier_imba_grapple_cd") then
+		if not self.ability:IsCooldownReady() then
 			return
-		end 
+		end
 		self.parent:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_buff1", {duration = self.duration})
-		self.parent:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_cd", {duration = self.cd_duration})
+		self.ability:UseResources(true, true, true)
 		local pfx_name = "particles/units/heroes/hero_marci/marci_unleash_cast.vpcf"
 		local pfx = ParticleManager:CreateParticle( pfx_name, PATTACH_ABSORIGIN_FOLLOW, self.parent )
 		ParticleManager:ReleaseParticleIndex( pfx )
-		EmitSoundOn( "Hero_Marci.Unleash.Charged.2D", self.parent )
+		EmitSoundOn( "Hero_Marci.Unleash.Charged", self.parent )
+		--EmitSoundOn( "Hero_Marci.Unleash.Charged.2D", self.parent )
 	end		
 end
 function modifier_imba_grapple_passive:OnRemoved()
@@ -697,7 +660,7 @@ function modifier_imba_grapple_buff1:DeclareFunctions()
 	return funcs
 end
 function modifier_imba_grapple_buff1:GetModifierAttackSpeed_Limit()
-	return 1
+	return 0.7
 end
 function modifier_imba_grapple_buff1:ShouldUseOverheadOffset() return true end
 function modifier_imba_grapple_buff1:GetModifierAttackSpeedBonus_Constant()
@@ -722,27 +685,80 @@ function modifier_imba_grapple_buff1:OnCreated(keys)
 	self.stack 		= 	self.ability:GetSpecialValueFor("max_stack")
 	self.int		=	self.ability:GetSpecialValueFor("disap_time")
 	self.debuff_duration = self.ability:GetSpecialValueFor("debuff_duration")
+	self.range = self.ability:GetSpecialValueFor("nearest_ally_search_range")
 	self.aoe_damage = self.ability:GetSpecialValueFor("aoe_damage")
 	if not IsServer() then return end
-	if self.ability.Mirana and self.ability.Mirana:IsAlive() then
-		self.ability.Mirana:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_buff1", {duration = self.duration})
+	if not self.parent:HasModifier("modifier_marci_guardian_buff") then
+		self.parent:AddNewModifier(
+				self.caster, 
+				self.ability, 
+				"modifier_marci_guardian_buff", 
+				{
+					duration = -1,
+				})
 	end
-	local particle_cast = "particles/units/heroes/hero_marci/marci_unleash_buff.vpcf"
-	local effect_cast = ParticleManager:CreateParticle( particle_cast, PATTACH_POINT_FOLLOW, self.parent )
-	ParticleManager:SetParticleControlEnt(effect_cast,1,self.parent,PATTACH_POINT_FOLLOW,"eye_l",Vector(0,0,0), true )
-	ParticleManager:SetParticleControlEnt(effect_cast,2,self.parent,PATTACH_POINT_FOLLOW,"eye_r",Vector(0,0,0), true )
-	ParticleManager:SetParticleControlEnt(effect_cast,3,self.parent,PATTACH_POINT_FOLLOW,"attach_attack1",Vector(0,0,0),true )
-	ParticleManager:SetParticleControlEnt(effect_cast,4,self.parent,PATTACH_POINT_FOLLOW,"attach_attack2",Vector(0,0,0), true )
-	ParticleManager:SetParticleControlEnt(effect_cast,5,self.parent,PATTACH_POINT_FOLLOW,"attach_attack1",Vector(0,0,0), true )
-	ParticleManager:SetParticleControlEnt(effect_cast,6,self.parent,PATTACH_POINT_FOLLOW,"attach_attack2",Vector(0,0,0), true )
-	self:AddParticle(effect_cast,false, false, -1, false, false )
+	if not self.effect_cast then
+		local particle_cast = "particles/units/heroes/hero_marci/marci_unleash_buff.vpcf"
+		self.effect_cast = ParticleManager:CreateParticle( particle_cast, PATTACH_POINT_FOLLOW, self.parent )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,1,self.parent,PATTACH_POINT_FOLLOW,"eye_l",Vector(0,0,0), true )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,2,self.parent,PATTACH_POINT_FOLLOW,"eye_r",Vector(0,0,0), true )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,3,self.parent,PATTACH_POINT_FOLLOW,"attach_attack1",Vector(0,0,0),true )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,4,self.parent,PATTACH_POINT_FOLLOW,"attach_attack2",Vector(0,0,0), true )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,5,self.parent,PATTACH_POINT_FOLLOW,"attach_attack1",Vector(0,0,0), true )
+		ParticleManager:SetParticleControlEnt(self.effect_cast,6,self.parent,PATTACH_POINT_FOLLOW,"attach_attack2",Vector(0,0,0), true )
+		self:AddParticle(self.effect_cast,false, false, -1, false, false )
+	end
+	if self:GetStackCount() < self.stack and not keys.boll then
+		self:SetStackCount(self.stack)
+	end
+	if not self.pfx then
+		local pfx_name = "particles/units/heroes/hero_marci/marci_unleash_stack.vpcf"
+		self.pfx = ParticleManager:CreateParticle( pfx_name, PATTACH_OVERHEAD_FOLLOW, self.parent )
+		ParticleManager:SetParticleControl( self.pfx, 1, Vector( 0, self:GetStackCount(), 0 ) )
+		self:AddParticle(self.pfx,false, false, -1, false, false )
+	end
 
-	self:SetStackCount(self.stack)
-	local pfx_name = "particles/units/heroes/hero_marci/marci_unleash_stack.vpcf"
-	local pfx = ParticleManager:CreateParticle( pfx_name, PATTACH_OVERHEAD_FOLLOW, self.parent )
-	ParticleManager:SetParticleControl( pfx, 1, Vector( 0, self:GetStackCount(), 0 ) )
-	self:AddParticle(pfx,false, false, -1, false, false )
-	self.effect_cast = pfx
+	if self.Mirana and self.Mirana:IsAlive() then
+		self.Mirana:AddNewModifier(
+			self.caster, 
+			self.ability, 
+			"modifier_marci_guardian_buff", 
+			{
+				duration = -1,
+			})
+	end
+	if not keys.int then
+		local enemies = FindUnitsInRadius(
+			self.caster:GetTeamNumber(),
+			self.caster:GetAbsOrigin(),
+			nil,
+			self.range ,
+			DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+			DOTA_UNIT_TARGET_HERO,
+			DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
+			FIND_CLOSEST,
+			false)
+		for _,enemy in pairs(enemies) do
+			if enemy ~= self.caster and not enemy:IsRangedAttacker() then
+				enemy:AddNewModifier(
+				self.caster, 
+				self.ability, 
+				"modifier_imba_grapple_buff1", 
+				{
+					duration = -1,
+					int = true
+				})
+				break
+			end
+		end
+		if self.ability.Mirana and self.ability.Mirana:IsAlive() then
+			self.ability.Mirana:AddNewModifier(self.parent, self.ability, "modifier_imba_grapple_buff1", {duration = self.duration})
+		end
+	end
+end
+function modifier_imba_grapple_buff1:OnRefresh(keys)
+	--if not IsServer() then return end
+	self:OnCreated(keys)
 end
 function modifier_imba_grapple_buff1:OnAttack( keys )
 	if not IsServer() then
@@ -769,8 +785,8 @@ function modifier_imba_grapple_buff1:OnAttack( keys )
 		EmitSoundOnLocationWithCaster( keys.target:GetAbsOrigin(), "Hero_Marci.Unleash.Pulse", self.parent )
 		self:Destroy()
     end
-	if self.effect_cast then
-		ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(0, self:GetStackCount(), 0))
+	if self.pfx then
+		ParticleManager:SetParticleControl(self.pfx, 1, Vector(0, self:GetStackCount(), 0))
 	end
 end
 function modifier_imba_grapple_buff1:OnIntervalThink(keys)
@@ -779,6 +795,7 @@ end
 
 function modifier_imba_grapple_buff1:OnRemoved()
 	if IsServer() then
+		TG_Remove_Modifier(self.parent,"modifier_marci_guardian_buff",0)
 		if self.caster:IsNull() or self:GetStackCount() > 0 then return end
 		local enemies = FindUnitsInRadius(
 			self.caster:GetTeamNumber(),
@@ -794,7 +811,7 @@ function modifier_imba_grapple_buff1:OnRemoved()
 			enemy:AddNewModifier(
 			self.caster, 
 			self.ability, 
-			"modifier_imba_grapple_debuff", 
+			"modifier_paralyzed", 
 			{
 				duration = self.debuff_duration,
 			})	
@@ -885,52 +902,3 @@ function modifier_imba_grapple_buff3:OnRemoved()
 	if IsServer() then
 	end
 end]]
-modifier_imba_grapple_cd = class({})
-function modifier_imba_grapple_cd:IsDebuff()			return true end
-function modifier_imba_grapple_cd:IsHidden() 			return false end
-function modifier_imba_grapple_cd:IsPurgable() 			return false end
-function modifier_imba_grapple_cd:IsPurgeException() 	return false end
-modifier_imba_grapple_debuff = class({})
-function modifier_imba_grapple_debuff:IsHidden()		return false end
-function modifier_imba_grapple_debuff:IsDebuff()		return true end
-function modifier_imba_grapple_debuff:IsPurgable()		return false end
-function modifier_imba_grapple_debuff:IsPurgeException()return false end
-function modifier_imba_grapple_debuff:OnCreated( keys )
-	self.parent 	= 	self:GetParent()
-	self.caster 	= 	self:GetCaster()
-	self.ability 	= 	self:GetAbility()
-	self.as_slow = -self:GetAbility():GetSpecialValueFor( "atsp_slow" )
-	self.ms_slow = -self:GetAbility():GetSpecialValueFor( "move_slow" )
-	if not IsServer() then return end
-end
-function modifier_imba_grapple_debuff:OnRefresh( keys )
-	self:OnCreated( keys )
-end
-function modifier_imba_grapple_debuff:DeclareFunctions()
-	local funcs = {
-		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-	}
-	return funcs
-end
-function modifier_imba_grapple_debuff:GetModifierAttackSpeedBonus_Constant()
-	return self.as_slow
-end
-function modifier_imba_grapple_debuff:GetModifierMoveSpeedBonus_Percentage()
-	return self.ms_slow
-end
-function modifier_imba_grapple_debuff:GetEffectName()
-	return "particles/units/heroes/hero_marci/marci_unleash_pulse_debuff.vpcf"
-end
-
-function modifier_imba_grapple_debuff:GetEffectAttachType()
-	return PATTACH_ABSORIGIN_FOLLOW
-end
-
-function modifier_imba_grapple_debuff:GetStatusEffectName()
-	return "particles/status_fx/status_effect_snapfire_slow.vpcf"
-end
-
-function modifier_imba_grapple_debuff:StatusEffectPriority()
-	return MODIFIER_PRIORITY_NORMAL
-end

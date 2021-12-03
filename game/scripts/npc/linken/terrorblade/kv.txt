@@ -45,13 +45,7 @@
 				"var_type"	"FIELD_FLOAT"
 				"wave_radius_duration"	"1.4"
 				"LinkedSpecialBonus"	"special_bonus_imba_terrorblade_8"
-			}
-			"06"
-			{
-				"var_type"	"FIELD_FLOAT"
-				"metamorphosis_duration"	"25.0"
-				"RequiresScepter"	"1"
-			}			
+			}		
 		}
 		"HasScepterUpgrade"	"1"
 	}
@@ -270,6 +264,7 @@
 		// Cost
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"	"100"
+		"HasScepterUpgrade"	"1"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

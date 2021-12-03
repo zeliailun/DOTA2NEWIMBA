@@ -223,7 +223,7 @@ function modifier_imba_spider_strikes_caster:OnAttackLanded(keys)
 	if keys.attacker ~= self.parent or not keys.target:IsAlive() or keys.target:IsOther() or keys.target:IsBuilding() then
 		return
 	end
-	keys.target:AddNewModifier(self.parent, self.ability, "modifier_stunned", {duration = self.stun_duration})
+	keys.target:AddNewModifier(self.parent, self.ability, "modifier_stunned", {duration = self.stun_duration})		
 end
 
 function modifier_imba_spider_strikes_caster:OnCreated(keys)
@@ -293,22 +293,22 @@ function modifier_imba_spider_strikes:OnCreated(keys)
 	if IsServer() then
 		self:StartIntervalThink(FrameTime())
 		self.caster:PerformAttack(self.parent, false, true, true, false, true, false, false)
-		--if self.caster:TG_HasTalent("special_bonus_imba_broodmother_2") then
-			--self.parent:AddNewModifier(self.caster, self.ability, "modifier_confuse", {duration = self.duration})
-		--end	
+		if self.parent:HasModifier("modifier_imba_broodmother_silken_bola") then
+			self.parent:AddNewModifier(self.caster, self.ability, "modifier_confuse", {duration = self.duration})
+		end	
 	end
 end
 
 function modifier_imba_spider_strikes:OnIntervalThink()
 	self.caster:MoveToTargetToAttack(self.parent)
 	self.caster:SetAttacking(self.parent)
-	self.caster:SetForceAttackTarget(self.parent)
+	--[[self.caster:SetForceAttackTarget(self.parent)
 	Timers:CreateTimer(FrameTime(), function()
 			self.caster:SetForceAttackTarget(nil)
 			return nil
 		end
-	)
-	if not self.parent:IsAlive() or not self.caster:IsAlive() or self.parent:IsInvulnerable() then
+	)]]
+	if not self.parent:IsAlive() or not self.caster:IsAlive() then
 		self:Destroy()
 		return
 	end
@@ -325,7 +325,7 @@ function modifier_imba_spider_strikes:OnDestroy()
 		direction.z = 0
 		self.caster:SetForwardVector(direction)
 		TG_Remove_Modifier(self.caster,"modifier_imba_spider_strikes_caster",0)
-		--TG_Remove_Modifier(self.parent,"modifier_confuse",0)
+		TG_Remove_Modifier(self.parent,"modifier_confuse",0)
 	end
 end
 
@@ -516,7 +516,9 @@ end
 
 function modifier_imba_spin_web_buff:OnDestroy()
 	if IsServer() then
-		GridNav:DestroyTreesAroundPoint(self.parent:GetAbsOrigin(), 200, false)
+		if self.parent and not self.parent:IsNull() then
+			GridNav:DestroyTreesAroundPoint(self.parent:GetAbsOrigin(), 200, false)
+		end
 	end
 end
 
@@ -831,32 +833,49 @@ LinkLuaModifier("modifier_imba_silken_bola_shard", "linken/hero_broodmother.lua"
 function imba_broodmother_silken_bola:Set_InitialUpgrade(tg)       
     return {LV=1} 
 end
+function imba_broodmother_silken_bola:GetAOERadius() return self:GetSpecialValueFor("radius") end
 function imba_broodmother_silken_bola:GetIntrinsicModifierName() return "modifier_imba_silken_bola_shard" end
 function imba_broodmother_silken_bola:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
-
+	local pos = self:GetCursorPosition()
+	local radius = self:GetSpecialValueFor("radius")
 	local pfx_name = "particles/units/heroes/hero_broodmother/broodmother_silken_bola_projectile.vpcf"
 	local speed = self:GetSpecialValueFor("projectile_speed")
 	self.web_duration_bonus = self:GetSpecialValueFor("web_duration_bonus")
-	local info = 
-	{
-		Target = target,
-		Source = caster,
-		Ability = self,	
-		EffectName = pfx_name,
-		iMoveSpeed = speed,
-		iSourceAttachment = DOTA_PROJECTILE_ATTACHMENT_HITLOCATION,
-		bDrawsOnMinimap = false,
-		bDodgeable = true,
-		bIsAttack = false,
-		bVisibleToEnemies = true,
-		bReplaceExisting = false,
-		flExpireTime = GameRules:GetGameTime() + 10,
-		bProvidesVision = false,
-		ExtraData = {},
-	}
-	TG_CreateProjectile({id = 1, team = caster:GetTeamNumber() , owner = caster, p = info})				
+	local enemy = FindUnitsInRadius(
+				caster:GetTeamNumber(), 
+				pos, 
+				nil, 
+				radius, 
+				DOTA_UNIT_TARGET_TEAM_ENEMY, 
+				DOTA_UNIT_TARGET_HERO, 
+				DOTA_UNIT_TARGET_FLAG_NONE, 
+				FIND_ANY_ORDER, 
+				false
+				)
+			if #enemy ~= 0 then
+				for i=1, #enemy do
+					local info = 
+					{
+					Target = enemy[i],
+					Source = caster,
+					Ability = self,	
+					EffectName = pfx_name,
+					iMoveSpeed = speed,
+					iSourceAttachment = DOTA_PROJECTILE_ATTACHMENT_HITLOCATION,
+					bDrawsOnMinimap = false,
+					bDodgeable = true,
+					bIsAttack = false,
+					bVisibleToEnemies = true,
+					bReplaceExisting = false,
+					flExpireTime = GameRules:GetGameTime() + 10,
+					bProvidesVision = false,
+					ExtraData = {},
+					}
+					TG_CreateProjectile({id = 1, team = caster:GetTeamNumber() , owner = caster, p = info})		
+				end
+			end
+				
 end
 function imba_broodmother_silken_bola:OnProjectileHit_ExtraData(target, pos, keys)
 	if not target then 
@@ -871,7 +890,7 @@ function imba_broodmother_silken_bola:OnProjectileHit_ExtraData(target, pos, key
 		buff:SetStackCount(buff:GetStackCount() + self.web_duration_bonus * 10)
 	end	
 	target:AddNewModifier(caster, self, "modifier_imba_broodmother_silken_bola", {duration = self:GetSpecialValueFor("duration")})
-	target:AddNewModifier(caster, self, "modifier_confuse", {duration = self:GetSpecialValueFor("duration")})								
+	--target:AddNewModifier(caster, self, "modifier_confuse", {duration = self:GetSpecialValueFor("duration")})								
 end
 modifier_imba_broodmother_silken_bola = class({})
 
@@ -879,8 +898,11 @@ function modifier_imba_broodmother_silken_bola:IsDebuff()				return true end
 function modifier_imba_broodmother_silken_bola:IsHidden() 				return false end
 function modifier_imba_broodmother_silken_bola:IsPurgable() 			return true end
 function modifier_imba_broodmother_silken_bola:IsPurgeException() 		return true end
-function modifier_imba_broodmother_silken_bola:DeclareFunctions() return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE} end
+function modifier_imba_broodmother_silken_bola:DeclareFunctions() return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,MODIFIER_PROPERTY_MISS_PERCENTAGE} end
 function modifier_imba_broodmother_silken_bola:GetModifierMoveSpeedBonus_Percentage() return (0 - self.movement_speed) end
+function modifier_imba_broodmother_silken_bola:GetModifierMiss_Percentage()
+	return self:GetAbility():GetSpecialValueFor("miss")
+end
 function modifier_imba_broodmother_silken_bola:OnCreated()
 	self.parent = self:GetParent()
 	self.movement_speed = self:GetAbility():GetSpecialValueFor("movement_speed")

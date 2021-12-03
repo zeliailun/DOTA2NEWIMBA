@@ -21,9 +21,9 @@
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"	"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
-		"AbilityCooldown"	"24 20 16 12"
+		"AbilityCooldown"	"14 13 12 11"
 		"AbilityManaCost"	"50"
-		"AbilityCastRange"	"300 400 500 600"
+		"AbilityCastRange"	"600"
 		"precache"
 		{
 			"particle"	"particles/broodmother/shovel_revealed_spiders.vpcf"
@@ -36,7 +36,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"cast_range"	"300 400 500 600"
+				"cast_range"	"600"
 			}
 			"02"
 			{
@@ -47,7 +47,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"strike_duration"	"0.5"
+				"strike_duration"	"0.3"
 			}
 			"04"
 			{
@@ -62,7 +62,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"as_bonus"	"20 40 60 80"
+				"as_bonus"	"50 70 90 110"	
 				"LinkedSpecialBonus"	"special_bonus_imba_broodmother_4"
 			}
 			"07"
@@ -519,7 +519,7 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"broodmother_silken_bola"
 		"ScriptFile"	"linken/hero_broodmother.lua"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -537,7 +537,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25"
+		"AbilityCooldown"				"20"
 
 
 		// Cost
@@ -551,12 +551,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movement_speed"				"45"
+				"movement_speed"				"55"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"2.5"
+				"duration"				"6"
 			}
 			"03"
 			{
@@ -567,7 +567,17 @@
 			{
 				"var_type"	"FIELD_FLOAT"
 				"web_duration_bonus"	"5.0"
-			}			
+			}	
+			"05"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"miss"	"60.0"
+			}
+			"06"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"radius"	"550"
+			}		
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}					

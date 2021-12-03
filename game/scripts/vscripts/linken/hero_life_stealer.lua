@@ -126,7 +126,13 @@ function modifier_imba_life_stealer_rage_enemy:IsRefreshable()       return true
 function modifier_imba_life_stealer_rage_enemy:IsHiddenWhenStolen()    return false end
 function modifier_imba_life_stealer_rage_enemy:IsRefreshable()       return true end
 function modifier_imba_life_stealer_rage_enemy:IsStealable()       return true end
-function modifier_imba_life_stealer_rage_enemy:CheckState() return {[MODIFIER_STATE_MAGIC_IMMUNE] = (not self:GetCaster():HasModifier("modifier_imba_life_stealer_buff")), [MODIFIER_STATE_SILENCED] = self:IsDebuff(), [MODIFIER_STATE_MUTED] = self:IsDebuff()} end
+function modifier_imba_life_stealer_rage_enemy:CheckState() 
+  return {
+    [MODIFIER_STATE_MAGIC_IMMUNE] = (not self:GetCaster():HasModifier("modifier_imba_life_stealer_buff")), 
+    [MODIFIER_STATE_SILENCED] = self:IsDebuff(), 
+    --[MODIFIER_STATE_MUTED] = self:IsDebuff()
+    } 
+end
 function modifier_imba_life_stealer_rage_enemy:DeclareFunctions()
   return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE}
 end

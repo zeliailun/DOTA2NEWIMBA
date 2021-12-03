@@ -51,7 +51,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_movespeed"		"10 11 12 13"
+				"bonus_movespeed"		"15 16 17 18"
 			}
 			"03"
 			{
@@ -61,7 +61,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"path_radius"			"200"
+				"path_radius"			"500"
 			}
 			"05"
 			{
@@ -230,7 +230,7 @@
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"add_pure"				"30"
+				"add_pure"				"15"
 			}										
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

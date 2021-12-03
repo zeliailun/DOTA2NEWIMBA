@@ -55,12 +55,12 @@
 			"04"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"attack_interval"	"0.05"
+				"attack_interval"	"0.1"
 			}
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"24 42 60 78"
+				"damage"	"40 70 110 140"
 			}
 			"06"
 			{
@@ -75,7 +75,7 @@
 			"08"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"strikes"	"5"
+				"strikes"	"3"
 			}
 			"09"
 			{
@@ -85,7 +85,7 @@
 			"10"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"charged_int"	"15"
+				"charged_int"	"30"
 				"LinkedSpecialBonus"	"special_bonus_imba_pangolier_7"
 			}			
 		}

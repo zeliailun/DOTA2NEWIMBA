@@ -8,7 +8,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"	"ability_lua"
-		"AbilityTextureName"	"silencer_marci"
+		"AbilityTextureName"	"silencer_marci2"
 		"ScriptFile"	"linken/hero_marci/hero_marci"	
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
@@ -113,6 +113,11 @@
 				"var_type"			"FIELD_INTEGER"
 				"impact_radius"		"275"
 			}
+			"07"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"agh_stun"			"0.6"
+			}
 		}
 	}
 	// 回旋背摔移动距离
@@ -171,10 +176,11 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"marci_companion_run"
 		"ScriptFile"	"linken/hero_marci/hero_marci_encryption"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET |  DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING |  DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT |  DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET |  DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING |  DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT |  DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE |　DOTA_ABILITY_BEHAVIOR_RUNE_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_TREE"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_ALL"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES | DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
@@ -228,7 +234,7 @@
 			"06"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"cast_range"			"1000"
+				"cast_range"			"2000"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_2"
 			}
 			"07"
@@ -244,7 +250,18 @@
 			"08"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"min_range"				"450"
+				"min_range"				"150"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tree_range"				"450"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tar_range"				"1000"
+				"LinkedSpecialBonus"	"special_bonus_imba_marci_2"
 			}
 		}
 	}
@@ -281,7 +298,7 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"marci_guardian"
 		"ScriptFile"	"linken/hero_marci/hero_marci"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -292,18 +309,18 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700"
+		//"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.0"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
 		"AbilityCastGestureSlot"		"DEFAULT"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"36 28 20 12"
+		"AbilityCooldown"				"1.55"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"45 40 35 30"
+		//"AbilityManaCost"				"45 40 35 30"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -332,18 +349,12 @@
 			"05"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"max_stack"					"1 1 2 3"
+				"max_stack"					"1 2 3 4"
 			}
 			"06"
 			{
 				"var_type"					"FIELD_INTEGER"
 				"disap_time"				"1"
-			}
-			"07"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"cd"						"1.25"
-				"LinkedSpecialBonus"	"special_bonus_imba_marci_3"
 			}
 			"08"
 			{
@@ -353,25 +364,15 @@
 			"09"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"aoe_range"					"550"
+				"aoe_range"					"350"
 				"LinkedSpecialBonus"	"special_bonus_imba_marci_4"
 			}
 			"10"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"debuff_duration"			"2"
+				"debuff_duration"			"0.3"
 			}
 			"11"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"move_slow"					"20 25 30 35"
-			}
-			"12"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"atsp_slow"					"30 40 50 60"
-			}
-			"13"
 			{
 				"var_type"					"FIELD_FLOAT"
 				"aoe_damage"				"30 50 70 90"
@@ -393,7 +394,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"0.85"
+				"value"	"1.15"
 			}
 		}
 		"LinkedAbility"
@@ -434,7 +435,7 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"marci_unleash"
 		"ScriptFile"	"linken/hero_marci/hero_marci_encryption"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
@@ -447,7 +448,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"110"
+		"AbilityCooldown"				"40"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -472,6 +473,7 @@
 			{
 				"var_type"				"FIELD_FLOAT"
 				"distance"				"1000"
+				"LinkedSpecialBonus"	"special_bonus_imba_marci_7"
 			}
 			"04"
 			{
@@ -557,7 +559,7 @@
 			"01"	"imba_marci_unleash"
 		}
 	}
-	// 轰气空裂拳技能期间无敌
+	// 轰气空裂拳距离
 	"special_bonus_imba_marci_7"
 	{
 		// General
@@ -572,7 +574,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"value"	"0.0"
+				"value"	"2000.0"
 			}
 		}
 		"LinkedAbility"

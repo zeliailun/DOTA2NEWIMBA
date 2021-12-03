@@ -405,14 +405,16 @@ function modifier_imba_call_of_the_wild_debuff:OnRefresh(keys)
 	self:OnCreated()
 end
 function modifier_imba_call_of_the_wild_debuff:OnIntervalThink(keys)
+	local damage = math.floor(self.att_sp_dam * self.parent:GetDisplayAttackSpeed()* self:GetStackCount())
 	local damageTable = {
 						victim = self.parent,
 						attacker = self.caster,
-						damage = (self.att_sp_dam * self.parent:GetDisplayAttackSpeed()) + (self.att_sp_dam / 2 * self:GetStackCount()) ,
+						damage = damage,
 						damage_type = self.ability:GetAbilityDamageType(),
 						ability = self.ability,
 						damage_flags = DOTA_DAMAGE_FLAG_NONE,
 						}
+	--print(damage)
 	ApplyDamage(damageTable)
 end
 function modifier_imba_call_of_the_wild_debuff:GetModifierMoveSpeedBonus_Percentage()
@@ -1284,6 +1286,9 @@ end
 function imba_beastmaster_primal_roar:OnSpellStart()
 	local caster		 	= self:GetCaster()
 	local target 			= self:GetCursorTarget()
+	if target:TG_TriggerSpellAbsorb(self) then
+		return
+	end	
 	local stun_duration 	= self:GetSpecialValueFor("duration")
 	local search_range 		= self:GetSpecialValueFor("search_range")
 	local search_angle 		= self:GetSpecialValueFor("search_angle")
@@ -1332,7 +1337,7 @@ function imba_beastmaster_primal_roar:OnSpellStart()
 	ParticleManager:SetParticleControl(self.pfx1, 1, target:GetAbsOrigin())
 	ParticleManager:ReleaseParticleIndex(self.pfx1)]]
 
-	target:AddNewModifier(caster, self, "modifier_stunned", {duration = stun_duration})
+	target:AddNewModifier_RS(caster, self, "modifier_stunned", {duration = stun_duration})
 	local enemies = FindUnitsInRadius(
 		caster:GetTeamNumber(),
 		target:GetAbsOrigin(),

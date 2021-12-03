@@ -463,22 +463,10 @@ function modifier_imba_shukuchi_debuff:IsPurgable() 			return true end
 function modifier_imba_shukuchi_debuff:IsPurgeException() 		return true end
 function modifier_imba_shukuchi_debuff:DeclareFunctions()
 	return {
-			MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE, 
-			MODIFIER_PROPERTY_MOVESPEED_LIMIT, 
-			MODIFIER_PROPERTY_MOVESPEED_MAX, 
-			MODIFIER_PROPERTY_TURN_RATE_PERCENTAGE,
-			MODIFIER_PROPERTY_CASTTIME_PERCENTAGE,
 			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-			MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS,
 		}
 end
-function modifier_imba_shukuchi_debuff:GetModifierMoveSpeed_Absolute() return 100 end
-function modifier_imba_shukuchi_debuff:GetModifierMoveSpeed_Limit() return 100 end
-function modifier_imba_shukuchi_debuff:GetModifierMoveSpeed_Max() return 100 end
-function modifier_imba_shukuchi_debuff:GetModifierTurnRate_Percentage() return -100 end
-function modifier_imba_shukuchi_debuff:GetModifierPercentageCasttime() return -80 end
 function modifier_imba_shukuchi_debuff:GetModifierAttackSpeedBonus_Constant() return -300 end
-function modifier_imba_shukuchi_debuff:MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS() return -400 end
 function modifier_imba_shukuchi_debuff:OnCreated(keys) 	
 	self.ability = self:GetAbility()
 	self.caster = self:GetCaster()
@@ -525,7 +513,11 @@ end]]
 function imba_weaver_geminate_attack:OnProjectileHit_ExtraData(target, pos, keys)
 	if target then
 		self.shukuchi = false	
-		self:GetCaster():PerformAttack(target, true, true, true, false, false, false, false)
+		if keys.bool == 1 then
+			self:GetCaster():PerformAttack(target, true, true, true, false, false, false, false)
+		else
+			self:GetCaster():PerformAttack(target, true, false, true, false, false, false, false)
+		end
 		self.shukuchi = true
 		if self:GetCaster():TG_HasTalent("special_bonus_imba_weaver_5") and target:IsUnit() then
 			local ability = self:GetCaster():FindAbilityByName("imba_weaver_the_swarm")
@@ -595,7 +587,7 @@ function modifier_imba_geminate_attack_passive:OnAttack(keys)
 	if not self.ability:IsCooldownReady() then return end
 	if self.caster:PassivesDisabled() then return end
 	Timers:CreateTimer(self.delay, function()
-		
+			local bool = self.parent:IsHero()
 			self.shot = true	
 			self.info = 
 			{
@@ -612,7 +604,7 @@ function modifier_imba_geminate_attack_passive:OnAttack(keys)
 				bReplaceExisting = false,
 				flExpireTime = GameRules:GetGameTime() + 10,
 				bProvidesVision = false,
-				ExtraData = {int = true},
+				ExtraData = {int = true,bool = bool },
 			}
 			self.info.int = self.shot
 			if self.caster:HasModifier("modifier_imba_time_lapse_new") then

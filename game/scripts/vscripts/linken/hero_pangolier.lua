@@ -213,6 +213,7 @@ function modifier_imba_swashbuckle_chargedattack:OnIntervalThink()
 	end
 
 	self.executed_strikes = self.executed_strikes + 1
+	--print(self.executed_strikes)
 end
 
 function modifier_imba_swashbuckle_chargedattack:OnRemoved()

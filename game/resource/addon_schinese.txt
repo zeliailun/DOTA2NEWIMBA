@@ -4773,14 +4773,14 @@
 		//////玛西 marci
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_swing"					"冲刺"
-		"DOTA_Tooltip_ability_imba_marci_swing_description"		"玛西快速冲向目标地点\n<h1><font color='#EE2C2C'>1.无言</font></h1>玛西永久处于沉默状态，并且可以释放马西自身的全部技能。\n<h1><font color='#EE2C2C'>2.迅捷</font></h1>冲刺时若闪避了伤害，则增加1次临时充能。"
+		"DOTA_Tooltip_ability_imba_marci_swing_description"		"玛西快速冲向目标地点\n<h1><font color='#EE2C2C'>1.无言</font></h1>玛西永久处于沉默状态，并且可以释放马西自身的全部技能。\n<h1><font color='#EE2C2C'>2.迅捷</font></h1>冲刺时若闪避了伤害(还是会受到控制)，则增加1次临时充能。\n ● 沉默状态下可释放技能不会被破坏(破坏能让哑巴说话不河里)"
 		"DOTA_Tooltip_ability_imba_marci_swing_Lore"				"玛西可以在敌人堆里穿梭自如。"
 		"DOTA_Tooltip_ability_imba_marci_swing_distance"		"最大冲刺距离："
 		"DOTA_Tooltip_ability_imba_marci_swing_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_grapple"					"回旋背摔"
-		"DOTA_Tooltip_ability_imba_marci_grapple_description"		"<font color='#EE2C2C'>此技能为无目标技能。玛西旋转一圈抓取附近的敌人背摔到身后。落地区域内所有敌方单位会受到伤害并被眩晕。</font>\n<h1><font color='#EE2C2C'>1.擒拿</font></h1>冲刺时回旋背摔技能前摇降低为0。\n<h1><font color='#EE2C2C'>2.空中回旋</font></h1>背摔期间可自由控制落地点。\n<h1><font color='#EE2C2C'>阿哈利姆魔晶效果</font></h1>技能期间自身处于无敌状态。"
+		"DOTA_Tooltip_ability_imba_marci_grapple_description"		"<font color='#EE2C2C'>此技能为无目标技能。玛西旋转一圈抓取附近的敌人背摔到身后。落地区域内所有敌方单位会受到伤害并被眩晕。</font>\n<h1><font color='#EE2C2C'>1.擒拿</font></h1>冲刺时回旋背摔技能前摇降低为0。\n<h1><font color='#EE2C2C'>2.空中回旋</font></h1>背摔期间可自由控制落地点。\n<h1><font color='#EE2C2C'>阿哈利姆魔晶效果</font></h1>技能期间自身处于无敌状态。眩晕时间增加%agh_stun% 秒 。"
 		"DOTA_Tooltip_ability_imba_marci_grapple_Lore"									"玛西擅于扫除米拉娜公主在路上碰到的障碍"
 		"DOTA_Tooltip_ability_imba_marci_grapple_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_marci_grapple_cap_radius"						"抓取范围："
@@ -4792,16 +4792,16 @@
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_companion_run"					"回身踢"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_description"		"以矢量为目标。玛西跃向目标单位，选好她要弹离的方向和距离。到达目标后玛西冲向最终的目的地，对区域内敌人造成伤害和减速。若她冲向友方单位，友军将获得%ally_movespeed_pct%% 移动速度加成，持续%buff_duration%秒。\n<h1><font color='#EE2C2C'>1.丛林战</font></h1>此技能可以以树木为目标，此时第二次弹跳距离最大为%min_range%。\n<h1><font color='#EE2C2C'>阿哈利姆神杖效果</font></h1>回身踢第一次目标为树木时，距离不再减少。并且落地撞击时牵引敌人至中心。"
+		"DOTA_Tooltip_ability_imba_marci_companion_run_description"		"以矢量为目标。玛西跃向目标单位，选好她要弹离的方向和距离。到达目标后玛西冲向最终的目的地，对区域内敌人造成伤害和减速。若她冲向友方单位，友军将获得%ally_movespeed_pct%% 移动速度加成，持续%buff_duration%秒。\n<h1><font color='#EE2C2C'>1.丛林战</font></h1>此技能可以任意单位为目标，若目标为无生命单位则第二次弹跳距离最大为%tree_range%。\n<h1><font color='#EE2C2C'>阿哈利姆神杖效果</font></h1>回身踢距离不再减少。并且落地撞击时牵引敌人至中心。"
 		"DOTA_Tooltip_ability_imba_marci_companion_run_Lore"									"有了他人亲切或粗暴的托垫，玛西可以直入任何焦灼的战斗中。"
 		"DOTA_Tooltip_ability_imba_marci_companion_run_Note0"		"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
-		"DOTA_Tooltip_ability_imba_marci_companion_run_move_speed"						"弹跳速度："
 		"DOTA_Tooltip_ability_imba_marci_companion_run_landing_radius"					"撞击范围："
 		"DOTA_Tooltip_ability_imba_marci_companion_run_impact_damage"				    "撞击伤害："
 		"DOTA_Tooltip_ability_imba_marci_companion_run_movement_slow_pct"				"%移速减缓"
         "DOTA_Tooltip_ability_imba_marci_companion_run_debuff_duration"				"减速时间"
         "DOTA_Tooltip_ability_imba_marci_companion_run_debuff_duration"				"减速时间"
-        "DOTA_Tooltip_ability_imba_marci_companion_run_cast_range"				"弹跳最大距离"
+		"DOTA_Tooltip_ability_imba_marci_companion_run_cast_range"				"施法距离"
+        "DOTA_Tooltip_ability_imba_marci_companion_run_tar_range"				"弹跳最大距离"
         "DOTA_Tooltip_ability_imba_marci_companion_run_min_range"				"弹跳最小距离"
 
 		"DOTA_Tooltip_modifier_imba_companion_run_buff"				"回身踢"
@@ -4811,37 +4811,28 @@
 		"DOTA_Tooltip_modifier_imba_companion_run_debuff_description"	"减低移动速度。"
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_guardian"				"健体·怒拳破"
-		"DOTA_Tooltip_ability_imba_marci_guardian_description"	"玛西的忠诚保证了她的安全，为选定的友方英雄和她自身注入了吸血效果和攻击力加成。\n<h1><font color='#EE2C2C'>1.怒拳破</font></h1>玛西每次施法都会获得怒拳破效果，可快速攻击一定次数，最后一击造成脉冲，使范围内敌人受到伤害并减少攻击速度和移动速度。此效果拥有内置冷却%cd%秒。\n<h1><font color='#EE2C2C'>2.狂怒</font></h1>攻击时有%chance_pct%% 几率获得怒拳破效果\n ● 怒拳破不攻击时效果永久持续，但是两次攻击间隔大于%disap_time%秒时被移除。\n ● 怒拳破持续期间再次获得时此效果时不会补充攻击次数。\n ● 健体·怒拳破效果也会给与队友米拉娜。"
+		"DOTA_Tooltip_ability_imba_marci_guardian_description"	"玛西的忠诚保证了她的安全，每次施法或攻击时为附近友方英雄和她自身注入了吸血效果、攻击力加成、快速攻击加成。\n<h1><font color='#EE2C2C'>1.怒拳破</font></h1>快速攻击的最后一击造成脉冲，使范围内敌人受到伤害并麻痹。\n<h1><font color='#EE2C2C'>2.狂怒</font></h1>附近%earest_ally_search_range% 的1个友放近战英雄也获得本技能效果。\n ● 怒拳破不攻击时效果永久持续，但是两次攻击间隔大于%disap_time%秒时被移除。\n ● 健体·怒拳破效果总是会给与队友米拉娜。"
 		"DOTA_Tooltip_ability_imba_marci_guardian_Note0"			"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_marci_guardian_Lore"			"虽然有不少人在探究玛西神力的源头，但玛西对他们全不理睬。"
-		"DOTA_Tooltip_ability_imba_marci_guardian_buff_duration"	    "健体术持续时间："
-		"DOTA_Tooltip_ability_imba_marci_guardian_lifesteal_pct"		"%健体术攻击吸血："
-		"DOTA_Tooltip_ability_imba_marci_guardian_bonus_damage"		"健体术增加攻击力："
-        "DOTA_Tooltip_ability_imba_marci_guardian_nearest_ally_search_range"		"健体术搜索英雄范围："
-        "DOTA_Tooltip_ability_imba_marci_guardian_max_stack"		"怒拳破攻击次数："
-        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_range"		"怒拳破脉冲范围："
-        "DOTA_Tooltip_ability_imba_marci_guardian_move_slow"		"%怒拳破脉冲减移速："
-        "DOTA_Tooltip_ability_imba_marci_guardian_atsp_slow"		"怒拳破脉冲减攻速："
-        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_damage"		"怒拳破脉冲伤害："
+		"DOTA_Tooltip_ability_imba_marci_guardian_lifesteal_pct"		"%攻击吸血："
+		"DOTA_Tooltip_ability_imba_marci_guardian_bonus_damage"		"增加攻击力："
+        "DOTA_Tooltip_ability_imba_marci_guardian_max_stack"		"攻击次数："
+        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_range"		"脉冲范围："
+        "DOTA_Tooltip_ability_imba_marci_guardian_aoe_damage"		"脉冲伤害："
+		"DOTA_Tooltip_ability_imba_marci_guardian_chance_pct"		"%攻击时触发概率："
+		"DOTA_Tooltip_ability_imba_marci_guardian_debuff_duration"		"麻痹时间："
 
 		"DOTA_Tooltip_modifier_imba_grapple_buff1"				"怒拳破"
 		"DOTA_Tooltip_modifier_imba_grapple_buff1_description"	"获得攻击狂怒连技，攻击速度极大提升。"
 
-        "DOTA_Tooltip_modifier_imba_grapple_cd"				"怒拳破内置冷却"
-		"DOTA_Tooltip_modifier_imba_grapple_cd_description"	"无法继续触发怒拳破。"
-
-        "DOTA_Tooltip_modifier_imba_grapple_debuff"				"怒拳破脉冲"
-		"DOTA_Tooltip_modifier_imba_grapple_debuff_description"	"减低攻击速度和移动速度。"
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_marci_unleash"								"轰气空裂拳"
-		"DOTA_Tooltip_ability_imba_marci_unleash_description"					"玛西短暂蓄力后打出破坏力巨大的直拳，攻击极小范围内的敌人造成暴击，并产生拳风。\n<h1><font color='#EE2C2C'>1.交牙龙杀</font></h1><font color='#EE2C2C'>出拳瞬间</font>使用冲刺则拳风造成暴击。此时减少%restitution_cd%秒冷却\n<h1><font color='#EE2C2C'>2.轰气龙杀</font></h1><font color='#EE2C2C'>出拳之前</font>使用健体·怒拳破，并成功触发交牙龙杀，则拳风范围增加至%per_distance%.\n ● 此技能造成的暴击为马西攻击力数值一定百分比的物理伤害，不触发攻击特效。"
+		"DOTA_Tooltip_ability_imba_marci_unleash_description"					"玛西短暂蓄力后对目标地点冲刺并打出破坏力巨大的直拳，对冲刺路径上的敌人造成伤害，并产生拳风。\n ● 直拳伤害和拳风伤害可叠加。且直拳伤害无视敌人80%护甲。\n ● 此技能造成的暴击为马西攻击力数值一定百分比的物理伤害，不触发攻击特效。\n ● 被妖术也可使用。"
 		"DOTA_Tooltip_ability_imba_marci_unleash_Note0"						"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_marci_unleash_Lore"							"玛西有自己最珍爱的东西"
-		"DOTA_Tooltip_ability_imba_marci_unleash_damage"					"拳风伤害："
-		"DOTA_Tooltip_ability_imba_marci_unleash_bj"						"%暴击："
+		"DOTA_Tooltip_ability_imba_marci_unleash_bj"							"%暴击伤害"
         "DOTA_Tooltip_ability_imba_marci_unleash_distance"						"拳风距离："
-
         "DOTA_Tooltip_ability_imba_marci_unleash_st_width"						"拳风开始伤害宽度："
         "DOTA_Tooltip_ability_imba_marci_unleash_en_width"						"拳风结束伤害宽度："
         "DOTA_Tooltip_ability_imba_marci_unleash_punch_range"					"直拳伤害范围："
@@ -4853,12 +4844,12 @@
 
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_1"		"+{s:value} 回旋背摔移动距离"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_2"		"+{s:value} 回身踢距离"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_3"		"-{s:value} 怒拳破内置冷却"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_3"		"-{s:value} 怒拳破冷却"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_4"		"+{s:value} 怒拳破脉冲范围"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_5"		"轰气空裂拳结束后怒拳破+{s:value}攻击次数"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_5_description" "攻击防御塔则移除攻击次数"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_6"		"+{s:value}% 轰气空裂拳特殊暴击"
-		"DOTA_Tooltip_ability_special_bonus_imba_marci_7"		"轰气空裂拳技能期间无敌"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_6"		"+{s:value} 轰气空裂拳暴击"
+		"DOTA_Tooltip_ability_special_bonus_imba_marci_7"		"+{s:value} 轰气空裂拳拳风距离"
 		"DOTA_Tooltip_ability_special_bonus_imba_marci_8"		"回旋背摔未抓住敌人时返还全部冷却"
 
 		//////////////////////////////////////////////////////////////////////////////////////
@@ -5101,7 +5092,8 @@
 		"DOTA_Tooltip_ability_imba_terrorblade_demonic_power_Lore"							"恐怖利刃无情地抽走敌人的灵魂，将其为己所用。"
 		"DOTA_Tooltip_ability_imba_terrorblade_demonic_power_Note0"							"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 
-		"DOTA_Tooltip_ability_imba_terrorblade_demonic_power_scepter_description"			"主动使用获得魔化状态，如果已经处于魔化则增加持续时间。"
+		"DOTA_Tooltip_ability_imba_terrorblade_demonic_power_scepter_description"			"恐怖心潮附加倒影。"
+		"DOTA_Tooltip_ability_imba_terrorblade_metamorphosis_scepter_description"			"魔化产生2次惑幻。"
 
 		"DOTA_Tooltip_modifier_imba_terrorblade_demonic_power_passive"								"恶魔能量"
 		"DOTA_Tooltip_modifier_imba_terrorblade_demonic_power_passive_description"					"当前恶魔能量值。"
@@ -5566,7 +5558,7 @@
 		//// 噬魂鬼
 		//////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_life_stealer_rage"										"狂暴"
-		"DOTA_Tooltip_ability_imba_life_stealer_rage_description"				"让目标进入狂暴状态，对技能免疫，并提升移动速度。\n<h1><font color='#EE2C2C'>1.协同狂暴</font></h1>释放时对%range%范围内英雄额外释放一次。<font color='#B03060'>（默认目标为队友，打开自动施法目标改为敌人）</font>\n<h1><font color='#EE2C2C'>2.杀戮狂暴</font></h1>如果协同狂暴目标是敌人则还会被施加沉默和锁闭，并且增加移速改为降低双倍移速。
+		"DOTA_Tooltip_ability_imba_life_stealer_rage_description"				"让目标进入狂暴状态，对技能免疫，并提升移动速度。\n<h1><font color='#EE2C2C'>1.协同狂暴</font></h1>释放时对%range%范围内英雄额外释放一次。<font color='#B03060'>（默认目标为队友，打开自动施法目标改为敌人）</font>\n<h1><font color='#EE2C2C'>2.杀戮狂暴</font></h1>如果协同狂暴目标是敌人则还会被施加沉默，并且增加移速改为降低双倍移速。
 		 ● 协同狂暴的持续时间有所下降"
 		"DOTA_Tooltip_ability_imba_life_stealer_rage_Note0"						"1.不获得魔法抗性。
 		<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
@@ -6345,7 +6337,7 @@
 
 
 		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity"									"熠熠生辉"
-		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity_description"						"%attack_count% 次攻击后，破晓辰星提升了力量，她的下一次攻击会造成致命一击，并治疗她附近%heal_radius% 范围内所有友方英雄，治疗量为攻击伤害的一定百分比。\n<h1><font color='#EE2C2C'>1.混沌秩序</font></h1>可开启开关，使治疗友军转化为伤害敌人。\n<h1><font color='#EE2C2C'>2.光之子</font></h1><font color='#EE2C2C'>无法造成/承受纯粹伤害</font>，并且每次攻击没有命中敌方目标时，使下一次攻击不会落空并造成致命一击。\n ● <font color='#EE2C2C'>拥有纯粹伤害的物品有 狂战斧、金箍棒、刃甲等</font>。\n ● 此被动无法被破坏</font>。"
+		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity_description"						"%attack_count% 次攻击后，破晓辰星提升了力量，她的下一次攻击会造成致命一击，并治疗她附近%heal_radius% 范围内所有友方英雄，治疗量为攻击伤害的一定百分比。\n<h1><font color='#EE2C2C'>1.混沌秩序</font></h1>可开启开关，使治疗友军转化为伤害敌人。\n<h1><font color='#EE2C2C'>2.光之子</font></h1><font color='#EE2C2C'>无法造成/承受纯粹伤害</font>，并且每次攻击没有命中敌方目标时，使下一次攻击不会落空并造成致命一击。\n ● <font color='#EE2C2C'>拥有纯粹伤害的物品有 狂战斧、雷神之锤等</font>。\n ● 此被动无法被破坏</font>。"
 		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity_Note0"							"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity_Lore"								"由于接触不到光之子的光芒，力量无法恢复而不断衰退，但维罗拉还是从每场战斗中存在的混沌里创造了秩序，使自身和盟友得到休整。"
 		"DOTA_Tooltip_ability_imba_dawnbreaker_luminosity_heal_pct"					"%攻击伤害/治疗："
@@ -6604,10 +6596,11 @@
 		"DOTA_Tooltip_modifier_imba_insatiable_hunger_Description"									"攻击力提高%dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE%，获得吸血能力。"
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola"										"丝制重器"
-		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_description"							"减缓敌方目标的移动速度并造成混乱。\n<h1><font color='#54FF9F'>粘性蛛网</font></h1>增加其缠绕之网%web_duration_bonus%秒的停留时间"
+		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_description"							"减缓范围敌方英雄的移动速度并致盲。\n<h1><font color='#54FF9F'>1.粘性蛛网</font></h1>增加其缠绕之网%web_duration_bonus%秒的停留时间，\n<h1><font color='#54FF9F'>2.毒性蛛网</font></h1>减速状态下被育母突袭则被混乱。"
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_Note0"								"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_Lore"									"“黏糊糊湿哒哒的蛛网哦”艾拉齐娜妩媚道。"
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_movement_speed"							"%移动速度减缓："
+		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_miss"							"%致盲丢失概率："
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_duration"								"持续时间："
 		"DOTA_Tooltip_ability_imba_broodmother_silken_bola_shard_description"							"获得丝制重器技能。"
 
@@ -6818,7 +6811,7 @@
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_weaver_shukuchi"											"缩地"
-		"DOTA_Tooltip_ability_imba_weaver_shukuchi_Description"								"编织者进入隐身，获得高移动速度，<font color='#54FF9F'>每秒</font>对附近敌方单位时造成伤害。\n<h1><font color='#54FF9F'>1.时空锁链</font></h1>被伤害到的敌人极大的减缓行动速度。\n<h1><font color='#54FF9F'>2.虫巢思维</font></h1>被虫群附身的敌人死亡时，给与缩地1次临时使用充能。\n ● 缩地移速可以叠加。\n ● 使用技能不打断缩地。\n ● 时空锁链延迟%time%秒消失。"
+		"DOTA_Tooltip_ability_imba_weaver_shukuchi_Description"								"编织者进入隐身，获得高移动速度，<font color='#54FF9F'>每秒</font>对附近敌方单位时造成伤害。\n<h1><font color='#54FF9F'>1.时空锁链</font></h1>被伤害到的敌人极大减缓攻击速度。\n<h1><font color='#54FF9F'>2.虫巢思维</font></h1>被虫群附身的敌人死亡时，给与缩地1次临时使用充能。\n ● 缩地移速可以叠加。\n ● 使用技能不打断缩地。\n ● 时空锁链延迟%time%秒消失。"
 		"DOTA_Tooltip_ability_imba_weaver_shukuchi_Lore"										" 编织者曾为创世之纱工作，小小的虫洞让他们可以穿越时间来更好的发挥他们的手艺。"
 		"DOTA_Tooltip_ability_imba_weaver_shukuchi_Note0"										"<font color='#FFFF00'> ● 作者:你收拾收拾准备出林肯吧</font>"
 		"DOTA_Tooltip_ability_imba_weaver_shukuchi_damage"										"每秒伤害："
@@ -6827,10 +6820,10 @@
 		"DOTA_Tooltip_ability_imba_weaver_shukuchi_duration"									"持续时间："
 
 		"DOTA_Tooltip_modifier_imba_shukuchi_buff"												"缩地"
-		"DOTA_Tooltip_modifier_imba_shukuchi_buff_Description"									"编织者进入隐身，获得高移动速度，对附近敌方单位时造成伤害。"
+		"DOTA_Tooltip_modifier_imba_shukuchi_buff_Description"									"编织者进入隐身，获得高移动速度，对附近敌方单位造成伤害。"
 
 		"DOTA_Tooltip_modifier_imba_shukuchi_debuff"												"时空锁链"
-		"DOTA_Tooltip_modifier_imba_shukuchi_debuff_Description"									"极大的减缓行动速度。"
+		"DOTA_Tooltip_modifier_imba_shukuchi_debuff_Description"									"极大的减缓攻击速度。"
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_imba_weaver_geminate_attack"									"时空连击"
 		"DOTA_Tooltip_ability_imba_weaver_geminate_attack_Description"						"允许编织者立刻发动两次攻击。\n<h1><font color='#54FF9F'>1.平行编制</font></h1>被动:多个世界的编织者会互相影响，另一个世界的编织者拥有更低的伤害，并且有延迟的复制命令进行行动。\n<h1><font color='#54FF9F'>2.不稳定性</font></h1>另一个世界的编织者在主体受到眩晕、变形、缴械时消失，经过一定延迟后重新出现。\n ● 平行编制不继承攻击特效。"
